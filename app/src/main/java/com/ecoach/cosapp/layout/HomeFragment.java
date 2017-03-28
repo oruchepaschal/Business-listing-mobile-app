@@ -2,6 +2,7 @@ package com.ecoach.cosapp.layout;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,11 +11,14 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.activeandroid.ActiveAndroid;
 import com.android.volley.AuthFailureError;
@@ -30,13 +34,15 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.daimajia.slider.library.SliderLayout;
+import com.ecoach.cosapp.Activites.CompaniesActivity;
+import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.Http.APIRequest;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
 import com.ecoach.cosapp.RecycleAdapters.CategoriesAdapter;
 import com.ecoach.cosapp.RecycleAdapters.RecommendationAdapter;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -64,6 +70,7 @@ public class HomeFragment extends Fragment {
 
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
+    private AVLoadingIndicatorView avLoadingIndicatorView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -109,7 +116,7 @@ public class HomeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
 
-
+        avLoadingIndicatorView=(AVLoadingIndicatorView)view.findViewById(R.id.avi);
 
         setSliderLayout(view);
 
@@ -143,7 +150,29 @@ public class HomeFragment extends Fragment {
         bottomrecycler.setAdapter(categoriesAdapter);
         bottomrecycler.setLayoutManager(layoutManager);
         bottomrecycler.setNestedScrollingEnabled(false);
+        bottomrecycler.addOnItemTouchListener(new RecyclerTouchListener(getActivity(), bottomrecycler, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
 
+                TextView tv=(TextView)view.findViewById(R.id.hiddenID);
+                String id=tv.getText().toString();
+
+
+                Log.d("category","catgory item "+tv.getText().toString());
+                Application.setSelectedCategoryID(id);
+
+                Intent intent = new Intent(getActivity(), CompaniesActivity.class);
+                startActivity(intent);
+
+
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
         toprecyler = (RecyclerView)view.findViewById(R.id.topRecycleView);
         RecommendationAdapter recommendationAdapter = new RecommendationAdapter(getContext(),Categories.getAllCategories());
@@ -205,14 +234,7 @@ public class HomeFragment extends Fragment {
     private void getCategories(final View view){
 
 
-        final ProgressDialog pDialog  = new ProgressDialog(getContext());
-        pDialog.setMessage("Authenticating ...");
-        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        //  pDialog.setIcon(R.drawable.ic_synce);
-        pDialog.setIndeterminate(true);
-        pDialog.setCancelable(false);
-        pDialog.show();
-
+        avLoadingIndicatorView.show();
 
 
         final HashMap<String, String> params = new HashMap<String, String>();
@@ -233,7 +255,7 @@ public class HomeFragment extends Fragment {
                     //Log.d("Params",params+"");
                     @Override
                     public void onResponse(JSONObject response) {
-                        pDialog.hide();
+                        avLoadingIndicatorView.hide();
                         try {
 
 
@@ -254,14 +276,14 @@ public class HomeFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)   {
-                pDialog.dismiss();
+                avLoadingIndicatorView.hide();
 
                 //  dialogs.SimpleWarningAlertDialog("Transmission Error", "Connection Failed").show();
                 Log.d("volley.Response", error.toString());
 
 
 
-                pDialog.dismiss();
+                avLoadingIndicatorView.hide();
                 if (error instanceof TimeoutError) {
                     // dialogs.SimpleWarningAlertDialog("Network Slacking", "Time Out Error").show();
                     Log.d("volley", "NoConnectionError.....TimeoutError..");
@@ -375,6 +397,60 @@ public class HomeFragment extends Fragment {
             e.printStackTrace();
         }
 
+
+    }
+
+    static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+        private GestureDetector gestureDetector;
+        private ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener){
+            this.clickListener=clickListener;
+            gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child= recyclerView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clickListener!=null){
+
+
+                        clickListener.onLongClick(child,recyclerView.getChildPosition(child));
+                    }
+
+                }
+            });
+        }
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child= rv.findChildViewUnder(e.getX(),e.getY());
+            if(child!=null && clickListener!=null && gestureDetector.onTouchEvent(e)){
+
+
+                clickListener.onClick(child, rv.getChildPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
+
+    public static interface ClickListener{
+
+        public void onClick(View view,int position);
+        public void onLongClick(View view,int position);
 
     }
 }

@@ -2,6 +2,8 @@ package com.ecoach.cosapp.RecycleAdapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Companies;
 import com.ecoach.cosapp.R;
+import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -60,15 +63,17 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
         holder.txtLabel.setText(items.getCategoryNames().toString());
 
 
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRoundRect(items.getCategoryNames().toString().substring(0, 1), R.color.colorPrimary, 10);
+        Drawable d = new BitmapDrawable(ViewUtils.drawableToBitmap(drawable));
         Picasso.with(context)
                 .load(items.getCategoryBackgroundImage())
-                .placeholder(R.drawable.ic_no_image)
+                .placeholder(d)
                 .centerCrop()
                 .into(holder.iconView);
 
 
-        TextDrawable drawable = TextDrawable.builder()
-                .buildRect("A", Color.BLUE);
+
 
 
 

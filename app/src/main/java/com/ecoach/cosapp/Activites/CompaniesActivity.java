@@ -5,8 +5,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import com.activeandroid.ActiveAndroid;
 import com.android.volley.AuthFailureError;
@@ -30,6 +33,7 @@ import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
 import com.ecoach.cosapp.RecycleAdapters.CompaniesViewAdapter;
 import com.ecoach.cosapp.RecycleAdapters.MainCategoryAdapter;
+import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -46,23 +50,36 @@ public class CompaniesActivity extends AppCompatActivity {
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
 
+     private AVLoadingIndicatorView avi;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
+
         setContentView(R.layout.activity_companies);
+
+
+        avi=(AVLoadingIndicatorView)findViewById(R.id.avi);
         getCategories();
+
+
+
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+
     }
 
     private void getCategories(){
 
 
-        final ProgressDialog pDialog  = new ProgressDialog(CompaniesActivity.this);
-        pDialog.setMessage(". ...");
-        pDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        //  pDialog.setIcon(R.drawable.ic_synce);
-        pDialog.setIndeterminate(true);
-        pDialog.setCancelable(false);
-        pDialog.show();
+        avi.show();
 
 
 
@@ -84,7 +101,8 @@ public class CompaniesActivity extends AppCompatActivity {
                     //Log.d("Params",params+"");
                     @Override
                     public void onResponse(JSONObject response) {
-                        pDialog.hide();
+                        avi.hide();
+
                         try {
 
 
@@ -105,14 +123,16 @@ public class CompaniesActivity extends AppCompatActivity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)   {
-                pDialog.dismiss();
+                avi.hide();
+
 
                 //  dialogs.SimpleWarningAlertDialog("Transmission Error", "Connection Failed").show();
                 Log.d("volley.Response", error.toString());
 
 
 
-                pDialog.dismiss();
+                avi.hide();
+
                 if (error instanceof TimeoutError) {
                     // dialogs.SimpleWarningAlertDialog("Network Slacking", "Time Out Error").show();
                     Log.d("volley", "NoConnectionError.....TimeoutError..");
@@ -157,12 +177,16 @@ public class CompaniesActivity extends AppCompatActivity {
         requestQueue.add(request);
         Log.d("oxinbo","Server Logs"+params.toString());
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
-
-    private void SetupRecycleview(){
+    private void SetupRecycleview(  List<Companies> companiesArrayList){
 
         recyclerView = (RecyclerView)findViewById(R.id.companyRecycle);
-        CompaniesViewAdapter companiesAdapter = new CompaniesViewAdapter(getContext(), Companies.getAllCompanies());
+        CompaniesViewAdapter companiesAdapter = new CompaniesViewAdapter(getContext(), companiesArrayList);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CompaniesActivity.this);
         recyclerView.setAdapter(companiesAdapter);
@@ -183,15 +207,15 @@ public class CompaniesActivity extends AppCompatActivity {
             for (int i = 0 ; i < info.length(); i++) {
 
                 JSONObject obj = info.getJSONObject(i);
-                String company_id = obj.getString("id");
-                Companies company = Companies.getCompaniesByID(company_id);
 
-                if(company == null)
+                Companies company; //= Companies.getCompaniesByID(company_id);
+
+
                     company = new Companies();
 
 
                 //String category_id = obj.getString("category_id");
-
+                String company_id = obj.getString("id");
                 company.setCompany_id(company_id);
 
                 String company_name = obj.getString("company_name");
@@ -232,7 +256,7 @@ public class CompaniesActivity extends AppCompatActivity {
 *
 * **/
 
-            ActiveAndroid.beginTransaction();
+          /*  ActiveAndroid.beginTransaction();
             try
             {
 
@@ -254,11 +278,11 @@ public class CompaniesActivity extends AppCompatActivity {
                 ActiveAndroid.endTransaction();
 
 
-                SetupRecycleview();
+
 
                 //SetRecycleView(view);
-            }
-
+            }*/
+            SetupRecycleview(companiesArrayList);
 
         } catch (Exception e) {
             e.printStackTrace();

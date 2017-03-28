@@ -3,6 +3,8 @@ package com.ecoach.cosapp.RecycleAdapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +15,15 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.R;
+import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.ecoach.cosapp.Utilities.ViewUtils.drawableToBitmap;
 
 
 public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapterViewHolder>  {
@@ -65,13 +70,15 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapterVie
 
 
         TextDrawable drawable = TextDrawable.builder()
-                .buildRect("A", Color.BLUE);
+                .buildRoundRect(items.getCategoryNames().toString().substring(0, 1), R.color.colorPrimary, 10);
+
+        Drawable d = new BitmapDrawable(ViewUtils.drawableToBitmap(drawable));
 
 
 //holder.iconView.setImageResource(R.drawable.ic_no_image);
         Picasso.with(context)
              .load(items.getCategoryBackgroundImage())
-               .placeholder(drawable)
+               .placeholder(d)
                .centerCrop()
                .into(holder.iconView);
     }

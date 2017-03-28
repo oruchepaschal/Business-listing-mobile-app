@@ -1,8 +1,13 @@
 package com.ecoach.cosapp.RecycleAdapters;
 
 import android.content.Context;
-import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +16,10 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.ecoach.cosapp.DataBase.Categories;
+import com.amulyakhare.textdrawable.TextDrawable;
 import com.ecoach.cosapp.DataBase.Companies;
 import com.ecoach.cosapp.R;
+import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.Collections;
@@ -63,9 +69,20 @@ public class CompaniesViewAdapter extends RecyclerView.Adapter<CompaniesViewAdap
         holder.labelTxt.setText(items.getCompanyName().toString());
 
 
+        Log.d("Avator",items.getAvatar());
+
+//let finalPath = paths[indexPath.row] + "" + storages[indexPath.row] + "/" +  avators[indexPath.row]
+
+        String avatorPath= items.getPath()+items.getStorage()+"/"+items.getAvatar();
+
+        TextDrawable drawable = TextDrawable.builder()
+                .buildRoundRect(items.getCompanyName().toString().substring(0,1), R.color.colorPrimary, 10); // radius in px
+
+        Drawable d = new BitmapDrawable(ViewUtils.drawableToBitmap(drawable));
+
         Picasso.with(context)
-                .load(items.getAvatar())
-                .placeholder(R.drawable.ic_no_image)
+                .load(avatorPath)
+                .placeholder(d)
                 .into(holder.iconView);
 
 
@@ -78,6 +95,8 @@ public class CompaniesViewAdapter extends RecyclerView.Adapter<CompaniesViewAdap
     public int getItemCount() {
         return data.size();
     }
+
+
 }
 class CompaniesViewAdapterViewHolder extends RecyclerView.ViewHolder {
     TextView txthiddenId,labelTxt;

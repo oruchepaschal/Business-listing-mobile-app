@@ -13,6 +13,9 @@ import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Companies;
+import com.ecoach.cosapp.R;
+
+import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 
 /**
@@ -85,5 +88,15 @@ public class Application extends android.app.Application {
 
     public static void setContext(Context context) {
         Application.context = context;
+    }
+
+    private void setFontsMaster(){
+
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setDefaultFontPath("fonts/Assistant-Regular.ttf")
+                .setFontAttrId(R.attr.fontPath)
+                .build()
+        );
+
     }
 }
