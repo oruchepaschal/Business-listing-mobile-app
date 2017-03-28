@@ -12,6 +12,7 @@ import android.content.Context;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.ecoach.cosapp.DataBase.Categories;
+import com.ecoach.cosapp.DataBase.Companies;
 
 
 /**
@@ -20,6 +21,8 @@ import com.ecoach.cosapp.DataBase.Categories;
 
 public class Application extends android.app.Application {
 
+
+    public static String selectedCategoryID;
 
     private static Context context;
 
@@ -61,10 +64,26 @@ public class Application extends android.app.Application {
 
 
       configurationBuilder.addModelClasses(Categories.class);
-        //configurationBuilder.addModelClass(Users.class);
+        configurationBuilder.addModelClass(Companies.class);
       //  configurationBuilder.addModelClass(Appointments.class);
 
         ActiveAndroid.initialize(configurationBuilder.create());
     }
 
+
+    public static String getSelectedCategoryID() {
+        return selectedCategoryID;
+    }
+
+    public static void setSelectedCategoryID(String selectedCategoryID) {
+        Application.selectedCategoryID = selectedCategoryID;
+    }
+
+    public static Context getContext() {
+        return context;
+    }
+
+    public static void setContext(Context context) {
+        Application.context = context;
+    }
 }

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.ecoach.cosapp.DataBase.Categories;
+import com.ecoach.cosapp.DataBase.Companies;
 import com.ecoach.cosapp.R;
 import com.squareup.picasso.Picasso;
 

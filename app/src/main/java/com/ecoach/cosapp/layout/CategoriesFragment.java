@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ecoach.cosapp.Activites.CompaniesActivity;
+import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.R;
 import com.ecoach.cosapp.RecycleAdapters.CategoriesAdapter;
@@ -70,6 +72,9 @@ public class CategoriesFragment extends Fragment {
                 TextView tv=(TextView)view.findViewById(R.id.catID);
                 String id=tv.getText().toString();
 
+
+                Log.d("category","catgory item "+tv.getText().toString());
+                Application.setSelectedCategoryID(id);
 
                 Intent intent = new Intent(getActivity(), CompaniesActivity.class);
                 startActivity(intent);
