@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/cat"
+            android:icon="@drawable/ic_menu_send"
+            android:title="Category" />
+        <item
+            android:id="@+id/recent"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Recent Search" />
+        <item
+            android:id="@+id/comp"
+            android:icon="@drawable/ic_menu_slideshow"
+            android:title="My Company" />
+        <item
+            android:id="@+id/manage"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Manage Reps" />
+        <item
+            android:id="@+id/stats"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Statistics" />
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item
+                android:id="@+id/share"
+                android:icon="@drawable/ic_menu_share"
+                android:title="Share CosApp" />
+            <item
+                android:id="@+id/friends"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Invite Friends" />
+            <item
+                android:id="@+id/logout"
+                android:icon="@drawable/ic_menu_send"
+                android:title="Logout" />
+        </menu>
+</item>
+</menu>
