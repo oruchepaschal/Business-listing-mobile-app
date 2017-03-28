@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_margin="5dp"
+    android:layout_height="wrap_content">
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:src="@drawable/image1"
+        android:layout_weight="0.3"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:id="@+id/iconview"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+
+    <LinearLayout
+        android:layout_margin="2dp"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="vertical"
+        android:layout_height="55dp"
+        android:weightSum="1">
+
+
+        <TextView
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="9dp"
+            android:id="@+id/labelTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            android:layout_above="@+id/ratingBar2"
+
+            android:layout_alignParentTop="true"
+            android:layout_toStartOf="@+id/chatbutton" />
+        <RatingBar
+
+            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:numStars="5"
+            android:rating="2"
+            android:id="@+id/ratingBar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/iconview"
+            android:layout_toEndOf="@+id/iconview" />
+
+    </LinearLayout>
+
+
+    <Button
+
+        android:id="@+id/chatbutton"
+        android:layout_width="0dp"
+        android:layout_height="55dp"
+        android:layout_alignBottom="@+id/ratingBar2"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_weight="0.45"
+        android:text="Button" />
+
+
+</LinearLayout>
