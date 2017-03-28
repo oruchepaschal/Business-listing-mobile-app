@@ -3,12 +3,20 @@ package com.ecoach.cosapp.layout;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.R;
+import com.ecoach.cosapp.RecycleAdapters.CategoriesAdapter;
+import com.ecoach.cosapp.RecycleAdapters.MainCategoryAdapter;
+import com.ecoach.cosapp.RecycleAdapters.RecommendationAdapter;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,21 +36,32 @@ public class CategoriesFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+   private RecyclerView recyclerView;
+
     private OnFragmentInteractionListener mListener;
 
     public CategoriesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CategoriesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
+
+    private  void setUpRecycleView(View view){
+
+        recyclerView = (RecyclerView)view.findViewById(R.id.categoryRecycle);
+
+        RecyclerView.LayoutManager layoutManager,verticalManager;
+        MainCategoryAdapter categoriesAdapter = new MainCategoryAdapter(getContext(),Categories.getAllCategories());
+        layoutManager = new GridLayoutManager(getActivity(), 3);
+
+        recyclerView.setAdapter(categoriesAdapter);
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setNestedScrollingEnabled(false);
+
+
+    }
+
+
     public static CategoriesFragment newInstance(String param1, String param2) {
         CategoriesFragment fragment = new CategoriesFragment();
         Bundle args = new Bundle();
@@ -73,6 +92,13 @@ public class CategoriesFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setUpRecycleView(view);
     }
 
     @Override
