@@ -192,7 +192,7 @@ public class CompaniesActivity extends AppCompatActivity {
     private void SetupRecycleview(  List<Companies> companiesArrayList){
 
         recyclerView = (RecyclerView)findViewById(R.id.companyRecycle);
-        CompaniesViewAdapter companiesAdapter = new CompaniesViewAdapter(getContext(), companiesArrayList);
+        CompaniesViewAdapter companiesAdapter = new CompaniesViewAdapter(CompaniesActivity.this, companiesArrayList);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CompaniesActivity.this);
         recyclerView.setAdapter(companiesAdapter);

@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.ecoach.cosapp.R;
 
-public class Profile extends Activity {
+public class Details extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.activity_details);
     }
 }

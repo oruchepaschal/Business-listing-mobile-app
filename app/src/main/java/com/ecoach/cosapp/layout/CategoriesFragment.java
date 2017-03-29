@@ -76,7 +76,7 @@ public class CategoriesFragment extends Fragment {
                 Log.d("category","catgory item "+tv.getText().toString());
                 Application.setSelectedCategoryID(id);
 
-                TextView name=(TextView)view.findViewById(R.id.labelTxt);
+                TextView name=(TextView)view.findViewById(R.id.labelview);
                 String catname=name.getText().toString();
 
                 Application.setSelectedCategoryName(catname);

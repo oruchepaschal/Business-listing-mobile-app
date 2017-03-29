@@ -34,7 +34,9 @@
         </activity>
         <activity android:name=".Activites.CompaniesActivity" />
         <activity android:name=".Activites.CompanyDetails" />
-        <activity android:name=".Activites.CompanyDetailsTabbedActivities.Profile"></activity>
+        <activity android:name=".Activites.CompanyDetailsTabbedActivities.Profile" />
+        <activity android:name=".Activites.CompanyDetailsTabbedActivities.Map" />
+        <activity android:name=".Activites.CompanyDetailsTabbedActivities.Details"></activity>
     </application>
 
 </manifest>
