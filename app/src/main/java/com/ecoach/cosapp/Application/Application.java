@@ -26,6 +26,7 @@ public class Application extends android.app.Application {
 
 
     public static String selectedCategoryID;
+    public static String selectedCategoryName;
 
     private static Context context;
 
@@ -80,6 +81,14 @@ public class Application extends android.app.Application {
 
     public static void setSelectedCategoryID(String selectedCategoryID) {
         Application.selectedCategoryID = selectedCategoryID;
+    }
+
+    public static String getSelectedCategoryName() {
+        return selectedCategoryName;
+    }
+
+    public static void setSelectedCategoryName(String selectedCategoryName) {
+        Application.selectedCategoryName = selectedCategoryName;
     }
 
     public static Context getContext() {

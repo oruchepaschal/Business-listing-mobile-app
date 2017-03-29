@@ -32,7 +32,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activites.CompaniesActivity"></activity>
+        <activity android:name=".Activites.CompaniesActivity" />
+        <activity android:name=".Activites.CompanyDetails" />
+        <activity android:name=".Activites.CompanyDetailsTabbedActivities.Profile"></activity>
     </application>
 
 </manifest>

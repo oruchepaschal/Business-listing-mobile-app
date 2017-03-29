@@ -1,13 +1,17 @@
 package com.ecoach.cosapp.Activites;
 
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 
@@ -69,6 +73,8 @@ public class CompaniesActivity extends AppCompatActivity {
 
         // add back arrow to toolbar
         if (getSupportActionBar() != null){
+
+            getSupportActionBar().setTitle(Application.getSelectedCategoryName());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -191,6 +197,21 @@ public class CompaniesActivity extends AppCompatActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(CompaniesActivity.this);
         recyclerView.setAdapter(companiesAdapter);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addOnItemTouchListener(new RecyclerTouchListener(CompaniesActivity.this, recyclerView, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+
+                Intent intent = new Intent(CompaniesActivity.this,CompanyDetails.class);
+                startActivity(intent);
+
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
         //        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getContext(),Categories.getAllCategories());
 
 
@@ -288,6 +309,60 @@ public class CompaniesActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+    }
+
+    static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+        private GestureDetector gestureDetector;
+        private  ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener){
+            this.clickListener=clickListener;
+            gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child= recyclerView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clickListener!=null){
+
+
+                        clickListener.onLongClick(child,recyclerView.getChildPosition(child));
+                    }
+
+                }
+            });
+        }
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child= rv.findChildViewUnder(e.getX(),e.getY());
+            if(child!=null && clickListener!=null && gestureDetector.onTouchEvent(e)){
+
+
+                clickListener.onClick(child, rv.getChildPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
+
+    public static interface ClickListener{
+
+        public void onClick(View view,int position);
+        public void onLongClick(View view,int position);
 
     }
 }

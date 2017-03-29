@@ -161,6 +161,13 @@ public class HomeFragment extends Fragment {
                 Log.d("category","catgory item "+tv.getText().toString());
                 Application.setSelectedCategoryID(id);
 
+
+
+                TextView name=(TextView)view.findViewById(R.id.labelTxt);
+                String catname=name.getText().toString();
+
+                Application.setSelectedCategoryName(catname);
+
                 Intent intent = new Intent(getActivity(), CompaniesActivity.class);
                 startActivity(intent);
 
