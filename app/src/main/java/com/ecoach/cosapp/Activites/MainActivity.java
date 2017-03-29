@@ -162,11 +162,13 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onTabSelected(MaterialTab tab) {
+        pager.setCurrentItem(tab.getPosition());
 
     }
 
     @Override
     public void onTabReselected(MaterialTab tab) {
+        pager.setCurrentItem(tab.getPosition());
 
     }
 
