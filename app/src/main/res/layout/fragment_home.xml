@@ -1,7 +1,8 @@
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".layout.HomeFragment">
 
 
@@ -21,26 +22,39 @@
         android:id="@+id/topRecycleView"
         android:layout_height="110dp" />
 
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        style="@style/AVLoadingIndicatorView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+
+        android:visibility="visible"
+        app:indicatorColor="@color/colorPrimary"
+        app:indicatorName="BallSpinFadeLoaderIndicator"
+        tools:layout_editor_absoluteX="179dp"
+        tools:layout_editor_absoluteY="179dp" />
 
 
-
-            <RelativeLayout
+    <RelativeLayout
                 android:layout_below="@+id/topRecycleView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
+        <ImageView
 
                     android:id="@+id/adView"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/image1"
+                    android:src="@drawable/image2"
                     android:layout_alignParentStart="true">
 
                 </ImageView>
 
-                <android.support.v7.widget.RecyclerView
+
+
+        <android.support.v7.widget.RecyclerView
                     android:id="@+id/bottomRecycleView"
                     android:layout_below="@+id/adView"
                     android:layout_width="match_parent"
@@ -49,23 +63,23 @@
                     android:layout_alignParentStart="true" />
 
                 <Button
+                    android:background="@drawable/ic_chat"
+
+
+                    android:paddingRight="30dp"
+                    android:gravity="center"
                     android:id="@+id/button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
                     android:layout_marginEnd="12dp"
                     android:layout_marginTop="11dp"
-                    android:text="@string/chat"
+
                     tools:ignore="RelativeOverlap" />
 
 
             </RelativeLayout>
 
 
-
-
-
-
-
-    </RelativeLayout>
+</RelativeLayout>

@@ -40,12 +40,11 @@
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/labelTxt"
-            android:layout_alignParentStart="true"
-            android:padding="8dp"
             android:numStars="5"
+            android:rating="3"
             android:stepSize="0.1"
             android:isIndicator="true"
+            android:layout_above="@+id/labelTxt"
             android:layout_alignEnd="@+id/labelTxt" />
 
         <TextView

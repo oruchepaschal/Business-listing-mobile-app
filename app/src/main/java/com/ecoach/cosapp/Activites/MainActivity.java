@@ -84,6 +84,8 @@ public class MainActivity extends AppCompatActivity
                 tabHost.setSelectedNavigationItem(position);
 
             }
+
+
         });
 
         // insert all tabs from pagerAdapter data
