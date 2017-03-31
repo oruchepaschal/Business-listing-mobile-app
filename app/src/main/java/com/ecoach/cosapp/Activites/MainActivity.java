@@ -1,5 +1,6 @@
 package com.ecoach.cosapp.Activites;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -48,8 +50,8 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                startActivity(intent);
             }
         });
 
@@ -74,6 +76,8 @@ public class MainActivity extends AppCompatActivity
         tabHost = (MaterialTabHost) this.findViewById(R.id.materialTabHost);
 
         pager = (ViewPager) this.findViewById(R.id.pager);
+        pager.setOffscreenPageLimit(2);
+
         // init view pager
         pagerAdapter = new ViewPagerAdapter(getSupportFragmentManager());
         pager.setAdapter(pagerAdapter);
@@ -97,6 +101,9 @@ public class MainActivity extends AppCompatActivity
             );
 
         }
+
+
+
     }
 
     @Override
@@ -163,6 +170,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     public void onTabSelected(MaterialTab tab) {
 
+        pager.setCurrentItem(tab.getPosition());
+
+        Log.d("tab",tab.getPosition()+"");
+
     }
 
     @Override
@@ -182,7 +193,7 @@ public class MainActivity extends AppCompatActivity
 
     private class ViewPagerAdapter extends FragmentStatePagerAdapter {
         private String[] titles = {
-                "Home", "Categories","Recent Search"
+                "Home", "Categories","Recent Chats"
         };
 
         Fragment fragment=null;

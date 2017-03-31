@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:layout_height="wrap_content"
     tools:context="com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Details">
-    <TextView
-        android:layout_width="match_parent"
-        android:text="details activity"
-        android:layout_height="match_parent" />
-</android.support.constraint.ConstraintLayout>
+
+   <ListView
+       android:id="@+id/itemDetails"
+       android:layout_width="match_parent"
+       android:layout_height="500dp"
+       android:layout_alignParentTop="true"></ListView>
+
+   <ImageView
+       android:layout_below="@+id/itemDetails"
+       android:id="@+id/imageView3"
+       android:layout_width="match_parent"
+       android:layout_height="150dp"
+       android:scaleType="fitXY"
+       app:srcCompat="@drawable/image1" />
+
+</RelativeLayout>

@@ -32,6 +32,18 @@ public class Companies extends Model {
     private String company_id;
 
 
+    @Column(name = "category_id")
+    private String category_id;
+
+
+    public String getCategory_id() {
+        return category_id;
+    }
+
+    public void setCategory_id(String category_id) {
+        this.category_id = category_id;
+    }
+
     public String getCompanyName() {
         return companyName;
     }
@@ -81,15 +93,15 @@ public class Companies extends Model {
         this.company_id = company_id;
     }
 
-    public static Companies getCompaniesByID(String category) {
+    public static Companies getCompaniesByID(String company_id,String category_id) {
         return new Select()
                 .from(Companies.class)
-                .where("company_id = ?",category)
+                .where("company_id = ?",company_id).and("category_id = ?",category_id)
                 .executeSingle();
     }
-    public static List<Companies> getAllCompanies() {
+    public static List<Companies> getAllCompanies(String category_id) {
         return new Select()
-                .from(Companies.class)
+                .from(Companies.class).where("category_id = ?",category_id)
                 .execute();
     }
 }

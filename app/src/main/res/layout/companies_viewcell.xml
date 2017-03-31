@@ -51,16 +51,19 @@ android:textColor="@color/cardview_dark_background"
             android:layout_alignParentTop="true"
             android:layout_toStartOf="@+id/chatbutton" />
 
-        <RatingBar
+
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
             android:layout_gravity="left"
             android:id="@+id/ratingBar2"
-            style="@style/Widget.AppCompat.RatingBar.Small"
+            android:isIndicator="true"
+            style="@style/Widget.MaterialRatingBar.RatingBar.Small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/iconview"
             android:layout_toEndOf="@+id/iconview"
             android:numStars="5"
-            android:rating="2" />
+            android:rating="0" />
 
     </LinearLayout>
 
@@ -74,16 +77,16 @@ android:textColor="@color/cardview_dark_background"
         android:visibility="gone" />
 
     <Button
-        android:background="@drawable/ic_chat"
-
+        android:background="@drawable/ic_chat_buble"
+        android:paddingBottom="10dp"
         android:id="@+id/chatbutton"
         android:layout_width="0dp"
-        android:layout_height="45dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:layout_alignBottom="@+id/ratingBar2"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
-        android:layout_weight="0.2" />
+        android:layout_weight="0.24" />
 
 </LinearLayout>
 
