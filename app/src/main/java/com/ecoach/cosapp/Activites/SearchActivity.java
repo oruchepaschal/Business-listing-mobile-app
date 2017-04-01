@@ -35,7 +35,8 @@ public class SearchActivity extends AppCompatActivity {
     private void setviews() {
 
         searchView=(SearchView)findViewById(R.id.search_bar);
-        searchView.requestFocus();
+        searchView.setFocusable(true);
+        searchView.setIconified(false);
 
     }
 

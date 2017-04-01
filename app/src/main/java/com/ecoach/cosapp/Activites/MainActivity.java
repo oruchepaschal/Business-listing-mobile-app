@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -20,6 +20,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.android.volley.RequestQueue;
+import com.ecoach.cosapp.Activites.UserAccounts.LoginActivity;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
 
@@ -62,6 +63,13 @@ public class MainActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        Menu menu = navigationView.getMenu();
+
+
+        // find MenuItem you want to change
+        MenuItem loginOLogout = menu.findItem(R.id.logout);
+        loginOLogout.setTitle("Login");
+        //loginOLogout.se
         navigationView.setNavigationItemSelectedListener(this);
         setTabHost();
 
@@ -159,6 +167,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.friends){
 
         } else if (id == R.id.logout){
+
+            Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+            startActivity(intent);
 
         }
 

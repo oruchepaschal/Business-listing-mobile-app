@@ -49,7 +49,9 @@
         <activity android:name=".Activites.CompanyDetailsTabbedActivities.Profile" />
         <activity android:name=".Activites.CompanyDetailsTabbedActivities.Map" />
         <activity android:name=".Activites.CompanyDetailsTabbedActivities.Details" />
-        <activity android:name=".Activites.SearchActivity"></activity>
+        <activity android:name=".Activites.SearchActivity" />
+        <activity android:name=".Activites.UserAccounts.LoginActivity" />
+        <activity android:name=".Activites.UserAccounts.CreateAccount"></activity>
     </application>
 
 </manifest>
