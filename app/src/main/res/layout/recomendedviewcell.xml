@@ -24,28 +24,36 @@
             android:id="@+id/RecobackgroundImage"
             android:layout_height="70dp" />
 
+
+
         <TextView
             android:layout_margin="2dp"
-            android:padding="2dp"
+            android:padding="1dp"
             android:text="TextView"
             android:layout_width="wrap_content"
             android:layout_below="@+id/RecobackgroundImage"
             android:layout_alignParentStart="true"
             android:id="@+id/labelTxt"
             android:layout_alignEnd="@+id/RecobackgroundImage"
-            android:layout_height="25dp" />
+            android:layout_height="wrap_content" />
+<RelativeLayout
+    android:layout_margin="5dp"
+    android:layout_width="wrap_content"
+    android:layout_above="@+id/labelTxt"
+    android:layout_alignEnd="@+id/labelTxt"
+    android:layout_height="wrap_content"
+   >
 
-        <RatingBar
-            android:id="@+id/ratingBar"
-            style="?android:attr/ratingBarStyleSmall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="3"
-            android:stepSize="0.1"
-            android:isIndicator="true"
-            android:layout_above="@+id/labelTxt"
-            android:layout_alignEnd="@+id/labelTxt" />
+    <me.zhanghai.android.materialratingbar.MaterialRatingBar
+        android:id="@+id/ratingBar"
+        android:isIndicator="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialRatingBar.RatingBar.Small"
+        />
+
+</RelativeLayout>
+
 
         <TextView
             android:visibility="gone"
