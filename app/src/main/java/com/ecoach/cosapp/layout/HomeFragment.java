@@ -391,7 +391,12 @@ public class HomeFragment extends Fragment {
 
 
                 String category_pic = obj.getString("category_pic");
+<<<<<<< HEAD
 
+=======
+                categories.setCategoryBackgroundImage(category_pic);
+                //categories.setCategoryIcons(category_pic);
+>>>>>>> a9cb344f8774dac3f6ab39c540d198746c8dfe10
 
                 // String category_pic = obj.getString("category_pic");
                // categories.setCategoryIcons("www.android.com");
