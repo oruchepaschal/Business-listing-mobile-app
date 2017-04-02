@@ -18,19 +18,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/viewFlipper"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="24dp"
         android:layout_below="@+id/imageView4"
         android:layout_alignParentStart="true">
 
-
         <RelativeLayout
-            android:padding="16dp"
+            android:padding="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/personalTXT"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
@@ -42,18 +41,7 @@
                 android:textStyle="bold" />
 
             <EditText
-                android:id="@+id/editText4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:ems="10"
-                android:hint="Phone"
-                android:inputType="phone"
-                android:layout_below="@+id/editText3"
-                android:layout_centerHorizontal="true" />
-
-            <EditText
-                android:id="@+id/editText3"
+                android:id="@+id/emailedt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
@@ -63,60 +51,181 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
-                android:id="@+id/editText5"
+                android:id="@+id/phoneEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="13dp"
+                android:ems="10"
+                android:hint="Phone"
+                android:inputType="phone"
+                android:layout_below="@+id/emailedt"
+                android:layout_centerHorizontal="true" />
+
+            <EditText
+                android:id="@+id/passwordEdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="17dp"
                 android:ems="10"
                 android:hint="Password"
                 android:inputType="textPassword"
-                android:layout_below="@+id/editText4"
-                android:layout_alignStart="@+id/editText4"
+                android:layout_below="@+id/phoneEdt"
+                android:layout_alignStart="@+id/phoneEdt"
                 android:layout_alignParentEnd="true" />
 
-            <Button
-                android:id="@+id/button2"
-                android:layout_width="wrap_content"
+        </RelativeLayout>
+        <RelativeLayout
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/profileDetails"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/editText5"
-                android:layout_below="@+id/editText5"
-                android:layout_marginTop="25dp"
-                android:text="Next" />
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="9dp"
+                android:padding="10dp"
+                android:text="Profile Details"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/surnameEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/firstEdt"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="13dp"
+                android:ems="10"
+                android:hint="Surname"
+                android:inputType="text" />
+
+            <EditText
+                android:id="@+id/firstEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="53dp"
+                android:ems="10"
+                android:hint="First Name"
+                android:inputType="text" />
 
         </RelativeLayout>
+        <RelativeLayout
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:padding="5dp"
+                android:id="@+id/locationHeader"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Location"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/locationNameEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_marginTop="41dp"
+                android:ems="10"
+                android:hint="eg. Home or Office"
+                android:inputType="textPersonName" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="Summary"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+        </RelativeLayout>
+
+
+
+
+
 
     </ViewFlipper>
 
 
 <LinearLayout
-    android:layout_centerInParent="true"
+    android:padding="5dp"
     android:orientation="horizontal"
-    android:layout_below="@+id/viewFlipper"
     android:gravity="center"
     android:layout_width="200dp"
-    android:layout_height="wrap_content">
-    <Button
-        android:layout_weight="0.1"
-        android:id="@+id/button4"
-        android:layout_width="50dp"
-        android:layout_height="20dp" />
+    android:layout_height="wrap_content"
+    android:id="@+id/linearLayout"
+    android:layout_marginBottom="26dp"
+    android:layout_alignParentBottom="true"
+    android:layout_centerHorizontal="true">
 
     <Button
-        android:layout_weight="0.1"
-        android:id="@+id/button5"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
-
-       />
+        android:id="@+id/indicatorOne"
+        android:layout_width="30dp"
+        android:layout_height="15dp"
+        android:layout_weight="0.1" />
 
     <Button
+        android:id="@+id/indicatorTwo"
+        android:layout_width="30dp"
+        android:layout_height="15dp"
         android:layout_weight="0.1"
-        android:id="@+id/button6"
-        android:layout_width="50dp"
-        android:layout_height="20dp"
+
         />
 
+    <Button
+        android:id="@+id/indicatorThree"
+        android:layout_width="30dp"
+        android:layout_height="15dp"
+        android:layout_weight="0.1" />
+
+    <Button
+        android:id="@+id/indicatorFour"
+        android:layout_width="30dp"
+        android:layout_height="15dp"
+        android:layout_weight="0.1" />
+
+    <Button
+        android:id="@+id/indicatorfice"
+        android:layout_width="30dp"
+        android:layout_height="15dp"
+        android:layout_weight="0.1" />
+
 </LinearLayout>
+
+    <Button
+        android:id="@+id/nextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Next"
+        android:layout_below="@+id/viewFlipper"
+        android:layout_toEndOf="@+id/imageView4" />
+
+    <Button
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/viewFlipper"
+        android:layout_toStartOf="@+id/imageView4"
+        android:text="Back" />
+
+
+
+
 
 
 </RelativeLayout>
