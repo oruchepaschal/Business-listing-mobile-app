@@ -164,8 +164,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.share) {
 
-        } else if (id == R.id.friends){
-
         } else if (id == R.id.logout){
 
             Intent intent = new Intent(MainActivity.this,LoginActivity.class);

@@ -31,10 +31,6 @@
                 android:icon="@drawable/share_variant"
                 android:title="Share CosApp" />
             <item
-                android:id="@+id/friends"
-                android:icon="@drawable/email_open"
-                android:title="Invite Friends" />
-            <item
                 android:id="@+id/logout"
                 android:icon="@drawable/logout"
                 android:title="Logout" />

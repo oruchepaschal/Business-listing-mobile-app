@@ -69,6 +69,7 @@ public class MainCategoryAdapter extends RecyclerView.Adapter<MainCategoryAdapte
         Picasso.with(context)
                 .load(items.getCategoryBackgroundImage())
                 .placeholder(d)
+                .fit()
                 .centerCrop()
                 .into(holder.iconView);
 

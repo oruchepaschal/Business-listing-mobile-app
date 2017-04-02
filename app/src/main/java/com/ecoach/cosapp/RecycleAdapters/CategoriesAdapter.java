@@ -65,6 +65,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapterVie
             Picasso.with(context)
                     .load(items.getCategoryBackgroundImage())
                     .placeholder(R.drawable.ic_no_image)
+                    .fit()
                     .centerCrop()
                     .into(holder.background);
 
