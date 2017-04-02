@@ -75,12 +75,14 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapterVie
         Drawable d = new BitmapDrawable(ViewUtils.drawableToBitmap(drawable));
 
 
+
+        holder.iconView.setImageDrawable(d);
 //holder.iconView.setImageResource(R.drawable.ic_no_image);
-        Picasso.with(context)
+     /**  Picasso.with(context)
              .load(items.getCategoryBackgroundImage())
                .placeholder(d)
                .centerCrop()
-               .into(holder.iconView);
+               .into(holder.iconView);**/
     }
 
     @Override
