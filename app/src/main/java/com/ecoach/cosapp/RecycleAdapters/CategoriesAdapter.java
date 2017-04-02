@@ -70,7 +70,7 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapterVie
 
 
         TextDrawable drawable = TextDrawable.builder()
-                .buildRoundRect(items.getCategoryNames().toString().substring(0, 1), R.color.colorPrimary, 10);
+                .buildRoundRect(items.getCategoryNames().toString().substring(0, 1),context.getResources().getColor(R.color.colorPrimary), 10);
 
         Drawable d = new BitmapDrawable(ViewUtils.drawableToBitmap(drawable));
 

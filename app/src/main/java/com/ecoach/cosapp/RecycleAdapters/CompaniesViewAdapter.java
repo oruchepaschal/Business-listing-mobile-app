@@ -26,6 +26,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
  * Created by apple on 3/28/17.
@@ -76,7 +77,7 @@ public class CompaniesViewAdapter extends RecyclerView.Adapter<CompaniesViewAdap
         String avatorPath= items.getPath()+items.getStorage()+"/"+items.getAvatar();
 
         TextDrawable drawable = TextDrawable.builder()
-                .buildRoundRect(items.getCompanyName().toString().substring(0,1), R.color.colorPrimary, 10); // radius in px
+                .buildRoundRect(items.getCompanyName().toString().substring(0,1), context.getResources().getColor(R.color.colorPrimary), 10); // radius in px
 
         Drawable d = new BitmapDrawable(ViewUtils.drawableToBitmap(drawable));
 
@@ -101,7 +102,7 @@ public class CompaniesViewAdapter extends RecyclerView.Adapter<CompaniesViewAdap
 class CompaniesViewAdapterViewHolder extends RecyclerView.ViewHolder {
     TextView txthiddenId,labelTxt;
     ImageView background;
-    RatingBar ratingBar;
+    MaterialRatingBar ratingBar;
     Button chatButton;
     CircleImageView iconView;
 
@@ -117,7 +118,7 @@ class CompaniesViewAdapterViewHolder extends RecyclerView.ViewHolder {
         txthiddenId=(TextView)itemView.findViewById(R.id.companyid);
         iconView=(CircleImageView)itemView.findViewById(R.id.iconview);
         labelTxt = (TextView) itemView.findViewById(R.id.labelTxt);
-        ratingBar=(RatingBar)itemView.findViewById(R.id.ratingBar2) ;
+        ratingBar=(MaterialRatingBar)itemView.findViewById(R.id.ratingBar2) ;
         chatButton=(Button)itemView.findViewById(R.id.chatbutton);
 
 

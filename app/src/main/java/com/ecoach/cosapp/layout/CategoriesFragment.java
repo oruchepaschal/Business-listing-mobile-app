@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,7 +45,8 @@ public class CategoriesFragment extends Fragment {
     private String mParam2;
 
    private RecyclerView recyclerView;
-
+    private SwipeRefreshLayout refreshLayout;
+    RecyclerView.LayoutManager layoutManager,verticalManager;
     private OnFragmentInteractionListener mListener;
 
     public CategoriesFragment() {
@@ -57,9 +59,11 @@ public class CategoriesFragment extends Fragment {
 
         recyclerView = (RecyclerView)view.findViewById(R.id.categoryRecycle);
 
-        RecyclerView.LayoutManager layoutManager,verticalManager;
+
         MainCategoryAdapter categoriesAdapter = new MainCategoryAdapter(getContext(),Categories.getAllCategories());
         layoutManager = new GridLayoutManager(getActivity(), 3);
+
+
 
         recyclerView.setAdapter(categoriesAdapter);
         recyclerView.setLayoutManager(layoutManager);
@@ -76,7 +80,14 @@ public class CategoriesFragment extends Fragment {
                 Log.d("category","catgory item "+tv.getText().toString());
                 Application.setSelectedCategoryID(id);
 
+                TextView name=(TextView)view.findViewById(R.id.labelview);
+                String catname=name.getText().toString();
+
+                Application.setSelectedCategoryName(catname);
+
+
                 Intent intent = new Intent(getActivity(), CompaniesActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
 
 
@@ -88,6 +99,8 @@ public class CategoriesFragment extends Fragment {
 
             }
         }));
+
+
 
 
     }
@@ -126,9 +139,24 @@ public class CategoriesFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        refreshLayout=(SwipeRefreshLayout)view.findViewById(R.id.refreshLayout);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                MainCategoryAdapter categoriesAdapter = new MainCategoryAdapter(getContext(),Categories.getAllCategories());
+                layoutManager = new GridLayoutManager(getActivity(), 3);
+
+
+
+                recyclerView.setAdapter(categoriesAdapter);
+                recyclerView.setLayoutManager(layoutManager);
+                refreshLayout.setRefreshing(false);
+            }
+        });
         setUpRecycleView(view);
     }
 

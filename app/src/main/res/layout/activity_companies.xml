@@ -17,13 +17,14 @@
         tools:layout_editor_absoluteY="8dp"></android.support.v7.widget.RecyclerView>
 
     <com.wang.avi.AVLoadingIndicatorView
+
         android:layout_gravity="center"
         android:id="@+id/avi"
         android:foregroundGravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/AVLoadingIndicatorView"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:indicatorName="BallSpinFadeLoaderIndicator"
         app:indicatorColor="@color/colorPrimary"
         tools:layout_editor_absoluteY="179dp"

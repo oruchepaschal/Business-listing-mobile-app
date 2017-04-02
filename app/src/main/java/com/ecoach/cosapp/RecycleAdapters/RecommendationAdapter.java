@@ -19,6 +19,7 @@ import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
  * Created by apple on 3/26/17.
@@ -82,7 +83,8 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
     class RecommendationAdapterViewHolder extends RecyclerView.ViewHolder {
         TextView txthiddenId,labelTxt;
         ImageView background;
-        RatingBar ratingBar;
+        //RatingBar ratingBar;
+        MaterialRatingBar ratingBar;
         CircleImageView iconView;
 
         public RecommendationAdapterViewHolder(View itemView) {
@@ -90,7 +92,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
 
             txthiddenId=(TextView)itemView.findViewById(R.id.texthidden);
             background=(ImageView)itemView.findViewById(R.id.RecobackgroundImage);
-            ratingBar=(RatingBar)itemView.findViewById(R.id.ratingBar) ;
+            ratingBar=(MaterialRatingBar)itemView.findViewById(R.id.ratingBar) ;
             labelTxt=(TextView)itemView.findViewById(R.id.labelTxt);
 
 

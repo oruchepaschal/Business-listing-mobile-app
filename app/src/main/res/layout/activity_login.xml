@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context="com.ecoach.cosapp.Activites.UserAccounts.LoginActivity">
+
+    <RelativeLayout
+        android:layout_marginTop="17dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/relativeLayout">
+
+        <EditText
+            android:drawableStart="@drawable/account_outline"
+            android:id="@+id/editText"
+            android:drawablePadding="10dp"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:hint="Username"
+            android:layout_above="@+id/editText2"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="23dp" />
+
+        <EditText
+            android:drawableStart="@drawable/lock"
+            android:id="@+id/editText2"
+            android:layout_width="300dp"
+            android:drawablePadding="10dp"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/editText"
+            android:layout_centerVertical="true"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:hint="Password" />
+
+
+
+        <Button
+            android:id="@+id/loginButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/editText2"
+            android:layout_alignStart="@+id/editText2"
+            android:layout_below="@+id/editText2"
+            android:layout_marginTop="17dp"
+            android:text="Login" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/loginButton"
+            android:layout_alignStart="@+id/loginButton"
+            android:layout_below="@+id/loginButton"
+            android:layout_marginTop="24dp"
+            android:text="Forgot Password"
+            android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/createAccountButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/textView2"
+            android:layout_alignStart="@+id/textView2"
+            android:layout_below="@+id/textView2"
+            android:layout_marginTop="12dp"
+            android:text="Create Account" />
+
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/ic_no_image"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:layout_alignTop="@+id/relativeLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="45dp" />
+
+</RelativeLayout>

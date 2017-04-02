@@ -13,6 +13,7 @@ import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Companies;
+import com.ecoach.cosapp.Models.Company;
 import com.ecoach.cosapp.R;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -26,6 +27,13 @@ public class Application extends android.app.Application {
 
 
     public static String selectedCategoryID;
+    public static String selectedCategoryName;
+
+
+    public static String selectedCompanyID;
+    public static String selectedCompanyName;
+
+    public static Company selectedCompanyObbject;
 
     private static Context context;
 
@@ -42,7 +50,7 @@ public class Application extends android.app.Application {
             try{
 
 
-
+                setFontsMaster();
                 initializeDB();
 
 
@@ -74,12 +82,44 @@ public class Application extends android.app.Application {
     }
 
 
+    public static Company getSelectedCompanyObbject() {
+        return selectedCompanyObbject;
+    }
+
+    public static void setSelectedCompanyObbject(Company selectedCompanyObbject) {
+        Application.selectedCompanyObbject = selectedCompanyObbject;
+    }
+
+    public static String getSelectedCompanyID() {
+        return selectedCompanyID;
+    }
+
+    public static void setSelectedCompanyID(String selectedCompanyID) {
+        Application.selectedCompanyID = selectedCompanyID;
+    }
+
+    public static String getSelectedCompanyName() {
+        return selectedCompanyName;
+    }
+
+    public static void setSelectedCompanyName(String selectedCompanyName) {
+        Application.selectedCompanyName = selectedCompanyName;
+    }
+
     public static String getSelectedCategoryID() {
         return selectedCategoryID;
     }
 
     public static void setSelectedCategoryID(String selectedCategoryID) {
         Application.selectedCategoryID = selectedCategoryID;
+    }
+
+    public static String getSelectedCategoryName() {
+        return selectedCategoryName;
+    }
+
+    public static void setSelectedCategoryName(String selectedCategoryName) {
+        Application.selectedCategoryName = selectedCategoryName;
     }
 
     public static Context getContext() {

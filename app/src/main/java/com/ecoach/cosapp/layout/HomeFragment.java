@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -67,10 +68,11 @@ public class HomeFragment extends Fragment {
 
     RecyclerView toprecyler, bottomrecycler;
     ImageView centeradvert;
-
+    RecyclerView.LayoutManager layoutManager,verticalManager;
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
     private AVLoadingIndicatorView avLoadingIndicatorView;
+   // SwipeRefreshLayout swiperRefresh;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -112,10 +114,36 @@ public class HomeFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+      /**  swiperRefresh=(SwipeRefreshLayout)view.findViewById(R.id.swiperRefresh);
+        swiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
 
+
+                bottomrecycler = (RecyclerView) view.findViewById(R.id.bottomRecycleView);
+
+                CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getContext(),Categories.getAllCategories());
+                layoutManager = new GridLayoutManager(getActivity(), 2);
+
+                bottomrecycler.setAdapter(categoriesAdapter);
+                bottomrecycler.setLayoutManager(layoutManager);
+                bottomrecycler.setNestedScrollingEnabled(false);
+
+                toprecyler = (RecyclerView)view.findViewById(R.id.topRecycleView);
+                RecommendationAdapter recommendationAdapter = new RecommendationAdapter(getContext(),Categories.getAllCategories());
+                toprecyler.setAdapter(recommendationAdapter);
+                toprecyler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+
+
+
+
+              //  swiperRefresh.setRefreshing(false);
+            }
+        });**/
         avLoadingIndicatorView=(AVLoadingIndicatorView)view.findViewById(R.id.avi);
 
         setSliderLayout(view);
@@ -143,7 +171,7 @@ public class HomeFragment extends Fragment {
     public void SetRecycleView(View view){
 
         bottomrecycler = (RecyclerView) view.findViewById(R.id.bottomRecycleView);
-        RecyclerView.LayoutManager layoutManager,verticalManager;
+
         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getContext(),Categories.getAllCategories());
         layoutManager = new GridLayoutManager(getActivity(), 2);
 
@@ -160,6 +188,13 @@ public class HomeFragment extends Fragment {
 
                 Log.d("category","catgory item "+tv.getText().toString());
                 Application.setSelectedCategoryID(id);
+
+
+
+                TextView name=(TextView)view.findViewById(R.id.labelTxt);
+                String catname=name.getText().toString();
+
+                Application.setSelectedCategoryName(catname);
 
                 Intent intent = new Intent(getActivity(), CompaniesActivity.class);
                 startActivity(intent);
