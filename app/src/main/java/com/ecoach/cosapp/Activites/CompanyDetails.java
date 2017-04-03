@@ -80,13 +80,12 @@ public class CompanyDetails extends AppCompatActivity  {
         // add back arrow to toolbar
         if (getSupportActionBar() != null){
             getSupportActionBar().setTitle(Application.getSelectedCompanyName());
-            //getSupportActionBar().setTitle(Application.getSelectedCategoryName());
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
 
-       // avi=(AVLoadingIndicatorView)findViewById(R.id.avi);
+
         getCompanyDetails(savedInstanceState);
 
     }
@@ -296,105 +295,5 @@ public class CompanyDetails extends AppCompatActivity  {
         requestQueue.add(request);
         Log.d("oxinbo","Server Logs"+params.toString());*/
     }
-  /*  private void formatJSON(JSONObject response,Bundle savedInstanceState){
 
-
-
-        try {
-
-            JSONObject  object= response.optJSONObject("ecoachlabs");
-            JSONArray info = object.getJSONArray("info");
-
-           // for (int i = 0 ; i < info.length(); i++) {
-
-                JSONObject obj = info.getJSONObject(0);
-
-
-            Log.d("json Array",obj.toString());
-            Company company = new Company();
-
-
-                //String category_id = obj.getString("category_id");
-                String company_id = obj.getString("id");
-                company.setCompanyid(company_id);
-
-                String company_name = obj.getString("company_name");
-                company.setCompany_name(company_name);
-
-
-
-                String company_path = obj.getString("path");
-                company.setCompany_path(company_path);
-
-
-                String company_storage = obj.getString("storage");
-                company.setCompany_storage(company_storage);
-
-
-                String company_avator = obj.getString("avatar");
-                company.setCompany_avatar(company_avator);
-
-
-                String company_rating = obj.getString("rating");
-                company.setCompany_rating(company_rating);
-
-
-                String company_phoneone=obj.getString("phone1");
-                company.setCompany_phoneOne(company_phoneone);
-
-
-            String company_phonetwo=obj.getString("phone2");
-            company.setCompany_phonetwo(company_phonetwo);
-
-            String company_email=obj.getString("email");
-            company.setCompany_email(company_email);
-
-
-            String company_website=obj.getString("website");
-            company.setCompany_website(company_website);
-
-            String company_address=obj.getString("address");
-            company.setCompany_website(company_address);
-
-
-            String company_bio=obj.getString("bio");
-            company.setCompany_bio(company_bio);
-
-            Application.setSelectedCompanyObbject(company);
-
-
-
-            setUpCompanyDetails();
-            setTabHost(savedInstanceState);
-
-
-*//**
- *  "company_name": "Beta Educational Complex",
- "id": "566cafbcd2ae7fcc6a9af644c0b25b4f",
- "path": "http://api.ecoachlabs.com/v1/cosapp/uploads/companies/",
- "storage": "a33b13f6fcd478d9d143e8e16c1a6517",
- "phone1": "0242262632",
- "phone2": "0242262633",
- "email": "apensela@gmail.com",
- "address": "",
- "bio": "We have the best teachers",
- "website": "",
- "avatar": "3249/file-14902591450-23-03-2017.jpeg",
- "rating": "0.0"
- *
- *
- *
- *
- * *//*
-          //  }
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-
-
-    }*/
 }

@@ -49,6 +49,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+
 import static com.activeandroid.Cache.getContext;
 
 public class CompaniesActivity extends AppCompatActivity {
@@ -67,6 +69,13 @@ public class CompaniesActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_companies);
+        // add back arrow to toolbar
+        if (getSupportActionBar() != null){
+
+            getSupportActionBar().setTitle(Application.getSelectedCategoryName());
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         recyclerView = (RecyclerView)findViewById(R.id.companyRecycle);
 
@@ -91,19 +100,18 @@ public class CompaniesActivity extends AppCompatActivity {
             e.printStackTrace();
 
 
+        }finally {
+
+
+
+
         }
 
 
 
 
 
-        // add back arrow to toolbar
-        if (getSupportActionBar() != null){
 
-            getSupportActionBar().setTitle(Application.getSelectedCategoryName());
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
 
 
     }
@@ -520,6 +528,21 @@ public class CompaniesActivity extends AppCompatActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
+        }finally {
+            if(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID()).size() == 0){
+
+
+                new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                        .setTitleText("Sorry!")
+                        .setContentText("No companies Added to this Catgory yet")
+                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                            @Override
+                            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                onBackPressed();
+                            }
+                        })
+                        .show();
+            }
         }
 
 

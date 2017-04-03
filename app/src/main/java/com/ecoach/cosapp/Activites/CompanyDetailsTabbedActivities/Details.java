@@ -1,12 +1,20 @@
 package com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
+import com.ecoach.cosapp.Activites.CompaniesActivity;
+import com.ecoach.cosapp.Activites.GalleryImageExplorer;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
@@ -72,11 +80,82 @@ RecyclerView recycleGallery;
         ImageGalleryAdapter recommendationAdapter = new ImageGalleryAdapter(Details.this, GalleryStorage.getCompanyGalleryItemsByCompanyID(Application.getSelectedCompanyObbject().getCompanyCuid()));
         recycleGallery.setAdapter(recommendationAdapter);
         recycleGallery.setLayoutManager(new LinearLayoutManager(Details.this, LinearLayoutManager.HORIZONTAL, false));
+        recycleGallery.addOnItemTouchListener(new RecyclerTouchListener(Details.this, recycleGallery, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
+
+
+                TextView name=(TextView)view.findViewById(R.id.galleryItemID);
+                String catname=name.getText().toString();
+
+
+
+                Intent intent = new Intent(Details.this, GalleryImageExplorer.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
 
     }
 
 
+    static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+        private GestureDetector gestureDetector;
+        private ClickListener clickListener;
 
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener){
+            this.clickListener=clickListener;
+            gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child= recyclerView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clickListener!=null){
+
+
+                        clickListener.onLongClick(child,recyclerView.getChildPosition(child));
+                    }
+
+                }
+            });
+        }
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child= rv.findChildViewUnder(e.getX(),e.getY());
+            if(child!=null && clickListener!=null && gestureDetector.onTouchEvent(e)){
+
+
+                clickListener.onClick(child, rv.getChildPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
+
+    public static interface ClickListener{
+
+        public void onClick(View view,int position);
+        public void onLongClick(View view,int position);
+
+    }
 
 
 }
