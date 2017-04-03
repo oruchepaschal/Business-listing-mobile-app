@@ -148,7 +148,16 @@ public class HomeFragment extends Fragment {
 
         setSliderLayout(view);
 
-        getCategories(view);
+
+        if(Categories.getAllCategories().size() == 0){
+
+            getCategories(view);
+        }else{
+
+            SetRecycleView( view);
+
+        }
+
     }
 
     public void setSliderLayout(View view){

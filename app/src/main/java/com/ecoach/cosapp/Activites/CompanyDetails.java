@@ -4,6 +4,8 @@ import android.app.LocalActivityManager;
 import android.app.TabActivity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.FloatingActionButton;
@@ -16,6 +18,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.widget.RatingBar;
+import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
@@ -38,6 +41,7 @@ import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Map;
 import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Profile;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.Companies;
+import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.Http.APIRequest;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.Models.Company;
@@ -45,6 +49,7 @@ import com.ecoach.cosapp.R;
 import com.ecoach.cosapp.RecycleAdapters.CompaniesViewAdapter;
 import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.squareup.picasso.Picasso;
+import com.squareup.picasso.Target;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -60,9 +65,10 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 public class CompanyDetails extends AppCompatActivity  {
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
-    private AVLoadingIndicatorView avi;
+   // private AVLoadingIndicatorView avi;
     private TextView companyName,companycategory;
     private MaterialRatingBar ratingBar;
+    private RelativeLayout imageView2;
 
     CircleImageView companyAvatar;
     @Override
@@ -80,38 +86,66 @@ public class CompanyDetails extends AppCompatActivity  {
         }
 
 
-        avi=(AVLoadingIndicatorView)findViewById(R.id.avi);
-        getCompanyDetails( savedInstanceState);
+       // avi=(AVLoadingIndicatorView)findViewById(R.id.avi);
+        getCompanyDetails(savedInstanceState);
 
     }
 
 
-    private void setUpCompanyDetails(){
+    private void setUpCompanyDetails(Bundle savedInstanceState){
         companyAvatar=(CircleImageView)findViewById(R.id.companyAvatar);
         TextDrawable drawable = TextDrawable.builder()
-                .buildRoundRect(Application.getSelectedCompanyObbject().getCompany_name().substring(0, 1), CompanyDetails.this.getResources().getColor(R.color.colorPrimary), 10);
+                .buildRoundRect(Application.getSelectedCompanyObbject().getCompanyName().substring(0, 1), CompanyDetails.this.getResources().getColor(R.color.colorPrimary), 10);
 
         Drawable d = new BitmapDrawable(ViewUtils.drawableToBitmap(drawable));
 
 
-        String avatorPath= Application.getSelectedCompanyObbject().getCompany_path()+Application.getSelectedCompanyObbject().getCompany_storage()+"/"+Application.getSelectedCompanyObbject().getCompany_avatar();
+        String avatorPath= Application.getSelectedCompanyObbject().getPath()+Application.getSelectedCompanyObbject().getCompanyStorageName()+"/"+Application.getSelectedCompanyObbject().getAvatarLocation();
+        String CoverPath= Application.getSelectedCompanyObbject().getPath()+Application.getSelectedCompanyObbject().getCompanyStorageName()+"/"+Application.getSelectedCompanyObbject().getCoverLocation();
 
         Picasso.with(CompanyDetails.this)
                 .load(avatorPath)
                 .placeholder(d)
                 .into(companyAvatar);
 
+        imageView2=(RelativeLayout)findViewById(R.id.imageView2);
 
+        Picasso.with(this)
+                .load(CoverPath)
+                .into(new Target() {
+                    @Override
+                    public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from) {
+
+                        BitmapDrawable background = new BitmapDrawable(bitmap);
+                        imageView2.setBackgroundDrawable(background);
+                    }
+
+                    @Override
+                    public void onBitmapFailed(Drawable errorDrawable) {
+
+                        Drawable drawable = CompanyDetails.this.getResources().getDrawable(R.drawable.ic_no_image);
+                       imageView2.setBackground(drawable);
+                    }
+
+                    @Override
+                    public void onPrepareLoad(Drawable placeHolderDrawable) {
+                        Drawable drawable = CompanyDetails.this.getResources().getDrawable(R.drawable.ic_no_image);
+                        imageView2.setBackground(drawable);
+                    }
+                });
 
         companyName=(TextView)findViewById(R.id.companyName);
-        companyName.setText(Application.getSelectedCompanyObbject().getCompany_name());
+        companyName.setText(Application.getSelectedCompanyObbject().getCompanyName());
 
         companycategory=(TextView)findViewById(R.id.companycategory);
         companycategory.setText(Application.getSelectedCategoryName());
 
 
         ratingBar=(MaterialRatingBar)findViewById(R.id.companyRating);
-        ratingBar.setRating(Float.parseFloat(Application.getSelectedCompanyObbject().getCompany_rating()));
+        ratingBar.setRating(Float.parseFloat(Application.getSelectedCompanyObbject().getCompanyRating()));
+
+
+        setTabHost(savedInstanceState);
 
     }
 
@@ -155,8 +189,11 @@ public class CompanyDetails extends AppCompatActivity  {
 
     private void getCompanyDetails(final Bundle savedInstanceState){
 
+        VerifiedCompanies verifiedCompanies = VerifiedCompanies.getCompanyByID(Application.getSelectedCompanyID());
+        Application.setSelectedCompanyObbject(verifiedCompanies);
+        setUpCompanyDetails(savedInstanceState);
 
-        avi.show();
+       /* avi.show();
 
 
 
@@ -257,9 +294,9 @@ public class CompanyDetails extends AppCompatActivity  {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
         request.setRetryPolicy(policy);
         requestQueue.add(request);
-        Log.d("oxinbo","Server Logs"+params.toString());
+        Log.d("oxinbo","Server Logs"+params.toString());*/
     }
-    private void formatJSON(JSONObject response,Bundle savedInstanceState){
+  /*  private void formatJSON(JSONObject response,Bundle savedInstanceState){
 
 
 
@@ -331,7 +368,7 @@ public class CompanyDetails extends AppCompatActivity  {
             setTabHost(savedInstanceState);
 
 
-/**
+*//**
  *  "company_name": "Beta Educational Complex",
  "id": "566cafbcd2ae7fcc6a9af644c0b25b4f",
  "path": "http://api.ecoachlabs.com/v1/cosapp/uploads/companies/",
@@ -348,7 +385,7 @@ public class CompanyDetails extends AppCompatActivity  {
  *
  *
  *
- * */
+ * *//*
           //  }
 
 
@@ -359,5 +396,5 @@ public class CompanyDetails extends AppCompatActivity  {
 
 
 
-    }
+    }*/
 }

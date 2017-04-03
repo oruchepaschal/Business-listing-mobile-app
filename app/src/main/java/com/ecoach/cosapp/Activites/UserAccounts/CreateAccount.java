@@ -44,11 +44,12 @@ public class CreateAccount extends Activity {
 
                 Log.d("view flipper",viewFlipper.getDisplayedChild() +"< displayed child  ||  all count >"+viewFlipper.getChildCount());
 
-                if(viewFlipper.getDisplayedChild() == viewFlipper.getChildCount()){
+                if(viewFlipper.getDisplayedChild() == 3){
 
 
                 }else{
 
+                    backButton.setVisibility(View.VISIBLE);
                     viewFlipper.showNext();
                 }
 

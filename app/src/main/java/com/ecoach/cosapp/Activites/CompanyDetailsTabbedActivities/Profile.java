@@ -16,6 +16,6 @@ public class Profile extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         aboutTxt=(TextView)findViewById(R.id.aboutTxt);
-        aboutTxt.setText(Application.getSelectedCompanyObbject().getCompany_bio());
+        aboutTxt.setText(Application.getSelectedCompanyObbject().getBio());
     }
 }

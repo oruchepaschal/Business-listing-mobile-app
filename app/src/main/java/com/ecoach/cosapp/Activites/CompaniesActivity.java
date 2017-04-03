@@ -33,6 +33,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Companies;
+import com.ecoach.cosapp.DataBase.GalleryStorage;
+import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.Http.APIRequest;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
@@ -72,15 +74,15 @@ public class CompaniesActivity extends AppCompatActivity {
 
         try{
 
-            if(Companies.getAllCompanies(Application.getSelectedCategoryID()).size() == 0){
-Log.d("was i called ","yes i was called");
+            if(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID()).size() == 0){
+
 
                 getCategories();
             }else{
 
-                SetupRecycleview(Companies.getAllCompanies(Application.getSelectedCategoryID()));
+               SetupRecycleview(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID()));
                 getCategoriesLocal();
-                Log.d("was i called ","no i was not");
+
             }
 
 
@@ -119,7 +121,7 @@ Log.d("was i called ","yes i was called");
 
 
         params.put("fetch_public_info",""+ "1");
-        params.put("scope","company_list");
+        params.put("scope","detailed_company_list");
         params.put("category_id", Application.getSelectedCategoryID());
 
         volleySingleton= VolleySingleton.getsInstance();
@@ -219,7 +221,7 @@ Log.d("was i called ","yes i was called");
 
 
         params.put("fetch_public_info",""+ "1");
-        params.put("scope","company_list");
+        params.put("scope","detailed_company_list");
         params.put("category_id", Application.getSelectedCategoryID());
 
         volleySingleton= VolleySingleton.getsInstance();
@@ -316,7 +318,7 @@ Log.d("was i called ","yes i was called");
 
 
 
-    private void SetupRecycleview(  List<Companies> companiesArrayList){
+    private void SetupRecycleview(  List<VerifiedCompanies> companiesArrayList){
 
 
         companiesAdapter = new CompaniesViewAdapter(CompaniesActivity.this, companiesArrayList);
@@ -355,8 +357,10 @@ Log.d("was i called ","yes i was called");
     }
     private void formatJSON(JSONObject response){
 
-        List<Companies> companiesArrayList = new ArrayList<Companies>();
-        Companies companies;
+        List<VerifiedCompanies> companiesArrayList = new ArrayList<VerifiedCompanies>();
+        List<GalleryStorage> showcaseList = new ArrayList<GalleryStorage>();
+        VerifiedCompanies companies;
+        GalleryStorage galleryStorage;
         try {
 
             JSONObject  object= response.optJSONObject("ecoachlabs");
@@ -367,41 +371,107 @@ Log.d("was i called ","yes i was called");
                 JSONObject obj = info.getJSONObject(i);
 
 
-                 companies = Companies.getCompaniesByID(obj.getString("id"),Application.getSelectedCategoryID());
+                 companies = VerifiedCompanies.getCompaniesByID(obj.getString("companyCuid"),Application.getSelectedCategoryID());
 
                 if(companies == null){
 
 
                     Log.d("companies","companies was null");
 
-                     companies =   new Companies();
+                     companies =   new VerifiedCompanies();
                 }
                 Log.d("companies","companies was not null");
 
-               companies.setCategory_id(Application.getSelectedCategoryID());
+                companies.setCategory_id(Application.getSelectedCategoryID());
 
-                String company_id = obj.getString("id");
-                companies.setCompany_id(company_id);
+                String company_id = obj.getString("companyCuid");
+                companies.setCompanyCuid(company_id);
 
-                String company_name = obj.getString("company_name");
+                String company_name = obj.getString("companyName");
                 companies.setCompanyName(company_name);
 
 
-                String company_path = obj.getString("path");
+                String company_path = obj.getString("Path");
                 companies.setPath(company_path);
 
 
-                String company_storage = obj.getString("storage");
-                companies.setStorage(company_storage);
+                String company_avator = obj.getString("avatarLocation");
+                companies.setAvatarLocation(company_avator);
+
+
+                String company_rating = obj.getString("companyRating");
+                companies.setCompanyRating(company_rating);
+
+                String address = obj.getString("Address");
+                companies.setAddress(address);
+
+                String bio = obj.getString("Bio");
+                companies.setBio(bio);
+
+
+                String Phone1 = obj.getString("Phone1");
+                companies.setPhone1(Phone1);
+
+
+                String Phone2 = obj.getString("Phone2");
+                companies.setPhone2(Phone2);
+
+                String email = obj.getString("Email");
+                companies.setEmail(email);
+
+
+                String Website = obj.getString("Website");
+                companies.setWebsite(Website);
+
+
+                String companyLat = obj.getString("companyLat");
+                companies.setCompanyLat(companyLat);
+
+
+                String companyLong = obj.getString("companyLong");
+                companies.setCompanyLong(companyLong);
+
+
+                String coverLocation = obj.getString("coverLocation");
+                companies.setCoverLocation(coverLocation);
+
+
+                String companyStorageName = obj.getString("companyStorageName");
+                companies.setCompanyStorageName(companyStorageName);
+
+
+                JSONArray showcase = obj.getJSONArray("showcase");
+
+                for (int A = 0 ; A < showcase.length(); A++) {
+
+                    JSONObject showcaseobj = showcase.getJSONObject(i);
+                    String storageID = showcaseobj.getString("showcaseId");
+                    galleryStorage = GalleryStorage.getStorageSingle(companies.getCompanyCuid(),storageID);
+                    if(galleryStorage == null){
+
+                        galleryStorage = new GalleryStorage();
+
+                    }
+
+                    galleryStorage.setShowcaseId(storageID);
+                    galleryStorage.setCompanyCuid(companies.getCompanyCuid());
+
+                    String showcaseLocation = showcaseobj.getString("showcaseLocation");
+                    galleryStorage.setShowcaseLocation(showcaseLocation);
 
 
 
-                String company_avator = obj.getString("avatar");
-                companies.setAvatar(company_avator);
+                    String showType = showcaseobj.getString("showcaseType");
+                    galleryStorage.setShowcaseType(showType);
 
 
-                String company_rating = obj.getString("rating");
-                companies.setRating(company_rating);
+
+
+                    showcaseList.add(galleryStorage);
+
+
+                }
+
 
                 companiesArrayList.add(companies);
 
@@ -412,11 +482,11 @@ Log.d("was i called ","yes i was called");
             try
             {
 
-                for(Companies center : companiesArrayList){
+                for(VerifiedCompanies verifiedCompanies : companiesArrayList){
 
 
 
-                    Long id =   center.save();
+                    Long id =   verifiedCompanies.save();
 
 
                     Log.d("Company ID", "id"+id);
@@ -424,6 +494,17 @@ Log.d("was i called ","yes i was called");
                 }
 
 
+
+                for(GalleryStorage galleryStorage1 : showcaseList){
+
+
+
+                    Long id =   galleryStorage1.save();
+
+
+                    Log.d("galleryStorage1", "id"+id);
+
+                }
 
                 ActiveAndroid.setTransactionSuccessful();
             }
@@ -435,7 +516,7 @@ Log.d("was i called ","yes i was called");
 
                 //SetRecycleView(view);
             }
-            SetupRecycleview(companiesArrayList);
+           SetupRecycleview(companiesArrayList);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -445,8 +526,10 @@ Log.d("was i called ","yes i was called");
     }
     private void formatJSONLOCAL(JSONObject response){
 
-        List<Companies> companiesArrayList = new ArrayList<Companies>();
-        Companies companies;
+        List<VerifiedCompanies> companiesArrayList = new ArrayList<VerifiedCompanies>();
+        List<GalleryStorage> showcaseList = new ArrayList<GalleryStorage>();
+        VerifiedCompanies companies;
+        GalleryStorage galleryStorage;
         try {
 
             JSONObject  object= response.optJSONObject("ecoachlabs");
@@ -457,41 +540,105 @@ Log.d("was i called ","yes i was called");
                 JSONObject obj = info.getJSONObject(i);
 
 
-                companies = Companies.getCompaniesByID(obj.getString("id"),Application.getSelectedCategoryID());
+                companies = VerifiedCompanies.getCompaniesByID(obj.getString("companyCuid"),Application.getSelectedCategoryID());
 
                 if(companies == null){
 
 
-                    Log.d("companies","companies was null local load");
+                    Log.d("companies","companies was null");
 
-                    companies =   new Companies();
+                    companies =   new VerifiedCompanies();
                 }
-                Log.d("companies","companies was not null local load");
+                Log.d("companies","companies was not null");
 
                 companies.setCategory_id(Application.getSelectedCategoryID());
 
-                String company_id = obj.getString("id");
-                companies.setCompany_id(company_id);
+                String company_id = obj.getString("companyCuid");
+                companies.setCompanyCuid(company_id);
 
-                String company_name = obj.getString("company_name");
+                String company_name = obj.getString("companyName");
                 companies.setCompanyName(company_name);
 
 
-                String company_path = obj.getString("path");
+                String company_path = obj.getString("Path");
                 companies.setPath(company_path);
 
 
-                String company_storage = obj.getString("storage");
-                companies.setStorage(company_storage);
+                String company_avator = obj.getString("avatarLocation");
+                companies.setAvatarLocation(company_avator);
+
+
+                String company_rating = obj.getString("companyRating");
+                companies.setCompanyRating(company_rating);
+
+                String address = obj.getString("Address");
+                companies.setAddress(address);
+
+                String bio = obj.getString("Bio");
+                companies.setBio(bio);
+
+
+                String Phone1 = obj.getString("Phone1");
+                companies.setPhone1(Phone1);
+
+
+                String Phone2 = obj.getString("Phone2");
+                companies.setPhone2(Phone2);
+
+                String email = obj.getString("Email");
+                companies.setEmail(email);
+
+
+                String Website = obj.getString("Website");
+                companies.setWebsite(Website);
+
+
+                String companyLat = obj.getString("companyLat");
+                companies.setCompanyLat(companyLat);
+
+
+                String companyLong = obj.getString("companyLong");
+                companies.setCompanyLong(companyLong);
+
+
+                String coverLocation = obj.getString("coverLocation");
+                companies.setCoverLocation(coverLocation);
+
+
+                String companyStorageName = obj.getString("companyStorageName");
+                companies.setCompanyStorageName(companyStorageName);
+
+
+                JSONArray showcase = obj.getJSONArray("showcase");
+
+                for (int A = 0 ; A < showcase.length(); A++) {
+
+                    JSONObject showcaseobj = showcase.getJSONObject(i);
+                    String storageID = showcaseobj.getString("showcaseId");
+                    galleryStorage = GalleryStorage.getStorageSingle(companies.getCompanyCuid(),storageID);
+                    if(galleryStorage == null){
+
+                        galleryStorage = new GalleryStorage();
+
+                    }
+                    galleryStorage.setCompanyCuid(companies.getCompanyCuid());
+
+                    String showcaseLocation = showcaseobj.getString("showcaseLocation");
+                    galleryStorage.setShowcaseLocation(showcaseLocation);
 
 
 
-                String company_avator = obj.getString("avatar");
-                companies.setAvatar(company_avator);
+                    String showType = showcaseobj.getString("showcaseType");
+                    galleryStorage.setShowcaseType(showType);
 
 
-                String company_rating = obj.getString("rating");
-                companies.setRating(company_rating);
+
+
+                    showcaseList.add(galleryStorage);
+
+
+                }
+
 
                 companiesArrayList.add(companies);
 
@@ -502,11 +649,11 @@ Log.d("was i called ","yes i was called");
             try
             {
 
-                for(Companies center : companiesArrayList){
+                for(VerifiedCompanies verifiedCompanies : companiesArrayList){
 
 
 
-                    Long id =   center.save();
+                    Long id =   verifiedCompanies.save();
 
 
                     Log.d("Company ID", "id"+id);
@@ -514,6 +661,17 @@ Log.d("was i called ","yes i was called");
                 }
 
 
+
+                for(GalleryStorage galleryStorage1 : showcaseList){
+
+
+
+                    Long id =   galleryStorage1.save();
+
+
+                    Log.d("galleryStorage1", "id"+id);
+
+                }
 
                 ActiveAndroid.setTransactionSuccessful();
             }
@@ -525,7 +683,9 @@ Log.d("was i called ","yes i was called");
 
                 //SetRecycleView(view);
             }
-            //SetupRecycleview(companiesArrayList);
+
+
+
             companiesAdapter.notifyDataSetChanged();
             recyclerView.setAdapter(companiesAdapter);
             recyclerView.setLayoutManager(linearLayoutManager);

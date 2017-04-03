@@ -3,13 +3,18 @@ package com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities;
 import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.widget.ListView;
 
 import com.ecoach.cosapp.Application.Application;
+import com.ecoach.cosapp.DataBase.GalleryStorage;
+import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.ListViewAdapter.DetailsListViewAdapter;
 import com.ecoach.cosapp.Models.Company;
 import com.ecoach.cosapp.Models.DetailsItem;
 import com.ecoach.cosapp.R;
+import com.ecoach.cosapp.RecycleAdapters.ImageGalleryAdapter;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -20,7 +25,7 @@ public class Details extends Activity {
 
     ListView listView;
     List<DetailsItem> detailsItems = new ArrayList<>();
-
+RecyclerView recycleGallery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +33,7 @@ public class Details extends Activity {
         setContentView(R.layout.activity_details);
 
         setViews();
+        setGalleryImages();
     }
 
 
@@ -37,17 +43,17 @@ public class Details extends Activity {
 
 
 
-        Company company = Application.getSelectedCompanyObbject();
+        VerifiedCompanies company = Application.getSelectedCompanyObbject();
 
 
 
 
-        detailsItems.add(new DetailsItem(Details.this.getResources().getString(R.string.fa_addressbook),company.getCompany_address()));
-        detailsItems.add(new DetailsItem(Details.this.getResources().getString(R.string.fa_phone),company.getCompany_phoneOne()));
-        detailsItems.add(new DetailsItem(Details.this.getResources().getString(R.string.fa_phone),company.getCompany_phonetwo()));
+        detailsItems.add(new DetailsItem(Details.this.getResources().getString(R.string.fa_addressbook),company.getAddress()));
+        detailsItems.add(new DetailsItem(Details.this.getResources().getString(R.string.fa_phone),company.getPhone1()));
+        detailsItems.add(new DetailsItem(Details.this.getResources().getString(R.string.fa_phone),company.getPhone2()));
 
-        detailsItems.add(new DetailsItem(Details.this.getResources().getString(R.string.fa_envelope),company.getCompany_email()));
-        detailsItems.add(new DetailsItem(Details.this.getResources().getString(R.string.fa_globe),company.getCompany_website()));
+        detailsItems.add(new DetailsItem(Details.this.getResources().getString(R.string.fa_envelope),company.getEmail()));
+        detailsItems.add(new DetailsItem(Details.this.getResources().getString(R.string.fa_globe),company.getWebsite()));
       //  detailsItems.add(new DetailsItem(R.mipmap.ic_adressbook,"dsdsdsd"));
 
 
@@ -58,6 +64,18 @@ public class Details extends Activity {
         listView .setAdapter(customAdapter);
 
     }
+    void setGalleryImages(){
+
+        recycleGallery =
+                (RecyclerView)findViewById(R.id.recycleGallery);
+
+        ImageGalleryAdapter recommendationAdapter = new ImageGalleryAdapter(Details.this, GalleryStorage.getCompanyGalleryItemsByCompanyID(Application.getSelectedCompanyObbject().getCompanyCuid()));
+        recycleGallery.setAdapter(recommendationAdapter);
+        recycleGallery.setLayoutManager(new LinearLayoutManager(Details.this, LinearLayoutManager.HORIZONTAL, false));
+
+    }
+
+
 
 
 

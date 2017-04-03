@@ -13,6 +13,7 @@
             android:layout_height="match_parent">
 
             <com.wang.avi.AVLoadingIndicatorView
+
                 android:layout_marginTop="50dp"
                 android:id="@+id/avi"
                 style="@style/AVLoadingIndicatorView"
@@ -21,7 +22,7 @@
                 android:layout_centerInParent="false"
                 android:layout_centerHorizontal="true"
 
-                android:visibility="visible"
+                android:visibility="invisible"
                 app:indicatorColor="@color/colorPrimary"
                 app:indicatorName="BallSpinFadeLoaderIndicator"
                 tools:layout_editor_absoluteX="179dp"

@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:padding="16dp"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context="com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Details">
 
    <ListView
        android:id="@+id/itemDetails"
        android:layout_width="match_parent"
-       android:layout_height="500dp"
-       android:layout_alignParentTop="true"></ListView>
+       android:layout_height="200dp"/>
 
-   <ImageView
-       android:layout_below="@+id/itemDetails"
-       android:id="@+id/imageView3"
+
+   <android.support.v7.widget.RecyclerView
+       android:id="@+id/recycleGallery"
        android:layout_width="match_parent"
-       android:layout_height="150dp"
-       android:scaleType="fitXY"
-       app:srcCompat="@drawable/image1" />
+       android:layout_height="143dp"
+       android:layout_alignParentBottom="true"
+       android:layout_below="@+id/itemDetails" />
 
-</RelativeLayout>
+</LinearLayout>

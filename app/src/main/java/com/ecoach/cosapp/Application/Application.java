@@ -13,6 +13,8 @@ import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Companies;
+import com.ecoach.cosapp.DataBase.GalleryStorage;
+import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.Models.Company;
 import com.ecoach.cosapp.R;
 
@@ -33,7 +35,7 @@ public class Application extends android.app.Application {
     public static String selectedCompanyID;
     public static String selectedCompanyName;
 
-    public static Company selectedCompanyObbject;
+    public static VerifiedCompanies selectedCompanyObbject;
 
     private static Context context;
 
@@ -74,19 +76,21 @@ public class Application extends android.app.Application {
         Configuration.Builder configurationBuilder = new Configuration.Builder(this);
 
 
-      configurationBuilder.addModelClasses(Categories.class);
+        configurationBuilder.addModelClasses(Categories.class);
         configurationBuilder.addModelClass(Companies.class);
-      //  configurationBuilder.addModelClass(Appointments.class);
+        configurationBuilder.addModelClass(GalleryStorage.class);
+        configurationBuilder.addModelClass(VerifiedCompanies.class);
+
 
         ActiveAndroid.initialize(configurationBuilder.create());
     }
 
 
-    public static Company getSelectedCompanyObbject() {
+    public static VerifiedCompanies getSelectedCompanyObbject() {
         return selectedCompanyObbject;
     }
 
-    public static void setSelectedCompanyObbject(Company selectedCompanyObbject) {
+    public static void setSelectedCompanyObbject(VerifiedCompanies selectedCompanyObbject) {
         Application.selectedCompanyObbject = selectedCompanyObbject;
     }
 

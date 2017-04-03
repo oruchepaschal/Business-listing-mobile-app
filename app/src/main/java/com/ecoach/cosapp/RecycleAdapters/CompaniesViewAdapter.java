@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.ecoach.cosapp.DataBase.Companies;
+import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.R;
 import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.squareup.picasso.Picasso;
@@ -35,10 +36,10 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 public class CompaniesViewAdapter extends RecyclerView.Adapter<CompaniesViewAdapterViewHolder>  {
     private Context context;
     private LayoutInflater inflater;
-    List<Companies> data= Collections.emptyList();
+    List<VerifiedCompanies> data= Collections.emptyList();
     View view=null;
 
-    public CompaniesViewAdapter(Context context, List<Companies> data) {
+    public CompaniesViewAdapter(Context context, List<VerifiedCompanies> data) {
         inflater= LayoutInflater.from(context);
         this.data=data;
         this.context=context;
@@ -63,18 +64,18 @@ public class CompaniesViewAdapter extends RecyclerView.Adapter<CompaniesViewAdap
     public void onBindViewHolder(CompaniesViewAdapterViewHolder
                                          holder, int position) {
 
-        final Companies items=data.get(position);
+        final VerifiedCompanies items=data.get(position);
 
 
-        holder.txthiddenId.setText(items.getCompany_id());
+        holder.txthiddenId.setText(items.getCompanyCuid());
         holder.labelTxt.setText(items.getCompanyName().toString());
 
 
-        Log.d("Avator",items.getAvatar());
+        Log.d("Avator",items.getAvatarLocation());
 
 //let finalPath = paths[indexPath.row] + "" + storages[indexPath.row] + "/" +  avators[indexPath.row]
 
-        String avatorPath= items.getPath()+items.getStorage()+"/"+items.getAvatar();
+        String avatorPath= items.getPath()+items.getCompanyStorageName()+"/"+items.getAvatarLocation();
 
         TextDrawable drawable = TextDrawable.builder()
                 .buildRoundRect(items.getCompanyName().toString().substring(0,1), context.getResources().getColor(R.color.colorPrimary), 10); // radius in px
@@ -89,7 +90,7 @@ public class CompaniesViewAdapter extends RecyclerView.Adapter<CompaniesViewAdap
 
 
         holder.ratingBar.setNumStars(5);
-        holder.ratingBar.setRating((float)Double.parseDouble(items.getRating()));
+        holder.ratingBar.setRating((float)Double.parseDouble(items.getCompanyRating()));
     }
 
     @Override
