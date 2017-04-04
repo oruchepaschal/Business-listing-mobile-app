@@ -141,6 +141,12 @@ public class MainActivity extends AppCompatActivity
                 nav_user.setText("You are not logged in");
                 navigationView.getMenu().findItem(R.id.login).setVisible(true);
                 navigationView.getMenu().findItem(R.id.logout).setVisible(false);
+
+
+                //check if user is a rep
+
+                navigationView.getMenu().findItem(R.id.manage).setVisible(false);
+                navigationView.getMenu().findItem(R.id.stats).setVisible(false);
             }
 
         }catch (Exception e){
@@ -266,6 +272,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.recent) {
 
         } else if (id == R.id.comp) {
+
+            Intent intent = new Intent(MainActivity.this,ManangeCompanies.class);
+            startActivity(intent);
 
         } else if (id == R.id.manage) {
 

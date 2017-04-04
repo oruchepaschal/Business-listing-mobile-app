@@ -56,7 +56,8 @@
         <activity android:name=".Activites.UserAccounts.LoginActivity" />
         <activity android:name=".Activites.UserAccounts.CreateAccount" />
         <activity android:name=".Activites.GalleryImageExplorer" />
-        <activity android:name=".Activites.UserAccounts.ProfileEditActivity"></activity>
+        <activity android:name=".Activites.UserAccounts.ProfileEditActivity" />
+        <activity android:name=".Activites.ManangeCompanies"></activity>
     </application>
 
 </manifest>
