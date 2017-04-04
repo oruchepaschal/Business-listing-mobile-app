@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -40,6 +41,7 @@ public class LoginActivity extends AppCompatActivity {
 
     Button createAccountButton,loginButton;
     EditText usernameEdt,passwordEdt;
+    TextView forgotpassword;
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
     @Override
@@ -78,6 +80,16 @@ public class LoginActivity extends AppCompatActivity {
         usernameEdt = (EditText)findViewById(R.id.usernameEdt);
         passwordEdt = (EditText)findViewById(R.id.passwordEdt);
 
+    }
+
+    private void initTetView(){
+        forgotpassword = (TextView) findViewById(R.id.forgotpassword);
+forgotpassword.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        startActivity(new Intent(getApplicationContext(), ResetPassword.class));
+    }
+});
     }
     private void initViews() {
 

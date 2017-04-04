@@ -51,7 +51,7 @@
             android:text="Login" />
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/forgotpassword"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignEnd="@+id/loginButton"
@@ -65,11 +65,10 @@
             android:id="@+id/createAccountButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/textView2"
-            android:layout_alignStart="@+id/textView2"
-            android:layout_below="@+id/textView2"
-            android:layout_marginTop="12dp"
-            android:text="Create Account" />
+            android:layout_marginTop="15dp"
+            android:text="Create Account"
+            android:layout_below="@+id/forgotpassword"
+            android:layout_centerHorizontal="true" />
 
     </RelativeLayout>
 
