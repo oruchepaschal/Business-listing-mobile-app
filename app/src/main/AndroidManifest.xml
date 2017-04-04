@@ -43,6 +43,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -54,7 +55,8 @@
         <activity android:name=".Activites.SearchActivity" />
         <activity android:name=".Activites.UserAccounts.LoginActivity" />
         <activity android:name=".Activites.UserAccounts.CreateAccount" />
-        <activity android:name=".Activites.GalleryImageExplorer"></activity>
+        <activity android:name=".Activites.GalleryImageExplorer" />
+        <activity android:name=".Activites.UserAccounts.ProfileEditActivity"></activity>
     </application>
 
 </manifest>

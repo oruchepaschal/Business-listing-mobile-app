@@ -15,24 +15,24 @@
 
         <EditText
             android:drawableStart="@drawable/account_outline"
-            android:id="@+id/editText"
+            android:id="@+id/usernameEdt"
             android:drawablePadding="10dp"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
             android:hint="Username"
-            android:layout_above="@+id/editText2"
+            android:layout_above="@+id/passwordEdt"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="23dp" />
 
         <EditText
             android:drawableStart="@drawable/lock"
-            android:id="@+id/editText2"
+            android:id="@+id/passwordEdt"
             android:layout_width="300dp"
             android:drawablePadding="10dp"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/editText"
+            android:layout_alignEnd="@+id/usernameEdt"
             android:layout_centerVertical="true"
             android:ems="10"
             android:inputType="textPassword"
@@ -44,9 +44,9 @@
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/editText2"
-            android:layout_alignStart="@+id/editText2"
-            android:layout_below="@+id/editText2"
+            android:layout_alignEnd="@+id/passwordEdt"
+            android:layout_alignStart="@+id/passwordEdt"
+            android:layout_below="@+id/passwordEdt"
             android:layout_marginTop="17dp"
             android:text="Login" />
 

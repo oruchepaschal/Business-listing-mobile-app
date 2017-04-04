@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ecoach.cosapp.Activites.UserAccounts.ProfileEditActivity">
+<RelativeLayout
+    android:id="@+id/topRelayout"
+    android:padding="5dp"
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:scaleType="centerInside"
+        android:id="@+id/imageButton"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/ic_menu_edit"
+        android:layout_marginEnd="9dp"
+        android:layout_alignTop="@+id/imageView"
+        android:layout_alignEnd="@+id/imageView"
+        android:layout_marginTop="14dp" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        app:civ_border_width="1dp"
+        app:civ_border_color="@android:color/white"
+        android:scaleType="centerCrop"
+        android:id="@+id/imageView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:paddingTop="@dimen/nav_header_vertical_spacing"
+        android:src="@drawable/account_outline"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:textColor="@android:color/white"
+        android:padding="5dp"
+        android:textAlignment="center"
+        android:text="Your Name "
+        android:layout_below="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+
+</RelativeLayout>
+
+    <ViewFlipper
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/viewFlipper"
+        android:layout_marginTop="2dp"
+        android:layout_below="@+id/topRelayout"
+        android:layout_alignParentStart="true">
+        <RelativeLayout
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:id="@+id/personalTXT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="9dp"
+                android:padding="10dp"
+                android:text="Personal Information"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+            <EditText
+                android:id="@+id/surnameEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/personalTXT"
+                android:layout_centerHorizontal="true"
+                android:ems="10"
+                android:hint="Surname"
+                android:inputType="text" />
+
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/surnameEdt"
+                android:id="@+id/firstEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:ems="10"
+                android:hint="First Name"
+                android:inputType="text" />
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_below="@+id/firstEdt"
+                android:id="@+id/emailedt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
+
+            <EditText
+                android:layout_marginTop="5dp"
+                android:id="@+id/phoneEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="Phone"
+                android:inputType="phone"
+                android:layout_below="@+id/emailedt"
+                android:layout_centerHorizontal="true" />
+
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_below="@+id/phoneEdt"
+                android:id="@+id/buttonLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:gravity="center"
+                    android:id="@+id/backButton"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Submit new changes"
+
+                    android:layout_alignParentEnd="true" />
+
+                <Button
+                    android:gravity="center"
+                    android:id="@+id/changePassword"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Change Password" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+        <RelativeLayout
+            android:padding="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/passwordChangeTXT"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="1dp"
+                android:padding="10dp"
+                android:text="Update Password"
+                android:textAlignment="center"
+                android:textStyle="bold" />
+
+            <EditText
+                android:layout_below="@+id/passwordChangeTXT"
+                android:id="@+id/passwordEdt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:hint="Old Password"
+                android:inputType="textPassword"
+                android:layout_alignParentEnd="true" />
+            <EditText
+                android:id="@+id/passwordEdt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:hint="New Password"
+                android:inputType="textPassword"
+                android:layout_below="@+id/passwordEdt"
+                android:layout_alignParentEnd="true" />
+
+            <EditText
+                android:id="@+id/passwordEdt2confirm"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:hint="Confirm  Password"
+                android:inputType="textPassword"
+                android:layout_below="@+id/passwordEdt2"
+                android:layout_alignParentEnd="true" />
+
+            <RelativeLayout
+                android:gravity="center"
+                android:layout_below="@+id/passwordEdt2confirm"
+                android:id="@+id/buttonLayout2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:gravity="center"
+                    android:id="@+id/updatePassword"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Submit"
+
+                    android:layout_alignParentEnd="true" />
+
+                <Button
+                    android:gravity="center"
+                    android:id="@+id/backbutton"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:text="Back" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+
+
+
+    </ViewFlipper>
+
+
+</RelativeLayout>

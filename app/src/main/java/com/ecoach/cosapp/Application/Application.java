@@ -11,9 +11,11 @@ import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
+import com.ecoach.cosapp.DataBase.AppInstanceSettings;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Companies;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
+import com.ecoach.cosapp.DataBase.User;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.Models.Company;
 import com.ecoach.cosapp.R;
@@ -80,7 +82,8 @@ public class Application extends android.app.Application {
         configurationBuilder.addModelClass(Companies.class);
         configurationBuilder.addModelClass(GalleryStorage.class);
         configurationBuilder.addModelClass(VerifiedCompanies.class);
-
+        configurationBuilder.addModelClass(User.class);
+        configurationBuilder.addModelClass(AppInstanceSettings.class);
 
         ActiveAndroid.initialize(configurationBuilder.create());
     }

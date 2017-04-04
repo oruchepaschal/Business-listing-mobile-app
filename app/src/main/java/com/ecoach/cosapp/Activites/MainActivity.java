@@ -18,18 +18,26 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.ecoach.cosapp.Activites.UserAccounts.LoginActivity;
+import com.ecoach.cosapp.Activites.UserAccounts.ProfileEditActivity;
+import com.ecoach.cosapp.DataBase.AppInstanceSettings;
+import com.ecoach.cosapp.DataBase.User;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
+import de.hdodenhof.circleimageview.CircleImageView;
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
 import com.ecoach.cosapp.layout.CategoriesFragment;
 import com.ecoach.cosapp.layout.HomeFragment;
 import com.ecoach.cosapp.layout.RecentFragment;
+import com.jakewharton.processphoenix.ProcessPhoenix;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MaterialTabListener,HomeFragment.OnFragmentInteractionListener, CategoriesFragment.OnFragmentInteractionListener, RecentFragment.OnFragmentInteractionListener{
@@ -37,9 +45,13 @@ public class MainActivity extends AppCompatActivity
     ViewPagerAdapter pagerAdapter;
     MaterialTabHost tabHost;
     ViewPager pager;
+    AppInstanceSettings appInstanceSettings;
+    User user;
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
+ private boolean isLoggedIn = false;
 
+    TextView userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,11 +79,74 @@ public class MainActivity extends AppCompatActivity
 
 
         // find MenuItem you want to change
-        MenuItem loginOLogout = menu.findItem(R.id.logout);
-        loginOLogout.setTitle("Login");
+        //MenuItem loginOLogout = menu.findItem(R.id.logout);
+       // loginOLogout.setTitle("Login");
         //loginOLogout.se
         navigationView.setNavigationItemSelectedListener(this);
         setTabHost();
+
+
+
+        setNavHeaderItems(navigationView);
+
+
+    }
+
+
+    private void setNavHeaderItems(NavigationView navigationView){
+
+        View hView =  navigationView.getHeaderView(0);
+        TextView nav_user = (TextView)hView.findViewById(R.id.userName);
+        TextView nav_email = (TextView)hView.findViewById(R.id.userEmail);
+
+        CircleImageView imageView = (CircleImageView)hView.findViewById(R.id.imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if(appInstanceSettings.isloggedIn() == false){
+                    new SweetAlertDialog(MainActivity.this)
+                            .setTitleText("You need to login !")
+                            .show();
+
+                }else{
+                    Intent intent = new Intent(MainActivity.this,ProfileEditActivity.class);
+                    startActivity(intent);
+
+                }
+
+
+
+            }
+        });
+
+
+        try{
+             appInstanceSettings = AppInstanceSettings.load(AppInstanceSettings.class,1);
+             user = User.getUserByKey(appInstanceSettings.getUserkey());
+
+            isLoggedIn = appInstanceSettings.isloggedIn();
+
+
+
+            if(isLoggedIn ){
+
+                nav_user.setText(user.getFname() + " " + user.getLname());
+                nav_email.setText(user.getEmail());
+
+                navigationView.getMenu().findItem(R.id.login).setVisible(false);
+                navigationView.getMenu().findItem(R.id.logout).setVisible(true);
+            }else{
+
+                nav_user.setText("You are not logged in");
+                navigationView.getMenu().findItem(R.id.login).setVisible(true);
+                navigationView.getMenu().findItem(R.id.logout).setVisible(false);
+            }
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
 
 
 
@@ -109,6 +184,40 @@ public class MainActivity extends AppCompatActivity
             );
 
         }
+
+
+
+    }
+
+    private void logout(){
+
+        new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("Logout!")
+                .setContentText("Are you sure you want to logout ?")
+                .setCancelText("No")
+                .setConfirmText("Yes")
+                .showCancelButton(true)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                        AppInstanceSettings appInstanceSettings = AppInstanceSettings.load(AppInstanceSettings.class,1);
+
+                        appInstanceSettings.setIsloggedIn(false);
+                        appInstanceSettings.save();
+
+
+                        ProcessPhoenix.triggerRebirth(MainActivity.this);
+                    }
+                })
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.cancel();
+                    }
+
+                })
+                .show();
+
 
 
 
@@ -165,6 +274,10 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.share) {
 
         } else if (id == R.id.logout){
+
+            logout();
+
+        }else if(id == R.id.login){
 
             Intent intent = new Intent(MainActivity.this,LoginActivity.class);
             startActivity(intent);

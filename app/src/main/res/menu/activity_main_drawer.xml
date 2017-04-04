@@ -34,6 +34,12 @@
                 android:id="@+id/logout"
                 android:icon="@drawable/logout"
                 android:title="Logout" />
+
+            <item
+                android:id="@+id/login"
+                android:icon="@drawable/logout"
+                android:title="Login"
+                android:visible="false" />
         </menu>
 </item>
 </menu>

@@ -9,7 +9,7 @@
         android:id="@+id/imageView4"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="9dp"
         android:src="@drawable/account_circle"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
@@ -70,6 +70,17 @@
                 android:hint="Password"
                 android:inputType="textPassword"
                 android:layout_below="@+id/phoneEdt"
+                android:layout_alignStart="@+id/phoneEdt"
+                android:layout_alignParentEnd="true" />
+            <EditText
+                android:id="@+id/passwordEdt2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp"
+                android:ems="10"
+                android:hint="Confirm Password"
+                android:inputType="textPassword"
+                android:layout_below="@+id/passwordEdt"
                 android:layout_alignStart="@+id/phoneEdt"
                 android:layout_alignParentEnd="true" />
 
@@ -138,6 +149,24 @@
                 android:ems="10"
                 android:hint="eg. Home or Office"
                 android:inputType="textPersonName" />
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_below="@+id/locationNameEdt"
+                android:id="@+id/clicktopick"
+                android:layout_width="match_parent"
+                android:text="Click to Pick Location"
+                android:layout_height="wrap_content" />
+
+            <ImageButton
+               android:layout_marginTop="20dp"
+               android:layout_centerInParent="true"
+                android:layout_below="@+id/clicktopick"
+                android:scaleType="fitCenter"
+                android:id="@+id/mapButton"
+                android:src="@drawable/location_pin"
+                android:layout_width="200dp"
+                android:layout_height="100dp" />
         </RelativeLayout>
         <RelativeLayout
             android:padding="20dp"
@@ -148,9 +177,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
+                android:id="@+id/summaryHead"
                 android:text="Summary"
                 android:textAlignment="center"
                 android:textStyle="bold" />
+            <ListView
+                android:id="@+id/summaryList"
+                android:layout_below="@+id/summaryHead"
+                android:layout_width="wrap_content"
+                android:layout_height="250dp">
+
+
+            </ListView>
 
         </RelativeLayout>
 
@@ -164,6 +202,7 @@
 
 <LinearLayout
     android:padding="5dp"
+    android:visibility="gone"
     android:orientation="horizontal"
     android:gravity="center"
     android:layout_width="200dp"
