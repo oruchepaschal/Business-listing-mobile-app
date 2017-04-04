@@ -115,6 +115,8 @@ forgotpassword.setOnClickListener(new View.OnClickListener() {
                 ValiedateLogin();
             }
         });
+
+        initTetView();
     }
 
     SweetAlertDialog pDialog;

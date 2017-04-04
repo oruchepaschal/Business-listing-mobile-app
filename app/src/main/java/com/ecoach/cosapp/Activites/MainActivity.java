@@ -151,6 +151,9 @@ public class MainActivity extends AppCompatActivity
 
         }catch (Exception e){
 
+            navigationView.getMenu().findItem(R.id.login).setVisible(true);
+            navigationView.getMenu().findItem(R.id.logout).setVisible(false);
+
             e.printStackTrace();
         }
 

@@ -31,6 +31,7 @@
                 android:icon="@drawable/share_variant"
                 android:title="Share CosApp" />
             <item
+                android:visible="false"
                 android:id="@+id/logout"
                 android:icon="@drawable/logout"
                 android:title="Logout" />
