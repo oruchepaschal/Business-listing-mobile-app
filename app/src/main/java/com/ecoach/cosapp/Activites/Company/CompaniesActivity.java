@@ -1,19 +1,15 @@
-package com.ecoach.cosapp.Activites;
+package com.ecoach.cosapp.Activites.Company;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.GestureDetector;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
 import android.widget.TextView;
 
 import com.activeandroid.ActiveAndroid;
@@ -31,15 +27,12 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.ecoach.cosapp.Application.Application;
-import com.ecoach.cosapp.DataBase.Categories;
-import com.ecoach.cosapp.DataBase.Companies;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.Http.APIRequest;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
 import com.ecoach.cosapp.RecycleAdapters.CompaniesViewAdapter;
-import com.ecoach.cosapp.RecycleAdapters.MainCategoryAdapter;
 import com.wang.avi.AVLoadingIndicatorView;
 
 import org.json.JSONArray;
@@ -50,8 +43,6 @@ import java.util.HashMap;
 import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
-
-import static com.activeandroid.Cache.getContext;
 
 public class CompaniesActivity extends AppCompatActivity {
 

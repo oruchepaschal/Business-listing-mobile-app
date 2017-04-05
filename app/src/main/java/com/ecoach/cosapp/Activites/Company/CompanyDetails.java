@@ -1,63 +1,28 @@
-package com.ecoach.cosapp.Activites;
+package com.ecoach.cosapp.Activites.Company;
 
 import android.app.LocalActivityManager;
-import android.app.TabActivity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.AttributeSet;
-import android.util.Log;
-import android.view.View;
-import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
-import com.android.volley.AuthFailureError;
-import com.android.volley.DefaultRetryPolicy;
-import com.android.volley.NetworkError;
-import com.android.volley.NoConnectionError;
-import com.android.volley.ParseError;
-import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.RetryPolicy;
-import com.android.volley.ServerError;
-import com.android.volley.TimeoutError;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Details;
 import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Map;
 import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Profile;
 import com.ecoach.cosapp.Application.Application;
-import com.ecoach.cosapp.DataBase.Companies;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
-import com.ecoach.cosapp.Http.APIRequest;
 import com.ecoach.cosapp.Http.VolleySingleton;
-import com.ecoach.cosapp.Models.Company;
 import com.ecoach.cosapp.R;
-import com.ecoach.cosapp.RecycleAdapters.CompaniesViewAdapter;
 import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
-import com.wang.avi.AVLoadingIndicatorView;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;

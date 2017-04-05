@@ -11,14 +11,17 @@
             android:icon="@drawable/comment_processing_outline"
             android:title="Recent Chats" />
         <item
+
             android:id="@+id/comp"
             android:icon="@drawable/domain"
             android:title="My Company" />
         <item
+            android:visible="false"
             android:id="@+id/manage"
             android:icon="@drawable/account_circle"
             android:title="Manage Reps" />
         <item
+            android:visible="false"
             android:id="@+id/stats"
             android:icon="@drawable/chart_line"
             android:title="Statistics" />
@@ -40,7 +43,7 @@
                 android:id="@+id/login"
                 android:icon="@drawable/logout"
                 android:title="Login"
-                android:visible="false" />
+                android:visible="true" />
         </menu>
 </item>
 </menu>

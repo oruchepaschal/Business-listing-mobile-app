@@ -3,7 +3,6 @@ package com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -13,20 +12,16 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.ecoach.cosapp.Activites.CompaniesActivity;
 import com.ecoach.cosapp.Activites.GalleryImageExplorer;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.ListViewAdapter.DetailsListViewAdapter;
-import com.ecoach.cosapp.Models.Company;
 import com.ecoach.cosapp.Models.DetailsItem;
 import com.ecoach.cosapp.R;
 import com.ecoach.cosapp.RecycleAdapters.ImageGalleryAdapter;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 
 public class Details extends Activity {

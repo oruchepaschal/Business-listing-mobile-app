@@ -1,4 +1,4 @@
-package com.ecoach.cosapp.layout;
+package com.ecoach.cosapp.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -18,13 +17,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.ecoach.cosapp.Activites.CompaniesActivity;
+import com.ecoach.cosapp.Activites.Company.CompaniesActivity;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.R;
-import com.ecoach.cosapp.RecycleAdapters.CategoriesAdapter;
 import com.ecoach.cosapp.RecycleAdapters.MainCategoryAdapter;
-import com.ecoach.cosapp.RecycleAdapters.RecommendationAdapter;
 
 /**
  * A simple {@link Fragment} subclass.

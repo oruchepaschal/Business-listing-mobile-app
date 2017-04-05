@@ -18,10 +18,10 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
+import com.ecoach.cosapp.Activites.Company.ManangeMyCompanies;
 import com.ecoach.cosapp.Activites.UserAccounts.LoginActivity;
 import com.ecoach.cosapp.Activites.UserAccounts.ProfileEditActivity;
 import com.ecoach.cosapp.DataBase.AppInstanceSettings;
@@ -34,9 +34,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import it.neokree.materialtabs.MaterialTab;
 import it.neokree.materialtabs.MaterialTabHost;
 import it.neokree.materialtabs.MaterialTabListener;
-import com.ecoach.cosapp.layout.CategoriesFragment;
-import com.ecoach.cosapp.layout.HomeFragment;
-import com.ecoach.cosapp.layout.RecentFragment;
+import com.ecoach.cosapp.Fragments.CategoriesFragment;
+import com.ecoach.cosapp.Fragments.HomeFragment;
+import com.ecoach.cosapp.Fragments.RecentFragment;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
 public class MainActivity extends AppCompatActivity
@@ -276,7 +276,7 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.comp) {
 
-            Intent intent = new Intent(MainActivity.this,ManangeCompanies.class);
+            Intent intent = new Intent(MainActivity.this,ManangeMyCompanies.class);
             startActivity(intent);
 
         } else if (id == R.id.manage) {

@@ -1,13 +1,11 @@
-package com.ecoach.cosapp.layout;
+package com.ecoach.cosapp.Fragments;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,7 +16,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.activeandroid.ActiveAndroid;
@@ -35,7 +32,7 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.ecoach.cosapp.Activites.CompaniesActivity;
+import com.ecoach.cosapp.Activites.Company.CompaniesActivity;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.Http.APIRequest;

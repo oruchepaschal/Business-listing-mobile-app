@@ -47,8 +47,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activites.CompaniesActivity" />
-        <activity android:name=".Activites.CompanyDetails" />
+        <activity android:name=".Activites.Company.CompaniesActivity" />
+        <activity android:name=".Activites.Company.CompanyDetails" />
         <activity android:name=".Activites.CompanyDetailsTabbedActivities.Profile" />
         <activity android:name=".Activites.CompanyDetailsTabbedActivities.Map" />
         <activity android:name=".Activites.CompanyDetailsTabbedActivities.Details" />
@@ -57,8 +57,9 @@
         <activity android:name=".Activites.UserAccounts.CreateAccount" />
         <activity android:name=".Activites.GalleryImageExplorer" />
         <activity android:name=".Activites.UserAccounts.ProfileEditActivity" />
-        <activity android:name=".Activites.ManangeCompanies" />
-        <activity android:name=".Activites.UserAccounts.ResetPassword"></activity>
+        <activity android:name=".Activites.Company.ManangeMyCompanies" />
+        <activity android:name=".Activites.UserAccounts.ResetPassword" />
+        <activity android:name=".Activites.Company.Addcompany"></activity>
     </application>
 
 </manifest>

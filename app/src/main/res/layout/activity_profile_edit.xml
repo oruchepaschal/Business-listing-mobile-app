@@ -121,21 +121,24 @@
                 android:id="@+id/buttonLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <Button
-                    android:gravity="center"
                     android:id="@+id/backButton"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="Submit new changes"
+                    android:layout_alignParentEnd="true"
+                    android:gravity="center"
 
-                    android:layout_alignParentEnd="true" />
+                    android:text="Submit new changes"
+                    android:textSize="10sp" />
 
                 <Button
-                    android:gravity="center"
                     android:id="@+id/changePassword"
                     android:layout_width="150dp"
                     android:layout_height="wrap_content"
-                    android:text="Change Password" />
+                    android:gravity="center"
+                    android:text="Change Password"
+                    android:textSize="10sp" />
 
             </RelativeLayout>
 

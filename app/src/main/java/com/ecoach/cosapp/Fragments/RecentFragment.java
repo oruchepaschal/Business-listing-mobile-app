@@ -1,4 +1,4 @@
-package com.ecoach.cosapp.layout;
+package com.ecoach.cosapp.Fragments;
 
 import android.content.Context;
 import android.net.Uri;
