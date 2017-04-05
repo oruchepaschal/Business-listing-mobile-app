@@ -15,92 +15,7 @@
 
 
 
-       <RelativeLayout
-           android:layout_margin="10dp"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent">
 
-           <TextView
-               android:padding="10dp"
-               android:id="@+id/textlabel"
-               android:text="Chat Page Background"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content" />
-
-           <RelativeLayout
-               android:layout_below="@+id/textlabel"
-               android:id="@+id/colorpickerlayout"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
-               <com.flask.colorpicker.ColorPickerView
-
-                   android:id="@+id/color_picker_view"
-                   android:layout_width="200dp"
-                   android:layout_height="200dp"
-                   app:alphaSlider="true"
-                   app:density="12"
-                   app:lightnessSlider="true"
-                   app:wheelType="FLOWER"
-                   app:lightnessSliderView="@+id/v_lightness_slider"
-                   app:alphaSliderView="@+id/v_alpha_slider"
-                   />
-               <TextView
-                   android:layout_marginLeft="10dp"
-                   android:drawablePadding="10dp"
-                   android:drawableStart="@drawable/format_color_fill"
-                   android:id="@+id/textView7"
-                   android:layout_width="match_parent"
-                   android:layout_height="wrap_content"
-                   android:text="Select Color"
-                   android:layout_centerVertical="true"
-                   android:layout_alignParentEnd="true"
-                   android:layout_toEndOf="@+id/color_picker_view" />
-
-
-           </RelativeLayout>
-
-<RelativeLayout
-    android:id="@+id/selectLayoutImageLayout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/colorpickerlayout"
-    android:layout_alignParentStart="true">
-
-
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:src="@drawable/ic_no_image" />
-
-    <TextView
-        android:drawablePadding="10dp"
-        android:drawableStart="@drawable/no_image"
-        android:id="@+id/textView8"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:text="Select Image"
-        android:layout_centerVertical="true"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/imageView5" />
-
-</RelativeLayout>
-
-
-           <Switch
-               android:layout_below="@+id/selectLayoutImageLayout"
-               android:id="@+id/switch3"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_alignParentEnd="true"
-               android:layout_centerVertical="true"
-               android:text="Use Default Background" />
-
-
-       </RelativeLayout>
        <RelativeLayout
            android:layout_margin="10dp"
            android:layout_width="match_parent"
@@ -333,28 +248,101 @@
 
            </RelativeLayout>
 
-           <RelativeLayout
-               android:layout_below="@+id/relativeLayout5"
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content">
 
-
-               <Button
-                   android:text="Back"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:id="@+id/button3" />
-
-               <Button
-                   android:text="Next"
-                   android:layout_width="wrap_content"
-                   android:layout_height="wrap_content"
-                   android:layout_alignParentTop="true"
-                   android:layout_alignParentEnd="true" />
-           </RelativeLayout>
 
 
        </RelativeLayout>
+       <RelativeLayout
+           android:layout_margin="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
+
+           <TextView
+               android:padding="10dp"
+               android:id="@+id/textlabel"
+               android:text="Chat Page Background"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content" />
+
+           <RelativeLayout
+               android:layout_margin="10dp"
+               android:layout_below="@+id/textlabel"
+               android:id="@+id/colorpickerlayout"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <com.flask.colorpicker.ColorPickerView
+                   android:layout_marginRight="40dp"
+                   android:layout_alignParentEnd="true"
+                   android:id="@+id/color_picker_view"
+                   android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   app:alphaSlider="true"
+                   app:density="12"
+                   app:lightnessSlider="true"
+                   app:wheelType="FLOWER"
+                   app:lightnessSliderView="@+id/v_lightness_slider"
+                   app:alphaSliderView="@+id/v_alpha_slider" />
+               <TextView
+                   android:layout_marginLeft="10dp"
+                   android:drawablePadding="10dp"
+                   android:drawableStart="@drawable/format_color_fill"
+                   android:id="@+id/textView7"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:text="Select Color"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentStart="true"
+                   android:layout_marginStart="24dp" />
+
+
+           </RelativeLayout>
+
+           <RelativeLayout
+               android:layout_margin="10dp"
+               android:id="@+id/selectLayoutImageLayout"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_below="@+id/colorpickerlayout"
+               android:layout_alignParentStart="true">
+
+
+               <ImageView
+                   android:id="@+id/imageView5"
+                   android:layout_width="100dp"
+                   android:layout_height="100dp"
+                   android:src="@drawable/ic_no_image"
+                   android:layout_alignParentTop="true"
+                   android:layout_alignParentEnd="true"
+                   android:layout_marginEnd="36dp" />
+
+               <TextView
+                   android:drawablePadding="10dp"
+                   android:drawableStart="@drawable/no_image"
+                   android:id="@+id/textView8"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="10dp"
+                   android:text="Select Image"
+                   android:layout_centerVertical="true"
+                   android:layout_alignParentStart="true" />
+
+           </RelativeLayout>
+
+
+           <Switch
+               android:layout_margin="10dp"
+               android:layout_below="@+id/selectLayoutImageLayout"
+               android:id="@+id/switch3"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:layout_alignParentEnd="true"
+               android:layout_centerVertical="true"
+               android:text="Use Default Background" />
+
+
+       </RelativeLayout>
+
+
 
    </ViewFlipper>
     <RelativeLayout
@@ -362,6 +350,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <Button
+            android:id="@+id/backButton"
             android:text="Previous"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

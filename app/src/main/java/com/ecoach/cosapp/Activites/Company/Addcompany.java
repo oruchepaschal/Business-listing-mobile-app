@@ -15,7 +15,7 @@ import com.ecoach.cosapp.R;
 public class Addcompany extends AppCompatActivity {
 
     ViewFlipper viewFlipper;
-    Button nextButton;
+    Button nextButton,backButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,19 +47,76 @@ public class Addcompany extends AppCompatActivity {
         return true;
     }
 
-    void setactionButtons(){
 
 
-        nextButton = (Button)findViewById(R.id.nextButton);
+    private void setactionButtons() {
+
+        // setIndicatorsInit();
+
+
+        viewFlipper=(ViewFlipper)findViewById(R.id.viewFlipper);
+
+        //indicator1.setBackgroundColor(CreateAccount.this.getResources().getColor(R.color.colorPrimary));
+        nextButton=(Button)findViewById(R.id.nextButton);
+        backButton=(Button)findViewById(R.id.backButton);
+        backButton.setVisibility(View.INVISIBLE);
+
         nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                viewFlipper.showNext();
+
+                if(nextButton.getText().equals("Get Started")){
+
+                    // Toast.makeText(CreateAccount.this,"You need to Save",Toast.LENGTH_LONG).show();
+
+                }
+
+
+                if(viewFlipper.getDisplayedChild() == 2){
+
+                    nextButton.setText("Get Started");
+
+
+
+                }
+
+
+                if(viewFlipper.getDisplayedChild() == 2){
+
+
+                }else{
+
+                    backButton.setVisibility(View.VISIBLE);
+                    viewFlipper.showNext();
+                }
+
+            }
+        });
+
+
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(viewFlipper.getDisplayedChild() !=2){
+
+                    nextButton.setText("Next");
+                }
+
+                if(viewFlipper.getDisplayedChild() == 1){
+
+                    backButton.setVisibility(View.INVISIBLE);
+                }
+
+
+                if(viewFlipper.getDisplayedChild() != 0){
+
+                    viewFlipper.showPrevious();
+
+                }
 
             }
         });
 
     }
-
-
 }
