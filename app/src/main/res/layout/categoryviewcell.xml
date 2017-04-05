@@ -32,20 +32,20 @@
             android:id="@+id/labelTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/catbackgroundImage"
-            android:layout_below="@+id/catbackgroundImage"
-            android:layout_marginTop="11dp"
-            android:layout_toEndOf="@+id/iconImage"
 
             android:padding="5dp"
             android:text="TextView"
-            android:textAlignment="textEnd" />
+            android:textAlignment="textEnd"
+            android:layout_alignBottom="@+id/iconImage"
+            android:layout_alignEnd="@+id/catbackgroundImage"
+            android:layout_toEndOf="@+id/iconImage" />
 
         <de.hdodenhof.circleimageview.CircleImageView
+            android:layout_marginBottom="10dp"
             app:civ_border_color="#FF000000"
             android:id="@+id/iconImage"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/user"
             android:layout_marginLeft="2dp"
