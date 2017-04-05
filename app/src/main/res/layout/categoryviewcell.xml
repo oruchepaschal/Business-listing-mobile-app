@@ -41,7 +41,7 @@
             android:layout_toEndOf="@+id/iconImage" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="5dp"
             app:civ_border_color="#FF000000"
             android:id="@+id/iconImage"
             android:layout_width="30dp"

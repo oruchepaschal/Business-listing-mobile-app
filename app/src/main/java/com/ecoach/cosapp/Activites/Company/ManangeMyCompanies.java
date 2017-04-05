@@ -7,7 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.ecoach.cosapp.Activites.SearchActivity;
+import com.ecoach.cosapp.Activites.UserAccounts.CreateAccount;
+import com.ecoach.cosapp.DataBase.AppInstanceSettings;
 import com.ecoach.cosapp.R;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 public class ManangeMyCompanies extends AppCompatActivity {
 
@@ -38,12 +42,43 @@ public class ManangeMyCompanies extends AppCompatActivity {
 
     void setFloatingButton(){
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addcompany);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addcompany);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ManangeMyCompanies.this,Addcompany.class);
-                startActivity(intent);
+
+
+                try{
+
+                    if(AppInstanceSettings.load(AppInstanceSettings.class,1).isloggedIn() == false){
+
+                        new SweetAlertDialog(ManangeMyCompanies.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Sorry,")
+                                .setContentText("You need to Login")
+                                .show();
+
+
+
+                    }else{
+
+                        Intent intent = new Intent(ManangeMyCompanies.this,Addcompany.class);
+                        startActivity(intent);
+
+                    }
+
+
+                }catch (Exception e){
+
+                    new SweetAlertDialog(ManangeMyCompanies.this, SweetAlertDialog.WARNING_TYPE)
+                            .setTitleText("Sorry,")
+                            .setContentText("You need to Login")
+                            .show();
+
+                }
+
+
+
+
             }
         });
 

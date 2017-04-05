@@ -41,6 +41,8 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/email_open"
                 android:id="@+id/emailedt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -51,6 +53,8 @@
                 android:inputType="textEmailAddress" />
 
             <EditText
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/phone"
                 android:id="@+id/phoneEdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -62,6 +66,8 @@
                 android:layout_centerHorizontal="true" />
 
             <EditText
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/lock"
                 android:id="@+id/passwordEdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -73,6 +79,8 @@
                 android:layout_alignStart="@+id/phoneEdt"
                 android:layout_alignParentEnd="true" />
             <EditText
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/lock"
                 android:id="@+id/passwordEdt2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -104,6 +112,8 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/account_outline"
                 android:id="@+id/surnameEdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -115,6 +125,8 @@
                 android:inputType="text" />
 
             <EditText
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/account_outline"
                 android:id="@+id/firstEdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -141,6 +153,8 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:drawablePadding="10dp"
+                android:drawableStart="@drawable/map_marker_radius"
                 android:id="@+id/locationNameEdt"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

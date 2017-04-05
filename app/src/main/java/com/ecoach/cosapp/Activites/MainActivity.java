@@ -104,16 +104,29 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View v) {
 
-                if(appInstanceSettings.isloggedIn() == false){
+
+                try{
+
+                    if(appInstanceSettings.isloggedIn() == false){
+                        new SweetAlertDialog(MainActivity.this)
+                                .setTitleText("You need to login !")
+                                .show();
+
+                    }else{
+                        Intent intent = new Intent(MainActivity.this,ProfileEditActivity.class);
+                        startActivity(intent);
+
+                    }
+
+                }catch (Exception e){
+
                     new SweetAlertDialog(MainActivity.this)
                             .setTitleText("You need to login !")
                             .show();
 
-                }else{
-                    Intent intent = new Intent(MainActivity.this,ProfileEditActivity.class);
-                    startActivity(intent);
-
                 }
+
+
 
 
 
