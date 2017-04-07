@@ -1,9 +1,14 @@
 package com.ecoach.cosapp.Utilities;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+
+import com.ecoach.cosapp.Activites.Company.Addcompany;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * Created by apple on 3/28/17.
@@ -28,5 +33,18 @@ public class ViewUtils {
         drawable.draw(canvas);
 
         return bitmap;
+    }
+
+
+    public static void singleDialog(Context context,String message){
+        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText(message)
+                .show();
+    }
+    public static void multipleDialog(Context context,String title,String message){
+        new SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText(title)
+                .setContentText(message)
+                .show();
     }
 }

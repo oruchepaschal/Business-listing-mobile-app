@@ -69,4 +69,12 @@ public class Categories extends Model {
                 .execute();
     }
 
+
+    public static Categories getCategoryIDByName(String category_name) {
+        return new Select()
+                .from(Categories.class)
+                .where("categoryNames = ?",category_name)
+                .executeSingle();
+    }
+
 }

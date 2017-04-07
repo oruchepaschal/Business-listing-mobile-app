@@ -370,6 +370,8 @@ public class CompaniesActivity extends AppCompatActivity {
                 JSONObject obj = info.getJSONObject(i);
 
 
+Log.d("CatDetails",obj.getString("companyCuid") + " cate ID" + Application.getSelectedCategoryID());
+
                  companies = VerifiedCompanies.getCompaniesByID(obj.getString("companyCuid"),Application.getSelectedCategoryID());
 
                 if(companies == null){

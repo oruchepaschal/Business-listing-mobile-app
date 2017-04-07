@@ -11,12 +11,14 @@ import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
+import com.android.volley.RequestQueue;
 import com.ecoach.cosapp.DataBase.AppInstanceSettings;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Companies;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
 import com.ecoach.cosapp.DataBase.User;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
+import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.Models.Company;
 import com.ecoach.cosapp.R;
 
@@ -41,6 +43,14 @@ public class Application extends android.app.Application {
 
     private static Context context;
 
+    private static String companyCover = "";
+    private static String companyLogo = "";
+    private static String companyCert = "";
+    private static String companyChatBack = "";
+    private static String last_company_id = "";
+
+    public static VolleySingleton volleySingleton;
+    public static RequestQueue requestQueue;
 
         @Override
         public void onCreate() {
@@ -56,6 +66,9 @@ public class Application extends android.app.Application {
 
                 setFontsMaster();
                 initializeDB();
+
+                volleySingleton= VolleySingleton.getsInstance();
+                requestQueue=VolleySingleton.getRequestQueue();
 
 
             }catch (Exception e){
@@ -127,6 +140,48 @@ public class Application extends android.app.Application {
 
     public static void setSelectedCategoryName(String selectedCategoryName) {
         Application.selectedCategoryName = selectedCategoryName;
+    }
+
+
+    public static String getCompanyCover() {
+        return companyCover;
+    }
+
+    public static void setCompanyCover(String companyCover) {
+        Application.companyCover = companyCover;
+    }
+
+    public static String getCompanyLogo() {
+        return companyLogo;
+    }
+
+    public static void setCompanyLogo(String companyLogo) {
+        Application.companyLogo = companyLogo;
+    }
+
+    public static String getCompanyCert() {
+        return companyCert;
+    }
+
+    public static void setCompanyCert(String companyCert) {
+        Application.companyCert = companyCert;
+    }
+
+    public static String getCompanyChatBack() {
+        return companyChatBack;
+    }
+
+    public static void setCompanyChatBack(String companyChatBack) {
+        Application.companyChatBack = companyChatBack;
+    }
+
+
+    public static String getLast_company_id() {
+        return last_company_id;
+    }
+
+    public static void setLast_company_id(String last_company_id) {
+        Application.last_company_id = last_company_id;
     }
 
     public static Context getContext() {

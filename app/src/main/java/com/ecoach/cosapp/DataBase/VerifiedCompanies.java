@@ -1,5 +1,7 @@
 package com.ecoach.cosapp.DataBase;
 
+import android.util.Log;
+
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
@@ -67,6 +69,16 @@ public class VerifiedCompanies extends Model {
     @Column(name = "Website")
     private String Website;
 
+
+    @Column(name = "forUser")
+    private boolean forUser;
+
+    @Column(name = "accountType")
+    private String accountType;
+
+
+    @Column(name = "companyCategory")
+    private String companyCategory;
 
     public String getCategory_id() {
         return category_id;
@@ -196,6 +208,30 @@ public class VerifiedCompanies extends Model {
         Website = website;
     }
 
+    public boolean isForUser() {
+        return forUser;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public void setForUser(boolean forUser) {
+        this.forUser = forUser;
+    }
+
+
+    public String getCompanyCategory() {
+        return companyCategory;
+    }
+
+    public void setCompanyCategory(String companyCategory) {
+        this.companyCategory = companyCategory;
+    }
 
     public static VerifiedCompanies getCompanyByID(String company_id) {
         return new Select()
@@ -205,6 +241,7 @@ public class VerifiedCompanies extends Model {
     }
 
     public static VerifiedCompanies getCompaniesByID(String company_id,String category_id) {
+
         return new Select()
                 .from(VerifiedCompanies.class)
                 .where("companyCuid = ?",company_id).and("category_id = ?",category_id)
@@ -213,6 +250,12 @@ public class VerifiedCompanies extends Model {
     public static List<VerifiedCompanies> getAllCompanies(String category_id) {
         return new Select()
                 .from(VerifiedCompanies.class).where("category_id = ?",category_id)
+                .execute();
+    }
+
+    public static List<VerifiedCompanies> getAllCompaniesBy4User(boolean forUser) {
+        return new Select()
+                .from(VerifiedCompanies.class).where("forUser = ?",forUser)
                 .execute();
     }
 }

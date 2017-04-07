@@ -18,6 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.com.vansuita.pickimage.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/picker_provider_paths" />
+        </provider>
+
         <meta-data
             android:name="AA_DB_NAME"
             android:value="cosapp.db" />
@@ -59,7 +70,11 @@
         <activity android:name=".Activites.UserAccounts.ProfileEditActivity" />
         <activity android:name=".Activites.Company.ManangeMyCompanies" />
         <activity android:name=".Activites.UserAccounts.ResetPassword" />
-        <activity android:name=".Activites.Company.Addcompany"></activity>
+        <activity android:name=".Activites.Company.Addcompany" />
+
+        <service
+            android:name=".Http.UploadBase64"
+            android:exported="false"></service>
     </application>
 
 </manifest>
