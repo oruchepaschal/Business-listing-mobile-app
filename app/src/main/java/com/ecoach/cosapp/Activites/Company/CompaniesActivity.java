@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -74,13 +75,13 @@ public class CompaniesActivity extends AppCompatActivity {
 
         try{
 
-            if(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID()).size() == 0){
+            if(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID(),"active").size() == 0){
 
 
                 getCategories();
             }else{
 
-               SetupRecycleview(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID()));
+               SetupRecycleview(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID(),"active"));
                 getCategoriesLocal();
 
             }
@@ -360,6 +361,8 @@ public class CompaniesActivity extends AppCompatActivity {
         List<GalleryStorage> showcaseList = new ArrayList<GalleryStorage>();
         VerifiedCompanies companies;
         GalleryStorage galleryStorage;
+
+
         try {
 
             JSONObject  object= response.optJSONObject("ecoachlabs");
@@ -398,6 +401,10 @@ Log.d("CatDetails",obj.getString("companyCuid") + " cate ID" + Application.getSe
 
                 String company_avator = obj.getString("avatarLocation");
                 companies.setAvatarLocation(company_avator);
+
+
+                String active = obj.getString("companyStatus");
+                companies.setCompanyStatus(active);
 
 
                 String company_rating = obj.getString("companyRating");
@@ -439,6 +446,9 @@ Log.d("CatDetails",obj.getString("companyCuid") + " cate ID" + Application.getSe
 
                 String companyStorageName = obj.getString("companyStorageName");
                 companies.setCompanyStorageName(companyStorageName);
+
+
+                companies.setForUser(false);
 
 
                 JSONArray showcase = obj.getJSONArray("showcase");
@@ -522,7 +532,7 @@ Log.d("CatDetails",obj.getString("companyCuid") + " cate ID" + Application.getSe
         } catch (Exception e) {
             e.printStackTrace();
         }finally {
-            if(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID()).size() == 0){
+            if(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID(),"active").size() == 0){
 
 
                 new SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)

@@ -103,7 +103,6 @@ base_cert
         params.put("is_base64_upload", "1");
         params.put("poi", "company");
         params.put("usage", "multiple");
-        params.put("usage", "cover");
         params.put("base_profile_pic", Application.getCompanyLogo());
        // params.put("base_showcase", Application.getCompanyLogo());
         params.put("base_chat_bg", Application.getCompanyChatBack());

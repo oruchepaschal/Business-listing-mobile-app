@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+     android:background="@color/colorPrimarylight"
+
     android:layout_height="match_parent"
     tools:context="com.ecoach.cosapp.Activites.Company.Addcompany">
 
@@ -17,18 +19,23 @@
 
 
        <RelativeLayout
-           android:layout_margin="10dp"
+
+           android:layout_margin="5dp"
            android:layout_width="match_parent"
            android:layout_height="match_parent">
 
            <Switch
-               android:padding="3dp"
+               android:textColor="@android:color/white"
+               android:padding="8dp"
                android:id="@+id/useEmailSwitch"
                android:layout_width="match_parent"
                android:layout_height="wrap_content"
                android:text="Use you current Email" />
 
            <EditText
+               android:layout_margin="1dp"
+               android:padding="4dp"
+               android:background="@android:color/white"
                android:drawablePadding="10dp"
                android:drawableStart="@drawable/domain"
                android:layout_below="@+id/useEmailSwitch"
@@ -43,25 +50,35 @@
 
 
            <TextView
-               android:drawablePadding="10dp"
-               android:text="Select catgory"
-               android:drawableStart="@drawable/tag_multiple"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
                android:id="@+id/textView9"
+               android:layout_width="wrap_content"
+               android:layout_height="40dp"
+               android:layout_alignParentStart="true"
                android:layout_below="@+id/companyname"
-               android:layout_alignParentStart="true" />
+               android:background="@android:color/white"
+               android:drawablePadding="10dp"
+               android:drawableStart="@drawable/tag_multiple"
+               android:padding="4dp"
+               />
            <Spinner
+
+               android:background="@android:color/white"
                android:id="@+id/companyCategory"
                android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
+               android:layout_height="40dp"
                android:inputType="textPersonName"
                android:hint="Company Category"
-               android:layout_below="@+id/textView9"
-               android:layout_alignParentStart="true"
-               android:layout_alignParentEnd="true" />
+               android:layout_alignParentEnd="true"
+               android:layout_marginLeft="1dp"
+               android:layout_marginRight="1dp"
+               android:layout_marginBottom="1dp"
+               android:layout_toEndOf="@+id/textView9"
+               android:layout_alignTop="@+id/textView9" />
 
            <EditText
+               android:layout_margin="1dp"
+               android:padding="4dp"
+               android:background="@android:color/white"
                android:drawablePadding="10dp"
                android:drawableStart="@drawable/email_open"
                android:id="@+id/companyemail"
@@ -75,6 +92,9 @@
                android:layout_alignParentEnd="true" />
 
            <EditText
+               android:layout_margin="1dp"
+               android:padding="4dp"
+               android:background="@android:color/white"
                android:drawablePadding="10dp"
                android:drawableStart="@drawable/phone"
                android:id="@+id/phone1"
@@ -88,6 +108,9 @@
                android:layout_alignParentEnd="true" />
 
            <EditText
+               android:layout_margin="1dp"
+               android:padding="4dp"
+               android:background="@android:color/white"
                android:drawablePadding="10dp"
                android:drawableStart="@drawable/phone"
                android:id="@+id/phone2"
@@ -101,6 +124,9 @@
                android:layout_alignParentEnd="true" />
 
            <EditText
+               android:layout_margin="1dp"
+               android:padding="4dp"
+               android:background="@android:color/white"
                android:drawablePadding="10dp"
                android:drawableStart="@drawable/web"
                android:id="@+id/website"
@@ -114,6 +140,9 @@
                android:layout_alignParentEnd="true" />
 
            <EditText
+               android:layout_margin="1dp"
+               android:padding="4dp"
+               android:background="@android:color/white"
                android:drawablePadding="10dp"
                android:drawableStart="@drawable/map_marker_radius"
                android:id="@+id/address"
@@ -127,6 +156,9 @@
                android:layout_alignParentEnd="true" />
 
            <EditText
+               android:layout_margin="1dp"
+               android:padding="4dp"
+               android:background="@android:color/white"
                android:id="@+id/companyBio"
                android:layout_width="wrap_content"
                android:layout_height="70dp"
@@ -147,7 +179,8 @@
 
            <RelativeLayout
 
-
+               android:layout_marginBottom="4dp"
+               android:background="@color/colorPrimary"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:gravity="center_horizontal"
@@ -155,36 +188,57 @@
                android:layout_alignParentTop="true"
                android:layout_centerHorizontal="true">
 
-               <de.hdodenhof.circleimageview.CircleImageView
-                   android:id="@+id/imageButton2"
-                   android:layout_width="50dp"
-                   android:layout_height="50dp"
-
-                   android:src="@drawable/ic_no_image"
-                   android:layout_alignParentTop="true"
-                   android:layout_centerHorizontal="true"
-                   android:layout_weight="0.1" />
 
                <TextView
+                   android:textColor="@android:color/white"
                    android:id="@+id/textView6"
-                   android:layout_width="107dp"
+                   android:layout_width="match_parent"
                    android:layout_height="wrap_content"
-                   android:layout_below="@+id/imageButton2"
+
                    android:layout_weight="0.9"
                    android:text="Company Logo"
-                   android:textAlignment="center"
+                   android:drawablePadding="2dp"
+                   android:drawableStart="@drawable/no_image"
+                   android:drawableTint="@android:color/white"
                    android:layout_alignParentStart="true" />
+
+               <de.hdodenhof.circleimageview.CircleImageView
+                   android:id="@+id/imageButton2"
+                   app:civ_border_width="1dp"
+                   app:civ_border_color="@android:color/white"
+                   android:layout_width="70dp"
+                   android:layout_height="70dp"
+                   android:layout_alignParentStart="true"
+                   android:layout_margin="2dp"
+                   android:layout_below="@+id/textView6"
+                   android:layout_marginLeft="20dp"
+                   android:layout_weight="0.1"
+                   android:src="@drawable/ic_no_image" />
+               <TextView
+                   android:textColor="@android:color/white"
+                   android:id="@+id/textView2"
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_alignParentTop="true"
+                   android:layout_centerHorizontal="true"
+                   android:layout_marginTop="50dp"
+                   android:text="Business Logo" />
+
+
 
            </RelativeLayout>
            <RelativeLayout
+               android:background="@color/colorPrimary"
                android:id="@+id/relativeLayout3"
                android:layout_below="@+id/relativeLayout2"
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
 
                <TextView
+                   android:textColor="@android:color/white"
                    android:padding="3dp"
                    android:drawablePadding="2dp"
+                   android:drawableTint="@android:color/white"
                    android:drawableStart="@drawable/map_marker_radius"
                    android:layout_marginTop="10dp"
                    android:id="@+id/pinBusinesslocation"
@@ -194,7 +248,7 @@
                    android:layout_height="wrap_content" />
                <ImageButton
                    android:layout_below="@+id/pinBusinesslocation"
-                   android:scaleType="fitXY"
+                   android:scaleType="fitCenter"
                    android:id="@+id/imageButton3"
                    android:layout_width="match_parent"
                    android:layout_height="80dp"
@@ -204,12 +258,16 @@
            </RelativeLayout>
 
            <RelativeLayout
+               android:layout_marginTop="4dp"
+               android:background="@color/colorPrimary"
                android:id="@+id/relativeLayout4"
                android:layout_below="@+id/relativeLayout3"
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
 
                <TextView
+                   android:textColor="@android:color/white"
+                   android:drawableTint="@android:color/white"
                    android:padding="3dp"
                    android:drawablePadding="2dp"
                    android:drawableStart="@drawable/no_image"
@@ -229,11 +287,16 @@
 
            </RelativeLayout>
            <RelativeLayout
+               android:padding="5dp"
+               android:layout_marginTop="4dp"
+               android:background="@color/colorPrimary"
                android:id="@+id/relativeLayout5"
                android:layout_below="@+id/relativeLayout4"
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
                <TextView
+                   android:drawableTint="@android:color/white"
+                   android:textColor="@android:color/white"
                    android:id="@+id/certLabel"
                    android:drawablePadding="2dp"
                    android:drawableStart="@drawable/paperclip"
@@ -244,11 +307,12 @@
                    android:layout_alignParentStart="true"
                    android:layout_toStartOf="@+id/button2" />
                <info.hoang8f.widget.FButton
-               android:textColor="@android:color/white"
-               app:buttonColor="@color/colorPrimary"
-               app:shadowEnabled="true"
-               app:shadowHeight="1dp"
-               app:cornerRadius="5dp"
+
+                   android:textColor="@color/colorPrimary"
+                   app:buttonColor="@android:color/white"
+                   app:shadowEnabled="true"
+                   app:shadowHeight="1dp"
+                   app:cornerRadius="25dp"
                    android:text="Select"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
@@ -265,11 +329,13 @@
 
        </RelativeLayout>
        <RelativeLayout
+
            android:layout_margin="10dp"
            android:layout_width="match_parent"
            android:layout_height="match_parent">
 
            <TextView
+               android:textColor="@android:color/white"
                android:padding="10dp"
                android:id="@+id/textlabel"
                android:text="Chat Page Background"
@@ -277,39 +343,43 @@
                android:layout_height="wrap_content" />
 
            <RelativeLayout
+               android:background="@color/colorPrimary"
                android:layout_margin="10dp"
                android:layout_below="@+id/textlabel"
                android:id="@+id/colorpickerlayout"
                android:layout_width="match_parent"
                android:layout_height="wrap_content">
+
                <com.flask.colorpicker.ColorPickerView
-                   android:layout_marginRight="40dp"
-                   android:layout_alignParentEnd="true"
                    android:id="@+id/color_picker_view"
                    android:layout_width="100dp"
                    android:layout_height="100dp"
+                   android:layout_alignParentStart="true"
+                   android:layout_marginRight="40dp"
                    app:alphaSlider="true"
+                   app:alphaSliderView="@+id/v_alpha_slider"
                    app:density="12"
                    app:lightnessSlider="true"
-                   app:wheelType="FLOWER"
                    app:lightnessSliderView="@+id/v_lightness_slider"
-                   app:alphaSliderView="@+id/v_alpha_slider" />
+                   app:wheelType="FLOWER" />
+
                <TextView
-                   android:layout_marginLeft="10dp"
-                   android:drawablePadding="10dp"
-                   android:drawableStart="@drawable/format_color_fill"
+                   android:drawableTint="@android:color/white"
+                   android:textColor="@android:color/white"
                    android:id="@+id/textView7"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
+                   android:drawablePadding="10dp"
+                   android:drawableStart="@drawable/format_color_fill"
                    android:text="Select Color"
                    android:layout_centerVertical="true"
-                   android:layout_alignParentStart="true"
-                   android:layout_marginStart="24dp" />
+                   android:layout_toEndOf="@+id/color_picker_view" />
 
 
            </RelativeLayout>
 
            <RelativeLayout
+               android:background="@color/colorPrimary"
                android:layout_margin="10dp"
                android:id="@+id/selectLayoutImageLayout"
                android:layout_width="match_parent"
@@ -324,10 +394,11 @@
                    android:layout_height="100dp"
                    android:src="@drawable/ic_no_image"
                    android:layout_alignParentTop="true"
-                   android:layout_alignParentEnd="true"
-                   android:layout_marginEnd="36dp" />
+                   android:layout_alignParentStart="true" />
 
                <TextView
+                   android:drawableTint="@android:color/white"
+                   android:textColor="@android:color/white"
                    android:drawablePadding="10dp"
                    android:drawableStart="@drawable/no_image"
                    android:id="@+id/textView8"
@@ -336,12 +407,16 @@
                    android:layout_marginLeft="10dp"
                    android:text="Select Image"
                    android:layout_centerVertical="true"
-                   android:layout_alignParentStart="true" />
+                   android:layout_toEndOf="@+id/imageView5"
+                   android:layout_marginStart="19dp" />
 
            </RelativeLayout>
 
 
            <Switch
+               android:textColor="@android:color/white"
+               android:padding="10dp"
+               android:background="@color/colorPrimary"
                android:layout_margin="10dp"
                android:layout_below="@+id/selectLayoutImageLayout"
                android:id="@+id/switch3"
@@ -356,14 +431,16 @@
 
 
 
+
    </ViewFlipper>
     <RelativeLayout
+
         android:layout_below="@+id/viewFlipper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <info.hoang8f.widget.FButton
             android:textColor="@android:color/white"
-            app:buttonColor="@color/colorPrimary"
+            app:buttonColor="@color/colorAccent"
             app:shadowEnabled="true"
             app:shadowHeight="1dp"
             app:cornerRadius="5dp"
@@ -376,7 +453,7 @@
             android:layout_marginStart="15dp" />
         <info.hoang8f.widget.FButton
             android:textColor="@android:color/white"
-            app:buttonColor="@color/colorPrimary"
+            app:buttonColor="@color/colorAccent"
             app:shadowEnabled="true"
             app:shadowHeight="1dp"
             app:cornerRadius="5dp"
@@ -390,6 +467,7 @@
             android:layout_alignParentEnd="true" />
 
     </RelativeLayout>
+
 
 
 

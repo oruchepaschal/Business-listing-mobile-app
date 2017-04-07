@@ -37,6 +37,7 @@ import it.neokree.materialtabs.MaterialTabListener;
 import com.ecoach.cosapp.Fragments.CategoriesFragment;
 import com.ecoach.cosapp.Fragments.HomeFragment;
 import com.ecoach.cosapp.Fragments.RecentFragment;
+import com.ecoach.cosapp.RecycleAdapters.MainCategoryAdapter;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
 public class MainActivity extends AppCompatActivity
@@ -284,9 +285,11 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.cat) {
-            //
+            Intent intent = new Intent(MainActivity.this,MainCategories.class);
+            startActivity(intent);
         } else if (id == R.id.recent) {
-
+            Intent intent = new Intent(MainActivity.this,MainRecentChats.class);
+            startActivity(intent);
         } else if (id == R.id.comp) {
 
             Intent intent = new Intent(MainActivity.this,ManangeMyCompanies.class);

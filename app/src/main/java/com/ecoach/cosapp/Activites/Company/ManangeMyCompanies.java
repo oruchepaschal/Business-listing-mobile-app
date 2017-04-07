@@ -1,5 +1,6 @@
 package com.ecoach.cosapp.Activites.Company;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -8,9 +9,13 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import com.activeandroid.ActiveAndroid;
+import com.activeandroid.query.Delete;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -97,6 +102,7 @@ public class ManangeMyCompanies extends AppCompatActivity {
 
     private void initviews() {
         myCompanies=(RecyclerView)findViewById(R.id.myCompanies);
+        //new RecyclerTouchListener(CompaniesActivity.this, recyclerView, new ClickListener()
 
     }
 
@@ -137,6 +143,35 @@ public class ManangeMyCompanies extends AppCompatActivity {
             layoutManager = new GridLayoutManager(ManangeMyCompanies.this, 2);
             myCompanies.setAdapter(myCompaniesAdapter);
             myCompanies.setLayoutManager(layoutManager);
+            myCompanies.addOnItemTouchListener(new RecyclerTouchListener(ManangeMyCompanies.this, myCompanies, new ClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+
+
+                    TextView txthiddenId=(TextView)view.findViewById(R.id.companyid);
+                    try {
+                        String id = txthiddenId.getText().toString();
+                        Application.setSelectedCategoryID(id);
+
+
+                        Log.d("company id", "selected company ID" + Application.getSelectedCategoryID());
+                        VerifiedCompanies verifiedCompanies = VerifiedCompanies.getCompanyByID(Application.getSelectedCategoryID());
+                        Application.setSelectedCompanyObbject(verifiedCompanies);
+                        Log.d("company id", "selected company Name" + verifiedCompanies.getCompanyName());
+                        Intent intent = new Intent(ManangeMyCompanies.this,MyCompanyDetails.class);
+                        startActivity(intent);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onLongClick(View view, int position) {
+
+                }
+            }));
+
             refreshLayout.setRefreshing(false);
 
         }catch (Exception e){
@@ -229,6 +264,16 @@ public class ManangeMyCompanies extends AppCompatActivity {
 
                             Log.d("logs",response.toString());
 
+
+                            try{
+
+                                new Delete().from(VerifiedCompanies.class).where("forUser = ?",true).execute();
+
+
+                            }catch (Exception e){
+
+
+                            }
                          formatJSONLOCAL(response);
 
 
@@ -319,7 +364,7 @@ public class ManangeMyCompanies extends AppCompatActivity {
                 JSONObject obj = info.getJSONObject(i);
 
 
-                companies = VerifiedCompanies.getCompanyByID(obj.getString("companyCuid"));
+                companies = VerifiedCompanies.getCompaniesByIDand4User(obj.getString("companyCuid"),true);
 
                 if(companies == null){
 
@@ -330,7 +375,9 @@ public class ManangeMyCompanies extends AppCompatActivity {
                 }
                 Log.d("companies","companies was not null");
 
-                companies.setCategory_id(Application.getSelectedCategoryID());
+
+                String companyCategoryId = obj.getString("companyCategoryId");
+                companies.setCategory_id(companyCategoryId);
 
                 String company_id = obj.getString("companyCuid");
                 companies.setCompanyCuid(company_id);
@@ -486,6 +533,60 @@ public class ManangeMyCompanies extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
+    }
+
+    static class RecyclerTouchListener implements RecyclerView.OnItemTouchListener {
+        private GestureDetector gestureDetector;
+        private  ClickListener clickListener;
+
+        public RecyclerTouchListener(Context context, final RecyclerView recyclerView, final ClickListener clickListener){
+            this.clickListener=clickListener;
+            gestureDetector=new GestureDetector(context,new GestureDetector.SimpleOnGestureListener(){
+
+                @Override
+                public boolean onSingleTapUp(MotionEvent e) {
+                    return true;
+                }
+
+                @Override
+                public void onLongPress(MotionEvent e) {
+                    View child= recyclerView.findChildViewUnder(e.getX(),e.getY());
+                    if(child!=null && clickListener!=null){
+
+
+                        clickListener.onLongClick(child,recyclerView.getChildPosition(child));
+                    }
+
+                }
+            });
+        }
+        @Override
+        public boolean onInterceptTouchEvent(RecyclerView rv, MotionEvent e) {
+            View child= rv.findChildViewUnder(e.getX(),e.getY());
+            if(child!=null && clickListener!=null && gestureDetector.onTouchEvent(e)){
+
+
+                clickListener.onClick(child, rv.getChildPosition(child));
+            }
+            return false;
+        }
+
+        @Override
+        public void onTouchEvent(RecyclerView rv, MotionEvent e) {
+
+        }
+
+        @Override
+        public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+        }
+    }
+
+    public static interface ClickListener{
+
+        public void onClick(View view,int position);
+        public void onLongClick(View view,int position);
 
     }
 }

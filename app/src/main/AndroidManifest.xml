@@ -58,23 +58,57 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activites.Company.CompaniesActivity" />
-        <activity android:name=".Activites.Company.CompanyDetails" />
-        <activity android:name=".Activites.CompanyDetailsTabbedActivities.Profile" />
-        <activity android:name=".Activites.CompanyDetailsTabbedActivities.Map" />
-        <activity android:name=".Activites.CompanyDetailsTabbedActivities.Details" />
-        <activity android:name=".Activites.SearchActivity" />
-        <activity android:name=".Activites.UserAccounts.LoginActivity" />
-        <activity android:name=".Activites.UserAccounts.CreateAccount" />
-        <activity android:name=".Activites.GalleryImageExplorer" />
-        <activity android:name=".Activites.UserAccounts.ProfileEditActivity" />
-        <activity android:name=".Activites.Company.ManangeMyCompanies" />
-        <activity android:name=".Activites.UserAccounts.ResetPassword" />
-        <activity android:name=".Activites.Company.Addcompany" />
+        <activity
+            android:name=".Activites.Company.CompaniesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.Company.CompanyDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.CompanyDetailsTabbedActivities.Profile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.CompanyDetailsTabbedActivities.Map"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.CompanyDetailsTabbedActivities.Details"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.UserAccounts.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.UserAccounts.CreateAccount"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.GalleryImageExplorer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.UserAccounts.ProfileEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.Company.ManangeMyCompanies"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.UserAccounts.ResetPassword"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Activites.Company.Addcompany"
+            android:screenOrientation="portrait" />
 
         <service
             android:name=".Http.UploadBase64"
-            android:exported="false"></service>
+            android:exported="false" />
+
+        <activity
+            android:name=".Activites.Company.MyCompanyDetails"
+            android:screenOrientation="portrait" />
+        <activity android:name=".Activites.Company.MyCompanyDepartments" />
+        <activity android:name=".Activites.Company.MyCompanyInformation" />
+        <activity android:name=".Activites.MainCategories" />
+        <activity android:name=".Activites.MainRecentChats"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context="com.ecoach.cosapp.Activites.Company.CompanyDetails">
 
+
     <RelativeLayout
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
@@ -70,10 +71,6 @@
         android:rating="0" />
 
 </RelativeLayout>
-
-
-
-
     <TabHost
         android:id="@+id/tabhost"
         android:layout_width="match_parent"
