@@ -139,8 +139,10 @@ public class MyCompanyDetails extends AppCompatActivity {
         companyName.setText(Application.getSelectedCompanyObbject().getCompanyName());
 
         companycategory=(TextView)findViewById(R.id.companycategory);
-        companycategory.setText(Application.getSelectedCategoryName());
+        companycategory.setText(Application.getSelectedCompanyObbject().getCompanyCategory());
 
+
+      //  Log.d("Selected CategoryDetails",Application.getSelectedCompanyObbject().getCompanyName())
 
         ratingBar=(MaterialRatingBar)findViewById(R.id.companyRating);
         ratingBar.setRating(Float.parseFloat(Application.getSelectedCompanyObbject().getCompanyRating()));

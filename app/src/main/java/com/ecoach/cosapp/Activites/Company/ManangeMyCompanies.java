@@ -103,7 +103,34 @@ public class ManangeMyCompanies extends AppCompatActivity {
     private void initviews() {
         myCompanies=(RecyclerView)findViewById(R.id.myCompanies);
         //new RecyclerTouchListener(CompaniesActivity.this, recyclerView, new ClickListener()
+        myCompanies.addOnItemTouchListener(new RecyclerTouchListener(ManangeMyCompanies.this, myCompanies, new ClickListener() {
+            @Override
+            public void onClick(View view, int position) {
 
+
+                TextView txthiddenId=(TextView)view.findViewById(R.id.companyid);
+                try {
+                    String id = txthiddenId.getText().toString();
+                    Application.setSelectedCategoryID(id);
+
+
+                    Log.d("company id", "selected company ID" + Application.getSelectedCategoryID());
+                    VerifiedCompanies verifiedCompanies = VerifiedCompanies.getCompanyByID(Application.getSelectedCategoryID());
+                    Application.setSelectedCompanyObbject(verifiedCompanies);
+                    Log.d("company id", "selected company Name" + verifiedCompanies.getCompanyName());
+                    Intent intent = new Intent(ManangeMyCompanies.this,MyCompanyDetails.class);
+                    startActivity(intent);
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onLongClick(View view, int position) {
+
+            }
+        }));
     }
 
     private void setRecycleView(){
@@ -143,34 +170,7 @@ public class ManangeMyCompanies extends AppCompatActivity {
             layoutManager = new GridLayoutManager(ManangeMyCompanies.this, 2);
             myCompanies.setAdapter(myCompaniesAdapter);
             myCompanies.setLayoutManager(layoutManager);
-            myCompanies.addOnItemTouchListener(new RecyclerTouchListener(ManangeMyCompanies.this, myCompanies, new ClickListener() {
-                @Override
-                public void onClick(View view, int position) {
 
-
-                    TextView txthiddenId=(TextView)view.findViewById(R.id.companyid);
-                    try {
-                        String id = txthiddenId.getText().toString();
-                        Application.setSelectedCategoryID(id);
-
-
-                        Log.d("company id", "selected company ID" + Application.getSelectedCategoryID());
-                        VerifiedCompanies verifiedCompanies = VerifiedCompanies.getCompanyByID(Application.getSelectedCategoryID());
-                        Application.setSelectedCompanyObbject(verifiedCompanies);
-                        Log.d("company id", "selected company Name" + verifiedCompanies.getCompanyName());
-                        Intent intent = new Intent(ManangeMyCompanies.this,MyCompanyDetails.class);
-                        startActivity(intent);
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onLongClick(View view, int position) {
-
-                }
-            }));
 
             refreshLayout.setRefreshing(false);
 
