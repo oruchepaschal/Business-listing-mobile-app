@@ -260,17 +260,27 @@
 
 </LinearLayout>
 
-    <Button
+    <info.hoang8f.widget.FButton
+        android:textColor="@android:color/white"
+        app:buttonColor="@color/colorPrimary"
+        app:shadowEnabled="true"
+        app:shadowHeight="1dp"
+        app:cornerRadius="5dp"
         android:id="@+id/nextButton"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:text="Next"
         android:layout_below="@+id/viewFlipper"
         android:layout_toEndOf="@+id/imageView4" />
 
-    <Button
+    <info.hoang8f.widget.FButton
+        android:textColor="@android:color/white"
+        app:buttonColor="@color/colorPrimary"
+        app:shadowEnabled="true"
+        app:shadowHeight="1dp"
+        app:cornerRadius="5dp"
         android:id="@+id/backButton"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/viewFlipper"
         android:layout_toStartOf="@+id/imageView4"

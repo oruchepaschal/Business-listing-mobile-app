@@ -36,10 +36,13 @@ import org.json.JSONObject;
 import java.util.HashMap;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import info.hoang8f.widget.FButton;
 
 public class LoginActivity extends AppCompatActivity {
 
-    Button createAccountButton,loginButton;
+    FButton createAccountButton;
+
+    FButton loginButton;
     EditText usernameEdt,passwordEdt;
     TextView forgotpassword;
     private VolleySingleton volleySingleton;
@@ -95,7 +98,7 @@ forgotpassword.setOnClickListener(new View.OnClickListener() {
 
 
         intiEdt();
-        createAccountButton=(Button)findViewById(R.id.createAccountButton);
+        createAccountButton=(FButton) findViewById(R.id.createAccountButton);
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,7 +110,7 @@ forgotpassword.setOnClickListener(new View.OnClickListener() {
         });
 
 
-        loginButton = (Button)findViewById(R.id.loginButton);
+        loginButton = (FButton) findViewById(R.id.loginButton);
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

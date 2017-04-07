@@ -39,6 +39,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,12 +102,47 @@ public class ManangeMyCompanies extends AppCompatActivity {
 
     private void setRecycleView(){
 
-        myCompaniesAdapter = new MyCompaniesAdapter(ManangeMyCompanies.this, VerifiedCompanies.getAllCompaniesBy4User(true));
+        List<VerifiedCompanies> verifiedCompaniesList =  new ArrayList<>();
 
-        layoutManager = new GridLayoutManager(ManangeMyCompanies.this, 2);
-        myCompanies.setAdapter(myCompaniesAdapter);
-        myCompanies.setLayoutManager(layoutManager);
-        refreshLayout.setRefreshing(false);
+        boolean valueIsLoggedIn= false;
+
+        try{
+
+           valueIsLoggedIn = AppInstanceSettings.load(AppInstanceSettings.class,1).isloggedIn();
+
+
+            if(valueIsLoggedIn){
+
+
+                verifiedCompaniesList = VerifiedCompanies.getAllCompaniesBy4User(true);
+            }else{
+
+                verifiedCompaniesList = Collections.emptyList();
+            }
+
+
+
+        }catch (Exception e){
+
+
+
+
+        }
+
+
+        try {
+
+            myCompaniesAdapter = new MyCompaniesAdapter(ManangeMyCompanies.this, verifiedCompaniesList);
+
+            layoutManager = new GridLayoutManager(ManangeMyCompanies.this, 2);
+            myCompanies.setAdapter(myCompaniesAdapter);
+            myCompanies.setLayoutManager(layoutManager);
+            refreshLayout.setRefreshing(false);
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
     }
 
 

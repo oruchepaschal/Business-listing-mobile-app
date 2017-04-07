@@ -68,6 +68,7 @@ import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
+import info.hoang8f.widget.FButton;
 
 public class Addcompany extends AppCompatActivity implements IPickResult {
 
@@ -78,7 +79,7 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
     LocationManager mLocationManager;
     GPSTracker gpsTracker;
     ViewFlipper viewFlipper;
-    Button nextButton,backButton,uploadCert;
+    FButton nextButton,backButton,uploadCert;
     ColorPickerView color_picker_view;
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
@@ -153,7 +154,7 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
         businesscoverLogo= (ImageView)findViewById(R.id.businesscoverLogo);
         companyLogo = (CircleImageView)findViewById(R.id.imageButton2);
         pinBusinesslocation = (ImageView)findViewById(R.id.imageButton3);
-        uploadCert=(Button)findViewById(R.id.button2);
+        uploadCert=(FButton)findViewById(R.id.button2);
         chatBackground=(ImageView)findViewById(R.id.imageView5) ;
 
         use_email.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -271,8 +272,8 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
         viewFlipper=(ViewFlipper)findViewById(R.id.viewFlipper);
 
         //indicator1.setBackgroundColor(CreateAccount.this.getResources().getColor(R.color.colorPrimary));
-        nextButton=(Button)findViewById(R.id.nextButton);
-        backButton=(Button)findViewById(R.id.backButton);
+        nextButton=(FButton)findViewById(R.id.nextButton);
+        backButton=(FButton)findViewById(R.id.backButton);
         backButton.setVisibility(View.INVISIBLE);
 
         nextButton.setOnClickListener(new View.OnClickListener() {

@@ -40,7 +40,9 @@
 
 
 
-        <Button
+        <info.hoang8f.widget.FButton
+            android:textColor="@android:color/white"
+            app:buttonColor="@color/colorPrimary"
             android:id="@+id/loginButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -61,9 +63,15 @@
             android:text="Forgot Password"
             android:textAlignment="center" />
 
-        <Button
+        <info.hoang8f.widget.FButton
+            android:textColor="@android:color/white"
+            app:buttonColor="@color/colorPrimary"
+            app:shadowEnabled="true"
+            app:shadowHeight="1dp"
+            app:cornerRadius="5dp"
+            android:padding="10dp"
             android:id="@+id/createAccountButton"
-            android:layout_width="wrap_content"
+            android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
             android:text="Create Account"

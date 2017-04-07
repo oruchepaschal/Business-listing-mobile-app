@@ -46,6 +46,8 @@ dependencies {
     compile 'com.jakewharton:process-phoenix:2.0.0'
     compile 'com.github.QuadFlask:colorpicker:0.0.13'
     compile 'com.github.jrvansuita:PickImage:+'
+    compile 'info.hoang8f:fbutton:1.0.5'
+
     testCompile 'junit:junit:4.12'
     compile project(':httpclientandroidlib-1.2.1')
 }

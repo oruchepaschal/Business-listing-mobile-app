@@ -243,7 +243,12 @@
                    android:layout_centerVertical="true"
                    android:layout_alignParentStart="true"
                    android:layout_toStartOf="@+id/button2" />
-               <Button
+               <info.hoang8f.widget.FButton
+               android:textColor="@android:color/white"
+               app:buttonColor="@color/colorPrimary"
+               app:shadowEnabled="true"
+               app:shadowHeight="1dp"
+               app:cornerRadius="5dp"
                    android:text="Select"
                    android:layout_width="wrap_content"
                    android:layout_height="wrap_content"
@@ -356,7 +361,12 @@
         android:layout_below="@+id/viewFlipper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <Button
+        <info.hoang8f.widget.FButton
+            android:textColor="@android:color/white"
+            app:buttonColor="@color/colorPrimary"
+            app:shadowEnabled="true"
+            app:shadowHeight="1dp"
+            app:cornerRadius="5dp"
             android:id="@+id/backButton"
             android:text="Previous"
             android:layout_width="wrap_content"
@@ -364,7 +374,12 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentStart="true"
             android:layout_marginStart="15dp" />
-        <Button
+        <info.hoang8f.widget.FButton
+            android:textColor="@android:color/white"
+            app:buttonColor="@color/colorPrimary"
+            app:shadowEnabled="true"
+            app:shadowHeight="1dp"
+            app:cornerRadius="5dp"
             android:id="@+id/nextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

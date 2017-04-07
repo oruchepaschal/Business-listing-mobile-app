@@ -46,6 +46,7 @@ import java.util.List;
 import java.util.Objects;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
+import info.hoang8f.widget.FButton;
 
 import static android.R.attr.button;
 
@@ -55,7 +56,7 @@ public class CreateAccount extends AppCompatActivity {
     EditText emailedt,phoneTxt,passwordTxt,confirmpassword,surname,firstname,locationDiscirption;
     ListView Summary;
     ViewFlipper viewFlipper;
-    Button nextButton,backButton;
+    FButton nextButton,backButton;
 
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
@@ -79,8 +80,8 @@ public class CreateAccount extends AppCompatActivity {
         viewFlipper=(ViewFlipper)findViewById(R.id.viewFlipper);
 
         //indicator1.setBackgroundColor(CreateAccount.this.getResources().getColor(R.color.colorPrimary));
-        nextButton=(Button)findViewById(R.id.nextButton);
-        backButton=(Button)findViewById(R.id.backButton);
+        nextButton=(FButton) findViewById(R.id.nextButton);
+        backButton=(FButton) findViewById(R.id.backButton);
         backButton.setVisibility(View.INVISIBLE);
 
         nextButton.setOnClickListener(new View.OnClickListener() {
