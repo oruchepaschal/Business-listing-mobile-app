@@ -1,21 +1,17 @@
-package com.ecoach.cosapp.Activites.Company;
+package com.ecoach.cosapp.Activites.Company.ManageReps;
 
-import android.app.Activity;
-import android.app.LocalActivityManager;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.GestureDetector;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.TabHost;
 
-import com.activeandroid.ActiveAndroid;
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.NetworkError;
@@ -29,72 +25,90 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Details;
-import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Map;
-import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Profile;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.AppInstanceSettings;
-import com.ecoach.cosapp.DataBase.Categories;
-import com.ecoach.cosapp.DataBase.Departments;
 import com.ecoach.cosapp.Http.APIRequest;
-import com.ecoach.cosapp.Http.UploadBase64;
 import com.ecoach.cosapp.Http.VolleySingleton;
+import com.ecoach.cosapp.Models.RepInvite;
 import com.ecoach.cosapp.R;
-import com.ecoach.cosapp.RecycleAdapters.DepartmentAdapter;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Map;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
-public class MyCompanyDepartments extends Activity {
+public class ManageReps extends AppCompatActivity implements AddRepsDialog.OnAddRepListener {
 
-    LinearLayoutManager linearLayoutManager;
-    DepartmentAdapter departmentAdapter;
-    RecyclerView departmentsRecyleview;
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_company_departments);
-
-        try{
-
-            setdepartmentsRecyleview();
-
-          if(Departments.getAllDepartments().size() == 0){
-
-              loadcompanyDepartVolley();
-          }  else{
+        setContentView(R.layout.activity_manage_reps);
 
 
-              departmentAdapter.notifyDataSetChanged();
+        if (getSupportActionBar() != null){
+
+            getSupportActionBar().setTitle("Manage Reps");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
+        setFloatingButton();
+    }
 
 
-          }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
 
-        }catch (Exception e)
-        {e.printStackTrace();}
 
+    void showDialog(DialogFragment dialogFragment, String tag) {
+
+
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment prev = getSupportFragmentManager().findFragmentByTag(tag);
+        if (prev != null) {
+
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        dialogFragment.show(ft, tag);
+    }
+
+
+
+    void setFloatingButton(){
+
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addreps);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                AddRepsDialog addRepsDialog=new AddRepsDialog().newInstance("","");
+               showDialog(addRepsDialog,"checkout");
+
+
+
+
+
+            }
+        });
 
     }
 
-    void setdepartmentsRecyleview(){
-
-        departmentsRecyleview =(RecyclerView)findViewById(R.id.departments);
-        departmentAdapter = new DepartmentAdapter(MyCompanyDepartments.this, Departments.getAllDepartments());
-
-        linearLayoutManager = new LinearLayoutManager(MyCompanyDepartments.this);
-        departmentsRecyleview.setAdapter(departmentAdapter);
-        departmentsRecyleview.setLayoutManager(linearLayoutManager);
-    }
-
-    private void loadcompanyDepartVolley(){
+    private void addRepVolley(RepInvite repInvite){
+        final SweetAlertDialog pDialog;
+        pDialog = new SweetAlertDialog(ManageReps.this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Sending Rep Invite ..");
+        pDialog.setCancelable(false);
+        pDialog.show();
 
 
 
@@ -102,8 +116,10 @@ public class MyCompanyDepartments extends Activity {
 
 
 
-        params.put("fetch_public_info", "1");
-        params.put("scope","wide_company_departments");
+        params.put("is_add_rep",""+ "1");
+        params.put("company_id",repInvite.getCompany_id());
+        params.put("rep_email",repInvite.getRep_email());
+        params.put("department_id",repInvite.getDepartment_id());
 
 
         volleySingleton= VolleySingleton.getsInstance();
@@ -116,7 +132,7 @@ public class MyCompanyDepartments extends Activity {
                     //Log.d("Params",params+"");
                     @Override
                     public void onResponse(JSONObject response) {
-
+                        pDialog.dismiss();
                         try {
 
 
@@ -130,65 +146,37 @@ public class MyCompanyDepartments extends Activity {
                             String statuscode = object.getString("status");
                             String message = object.getString("msg");
 
-                            Departments departments;
-                            List<Departments> departmentsList = new ArrayList<>();
 
-                            if(statuscode.equals("201")){
+                            if(!statuscode.equals("201")){
 
-                                JSONArray info = object.getJSONArray("info");
-                             //   JSONArray info = object.getJSONArray("info");
+                                new SweetAlertDialog(ManageReps.this, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("Sorry,Try Again")
+                                        .setContentText(message)
+                                        .show();
 
-                                for (int i = 0 ; i < info.length(); i++) {
-
-                                    JSONObject obj = info.getJSONObject(i);
+                            }else {
 
 
-                                    departments = Departments.getDepartmentsByID(obj.getString("department_id"));
 
-                                    if(departments == null){
+                                new SweetAlertDialog(ManageReps.this, SweetAlertDialog.SUCCESS_TYPE)
+                                        .setTitleText("Success")
+                                        .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                            @Override
+                                            public void onClick(SweetAlertDialog sweetAlertDialog) {
 
-                                        departments= new Departments();
-                                    }
+                                                Application.activeRepInvite = new RepInvite("","","");
+
+                                                //  finish();
+                                            }
+                                        })
+                                        .setContentText("Rep Invitation Succesfully Sent")
+                                        .show();
 
 
-                                    departments.setDepartmentid(obj.getString("department_id"));
-                                    departments.setDepartmentname(obj.getString("department_name"));
 
-                                    departmentsList.add(departments);
-                                }
+
                             }
 
-
-                            ActiveAndroid.beginTransaction();
-                            try
-                            {
-
-                                for(Departments departments1 : departmentsList){
-
-
-
-                                    Long id =   departments1.save();
-
-
-                                    Log.d("Company ID", "id"+id);
-
-                                }
-
-
-
-
-                                ActiveAndroid.setTransactionSuccessful();
-                            }
-                            finally {
-                                ActiveAndroid.endTransaction();
-
-
-
-                                departmentAdapter.notifyDataSetChanged();
-                                departmentsRecyleview.setAdapter(departmentAdapter);
-                                departmentsRecyleview.setLayoutManager(linearLayoutManager);
-                                //SetRecycleView(view);
-                            }
 
 
 
@@ -204,7 +192,11 @@ public class MyCompanyDepartments extends Activity {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)   {
-
+                pDialog.dismiss();
+                new SweetAlertDialog(ManageReps.this, SweetAlertDialog.ERROR_TYPE)
+                        .setTitleText("Oops...")
+                        .setContentText("Something went wrong!")
+                        .show();
 
 
                 //  dialogs.SimpleWarningAlertDialog("Transmission Error", "Connection Failed").show();
@@ -247,7 +239,7 @@ public class MyCompanyDepartments extends Activity {
             }
         }) {
             @Override
-            public java.util.Map<String, String> getHeaders() throws AuthFailureError {
+            public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Content-Type", "application/json; charset=utf-8");
                 headers.put("auth-key", AppInstanceSettings.load(AppInstanceSettings.class,1).getUserkey());
@@ -264,6 +256,9 @@ public class MyCompanyDepartments extends Activity {
         Log.d("oxinbo","Server Logs"+params.toString());
     }
 
+    @Override
+    public void onAddRepInteraction(RepInvite repInvite) {
+        addRepVolley(repInvite);
 
-
+    }
 }

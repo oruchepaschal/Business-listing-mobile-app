@@ -92,7 +92,7 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
     String imageTypeUploaded;
     String company_lat = "0.0";
     String company_long = "0.0";
-
+    private onBackerPressed mListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +117,17 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
             user = User.getUserByKey(AppInstanceSettings.load(AppInstanceSettings.class,1).getUserkey());
 
         }catch (Exception e){
+
+            e.printStackTrace();
+        }
+
+
+
+        try{
+
+            mListener = (onBackerPressed) Addcompany.this;
+        }catch (Exception e){
+
 
             e.printStackTrace();
         }
@@ -246,9 +257,8 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
 
 
         String[] wee = spinnerValues.toArray(new String[spinnerValues.size()]);
-        final String[] str={"Report 1","Report 2","Report 3","Report 4","Report 5"};
-        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item, wee);
+
+        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, wee);
         spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item );
 
 // Spinner spinYear = (Spinner)findViewById(R.id.spin);
@@ -355,22 +365,6 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
     }
 
     private void validateFields(){
-
-        //if all fields are successfuly
-
-/**
- *
- * companyName = (EditText) findViewById(R.id.companyname);
- Category = (Spinner)findViewById(R.id.companyCategory);
- company_email=(EditText)findViewById(R.id.companyemail);
- company_phone1=(EditText)findViewById(R.id.phone1);
- company_phone2=(EditText)findViewById(R.id.phone2);
- company_URL=(EditText)findViewById(R.id.website);
- company_address=(EditText)findViewById(R.id.address);
- company_bio=(EditText)findViewById(R.id.companyBio);
- *
- * */
-
 
 
 
@@ -506,10 +500,10 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
 
 
                                                 }
-
+                                               // mListener.onBackerPressed();
                                                 sweetAlertDialog.dismiss();
 
-
+                                                onBackPressed();
                                               //  finish();
                                             }
                                         })
@@ -606,7 +600,7 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
             //your code here
 
 
-            Toast.makeText(Addcompany.this,location.getLatitude()+ "" + location.getLongitude(),Toast.LENGTH_LONG).show();
+            //Toast.makeText(Addcompany.this,location.getLatitude()+ "" + location.getLongitude(),Toast.LENGTH_LONG).show();
         }
 
         @Override
@@ -652,5 +646,10 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
                break;
         }
 
+    }
+
+    public interface onBackerPressed {
+        // TODO: Update argument type and name
+        void onBackerPressed();
     }
 }

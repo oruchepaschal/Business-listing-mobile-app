@@ -4,22 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ecoach.cosapp.Activites.Company.MyCompanyDepartments">
-
+    tools:context="com.ecoach.cosapp.Activites.Company.ManageReps.ManageReps">
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/departments"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent">
+
+    </android.support.v7.widget.RecyclerView>
 
 
     <android.support.design.widget.FloatingActionButton
         android:background="@color/colorPrimary"
-        android:id="@+id/chatfloatButton"
+        android:id="@+id/addreps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/fab_margin"
-        android:src="@drawable/add_flat"
+        android:src="@drawable/manage_rep"
         android:layout_gravity="bottom|end"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"/>

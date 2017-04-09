@@ -1,1 +1,1 @@
-include ':app', ':activeandroid-3.0', ':activeandroid-3.1.0', ':httpclientandroidlib-1.2.1'
+include ':app', ':activeandroid-3.0', ':activeandroid-3.1.0', ':httpclientandroidlib-1.2.1', ':commons-lang3-3.5'

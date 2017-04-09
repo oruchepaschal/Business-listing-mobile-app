@@ -1,0 +1,109 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_height="match_parent"
+    tools:context="com.ecoach.cosapp.Activites.Company.ManageReps.AddRepsDialog">
+
+    <!-- TODO: Update blank fragment layout -->
+<RelativeLayout
+    android:background="@color/colorPrimary"
+    android:layout_width="match_parent"
+    android:layout_height="50dp">
+    <TextView
+        android:textColor="@android:color/white"
+        android:id="@+id/textView10"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Add Rep"
+        android:padding="15dp"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/closebut" />
+    <info.hoang8f.widget.FButton
+        android:textColor="@android:color/white"
+        app:buttonColor="@android:color/holo_red_dark"
+        app:cornerRadius="0dp"
+        android:id="@+id/closebut"
+        app:shadowEnabled="false"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="Cancel" />
+</RelativeLayout>
+
+    <RelativeLayout
+        android:padding="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout6">
+
+
+        <EditText
+            android:drawablePadding="10dp"
+            android:drawableStart="@drawable/email_open"
+            android:id="@+id/repemail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignStart="@+id/spinnerDepartments"
+            android:layout_marginTop="51dp"
+            android:ems="10"
+            android:hint="Email"
+            android:inputType="textEmailAddress" />
+
+        <Spinner
+            android:id="@+id/spinnerDepartments"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_below="@+id/textView4"
+            android:padding="10dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignStart="@+id/spinnerDepartments"
+            android:layout_below="@+id/repemail"
+            android:layout_marginTop="15dp"
+            android:padding="5dp"
+            android:text="Department" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/spinnerDepartments"
+            android:padding="5dp"
+            android:text="Company" />
+
+        <Spinner
+            android:id="@+id/spinnerCompanies"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView5"
+            android:padding="10dp" />
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/invitebutton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+          app:shadowEnabled="false"
+            android:text="Invite"
+            android:textColor="@android:color/white"
+            app:buttonColor="@color/colorAccent"
+            android:layout_below="@+id/spinnerCompanies"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="66dp" />
+    </RelativeLayout>
+
+
+
+
+</RelativeLayout>

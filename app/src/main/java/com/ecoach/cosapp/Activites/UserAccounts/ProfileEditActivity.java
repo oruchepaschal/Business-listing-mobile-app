@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ViewFlipper;
 
@@ -12,11 +14,20 @@ import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.AppInstanceSettings;
 import com.ecoach.cosapp.DataBase.User;
 import com.ecoach.cosapp.R;
+import com.vansuita.pickimage.bean.PickResult;
+import com.vansuita.pickimage.bundle.PickSetup;
+import com.vansuita.pickimage.dialog.PickImageDialog;
+import com.vansuita.pickimage.listeners.IPickResult;
 
-public class ProfileEditActivity extends AppCompatActivity {
+import de.hdodenhof.circleimageview.CircleImageView;
+import info.hoang8f.widget.FButton;
+
+public class ProfileEditActivity extends AppCompatActivity implements IPickResult {
     EditText emailedt,phoneTxt,passwordTxt,confirmpassword,surname,firstname,locationDiscirption;
-    Button changePassword,backbutton;
+    FButton changePassword,backbutton;
     ViewFlipper viewFlipper;
+    CircleImageView imageView;
+    ImageView imageButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,7 +43,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         }
         viewFlipper=(ViewFlipper)findViewById(R.id.viewFlipper);
 
-        changePassword=(Button)findViewById(R.id.changePassword);
+        changePassword=(FButton) findViewById(R.id.changePassword);
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -42,7 +53,7 @@ public class ProfileEditActivity extends AppCompatActivity {
         });
 
 
-        backbutton=(Button)findViewById(R.id.backbutton);
+        backbutton=(FButton) findViewById(R.id.backbutton);
         backbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,7 +61,21 @@ public class ProfileEditActivity extends AppCompatActivity {
             }
         });
 
+        imageButton =(ImageView)findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickImageDialog.build(new PickSetup()).show(ProfileEditActivity.this);
+            }
+        });
 
+        imageView=(CircleImageView)findViewById(R.id.imageView);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PickImageDialog.build(new PickSetup()).show(ProfileEditActivity.this);
+            }
+        });
         editTextViews();
 
     }
@@ -83,5 +108,10 @@ public class ProfileEditActivity extends AppCompatActivity {
     {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onPickResult(PickResult pickResult) {
+        imageView.setImageBitmap(pickResult.getBitmap());
     }
 }

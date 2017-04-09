@@ -15,11 +15,13 @@ import com.android.volley.RequestQueue;
 import com.ecoach.cosapp.DataBase.AppInstanceSettings;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Companies;
+import com.ecoach.cosapp.DataBase.Departments;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
 import com.ecoach.cosapp.DataBase.User;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.Models.Company;
+import com.ecoach.cosapp.Models.RepInvite;
 import com.ecoach.cosapp.R;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -40,7 +42,7 @@ public class Application extends android.app.Application {
     public static String selectedCompanyName;
 
     public static VerifiedCompanies selectedCompanyObbject;
-
+    public static RepInvite activeRepInvite;
     private static Context context;
 
     private static String companyCover = "";
@@ -97,6 +99,7 @@ public class Application extends android.app.Application {
         configurationBuilder.addModelClass(VerifiedCompanies.class);
         configurationBuilder.addModelClass(User.class);
         configurationBuilder.addModelClass(AppInstanceSettings.class);
+        configurationBuilder.addModelClass(Departments.class);
 
         ActiveAndroid.initialize(configurationBuilder.create());
     }

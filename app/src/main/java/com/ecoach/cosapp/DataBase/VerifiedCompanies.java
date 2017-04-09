@@ -252,6 +252,13 @@ public class VerifiedCompanies extends Model {
                 .executeSingle();
     }
 
+
+    public static VerifiedCompanies getCompanyByIDByName(String companyName) {
+        return new Select()
+                .from(VerifiedCompanies.class)
+                .where("companyName = ?",companyName)
+                .executeSingle();
+    }
     public static VerifiedCompanies getCompaniesByID(String company_id,String category_id) {
 
         return new Select()
@@ -275,6 +282,12 @@ public class VerifiedCompanies extends Model {
     public static List<VerifiedCompanies> getAllCompaniesBy4User(boolean forUser) {
         return new Select()
                 .from(VerifiedCompanies.class).where("forUser = ?",forUser)
+                .execute();
+    }
+
+    public static List<VerifiedCompanies> getAllCompaniesBy4User(boolean forUser,String accountType) {
+        return new Select()
+                .from(VerifiedCompanies.class).where("forUser = ?",forUser).and("accountType = ?",accountType)
                 .execute();
     }
 }

@@ -21,6 +21,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
+import com.ecoach.cosapp.Activites.Company.ManageReps.ManageReps;
 import com.ecoach.cosapp.Activites.Company.ManangeMyCompanies;
 import com.ecoach.cosapp.Activites.UserAccounts.LoginActivity;
 import com.ecoach.cosapp.Activites.UserAccounts.ProfileEditActivity;
@@ -150,6 +151,7 @@ public class MainActivity extends AppCompatActivity
 
                 navigationView.getMenu().findItem(R.id.login).setVisible(false);
                 navigationView.getMenu().findItem(R.id.logout).setVisible(true);
+                navigationView.getMenu().findItem(R.id.manage).setVisible(true);
             }else{
 
                 nav_user.setText("You are not logged in");
@@ -296,6 +298,8 @@ public class MainActivity extends AppCompatActivity
             startActivity(intent);
 
         } else if (id == R.id.manage) {
+            Intent intent = new Intent(MainActivity.this,ManageReps.class);
+            startActivity(intent);
 
         } else if (id == R.id.stats) {
 

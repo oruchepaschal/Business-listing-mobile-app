@@ -25,7 +25,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile project(':activeandroid-3.1.0')
-
     compile project(':httpclientandroidlib-1.2.1')
     compile 'com.android.support:design:25.1.1'
     compile 'com.android.support:appcompat-v7:25.1.1'
@@ -50,4 +49,5 @@ dependencies {
     compile 'com.github.jrvansuita:PickImage:+'
     compile 'info.hoang8f:fbutton:1.0.5'
     testCompile 'junit:junit:4.12'
+    compile project(':commons-lang3-3.5')
 }
