@@ -3,11 +3,7 @@ package com.ecoach.cosapp.Application;
 import android.content.Context;
 
 
-
-
-
-
-import android.content.Context;
+import android.content.Intent;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
@@ -15,14 +11,18 @@ import com.android.volley.RequestQueue;
 import com.ecoach.cosapp.DataBase.AppInstanceSettings;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Companies;
+import com.ecoach.cosapp.DataBase.CompanyRepInvite;
 import com.ecoach.cosapp.DataBase.Departments;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
+import com.ecoach.cosapp.DataBase.Recommendation;
+import com.ecoach.cosapp.DataBase.RepInvites;
 import com.ecoach.cosapp.DataBase.User;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
+import com.ecoach.cosapp.Http.Terminator2;
 import com.ecoach.cosapp.Http.VolleySingleton;
-import com.ecoach.cosapp.Models.Company;
 import com.ecoach.cosapp.Models.RepInvite;
 import com.ecoach.cosapp.R;
+import com.ecoach.cosapp.RecycleAdapters.RecommendationAdapter;
 
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -51,6 +51,8 @@ public class Application extends android.app.Application {
     private static String companyChatBack = "";
     private static String last_company_id = "";
 
+    public static String AppUserKey = "";
+
     public static VolleySingleton volleySingleton;
     public static RequestQueue requestQueue;
 
@@ -72,6 +74,22 @@ public class Application extends android.app.Application {
                 volleySingleton= VolleySingleton.getsInstance();
                 requestQueue=VolleySingleton.getRequestQueue();
 
+
+                this.AppUserKey = AppInstanceSettings.load(AppInstanceSettings.class,1).getUserkey();
+
+
+            }catch (Exception e){
+
+                e.printStackTrace();
+            }
+
+
+
+            try {
+
+
+
+                startService(new Intent(this, Terminator2.class));
 
             }catch (Exception e){
 
@@ -100,6 +118,9 @@ public class Application extends android.app.Application {
         configurationBuilder.addModelClass(User.class);
         configurationBuilder.addModelClass(AppInstanceSettings.class);
         configurationBuilder.addModelClass(Departments.class);
+        configurationBuilder.addModelClass(CompanyRepInvite.class);
+        configurationBuilder.addModelClass(RepInvites.class);
+        configurationBuilder.addModelClass(Recommendation.class);
 
         ActiveAndroid.initialize(configurationBuilder.create());
     }

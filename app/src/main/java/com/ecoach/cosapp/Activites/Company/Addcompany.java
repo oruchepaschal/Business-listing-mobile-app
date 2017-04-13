@@ -198,7 +198,7 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
                 }else {
 
                     company_lat = String.valueOf(gpsTracker.getLatitude()) ;
-                    company_long = String.valueOf(gpsTracker.getLocation());
+                    company_long = String.valueOf(gpsTracker.getLongitude());
                     pinBusinesslocation.setImageResource(R.drawable.mapshot);
                 }
 
@@ -442,8 +442,8 @@ public class Addcompany extends AppCompatActivity implements IPickResult {
         params.put("company_bio",company_bio.getText().toString());
         params.put("company_website",company_URL.getText().toString()+"");
         params.put("address",company_address.getText().toString()+"");
-        params.put("company_lat",company_URL.getText().toString()+"");
-        params.put("company_long",company_address.getText().toString()+"");
+        params.put("company_lat",company_lat.toString()+"");
+        params.put("company_long",company_long.toString()+"");
 
         volleySingleton= VolleySingleton.getsInstance();
         requestQueue=VolleySingleton.getRequestQueue();

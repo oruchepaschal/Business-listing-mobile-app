@@ -32,7 +32,7 @@
         android:src="@drawable/ic_no_image" />
 
     <TextView
-        android:id="@+id/companyName"
+        android:id="@+id/rep_companyName"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -48,8 +48,8 @@
         android:id="@+id/companycategory"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/companyName"
-        android:layout_below="@+id/companyName"
+        android:layout_alignStart="@+id/rep_companyName"
+        android:layout_below="@+id/rep_companyName"
 
         android:text=""
         android:textColor="@android:color/white"
@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:clickable="false"
-        android:layout_below="@+id/companyName"
+        android:layout_below="@+id/rep_companyName"
         android:layout_marginRight="1dp"
 
         android:isIndicator="true"

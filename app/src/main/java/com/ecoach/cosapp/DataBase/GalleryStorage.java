@@ -19,6 +19,10 @@ public class GalleryStorage  extends Model{
     private String companyCuid;
 
 
+    @Column(name = "recomendationid")
+    private String recomendationid;
+
+
     @Column(name = "showcaseId")
     private String showcaseId;
 
@@ -63,7 +67,23 @@ public class GalleryStorage  extends Model{
         this.showcaseType = showcaseType;
     }
 
-    public static GalleryStorage getStorageSingle(String company_id,String showcaseId) {
+
+    public String getRecomendationid() {
+        return recomendationid;
+    }
+
+    public void setRecomendationid(String recomendationid) {
+        this.recomendationid = recomendationid;
+    }
+
+    public static GalleryStorage getReomendationStorageSingle(String recomendationid, String showcaseId) {
+        return new Select()
+                .from(GalleryStorage.class)
+                .where("recomendationid = ?",recomendationid).and("showcaseId = ?",showcaseId)
+                .executeSingle();
+    }
+
+    public static GalleryStorage getStorageSingle(String company_id, String showcaseId) {
         return new Select()
                 .from(GalleryStorage.class)
                 .where("companyCuid = ?",company_id).and("showcaseId = ?",showcaseId)

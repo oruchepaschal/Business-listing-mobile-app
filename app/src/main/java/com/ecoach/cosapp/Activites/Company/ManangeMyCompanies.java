@@ -1,9 +1,12 @@
 package com.ecoach.cosapp.Activites.Company;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +14,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.activeandroid.ActiveAndroid;
@@ -71,34 +77,40 @@ public class ManangeMyCompanies extends AppCompatActivity implements  Addcompany
         setContentView(R.layout.activity_manange_companies);
 
 
-        if (getSupportActionBar() != null){
+        try {
+            Log.d("companies", "userKey" + AppInstanceSettings.load(AppInstanceSettings.class, 1).getUserkey());
+        }catch (Exception e){
 
-            getSupportActionBar().setTitle("My Companies");
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
+            e.printStackTrace();
         }
+            if (getSupportActionBar() != null) {
+
+                getSupportActionBar().setTitle("My Companies");
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+            }
 
 
-        initviews();
-        setFloatingButton();
-        setRefreshView();
+            initviews();
+            setFloatingButton();
+            setRefreshView();
 
 
-        if(VerifiedCompanies.getAllCompaniesBy4User(true).size() == 0){
+            if (VerifiedCompanies.getAllCompaniesBy4User(true, Application.AppUserKey).size() == 0) {
 
-            getCategoriesLocal();
-        }else {
+                getCategoriesLocal();
+            } else {
 
-            setRecycleView();
+                setRecycleView();
 
-        }
+            }
 
 
-        if(Departments.getAllDepartments().size() == 0){
+       // if(Departments.getAllDepartments().size() == 0){
 
-            loadcompanyDepartment();
-        }
 
+       // }
+       // loadcompanyDepartment();
     }
 
     private void setRefreshView() {
@@ -159,7 +171,7 @@ public class ManangeMyCompanies extends AppCompatActivity implements  Addcompany
             if(valueIsLoggedIn){
 
 
-                verifiedCompaniesList = VerifiedCompanies.getAllCompaniesBy4User(true);
+                verifiedCompaniesList = VerifiedCompanies.getAllCompaniesBy4User(true,Application.AppUserKey);
             }else{
 
                 verifiedCompaniesList = Collections.emptyList();
@@ -190,6 +202,29 @@ public class ManangeMyCompanies extends AppCompatActivity implements  Addcompany
 
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.company_filter, menu);
+
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.filter_settings :
+
+                AlertDialog();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -252,173 +287,7 @@ public class ManangeMyCompanies extends AppCompatActivity implements  Addcompany
         });
 
     }
-    private void loadcompanyDepartment(){
 
-
-
-        final HashMap<String, String> params = new HashMap<String, String>();
-
-
-
-        params.put("fetch_public_info", "1");
-        params.put("scope","wide_company_departments");
-
-
-        volleySingleton= VolleySingleton.getsInstance();
-        requestQueue=VolleySingleton.getRequestQueue();
-
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
-                APIRequest.BASE_URL,
-                new JSONObject(params),
-                new Response.Listener<JSONObject>() {
-                    //Log.d("Params",params+"");
-                    @Override
-                    public void onResponse(JSONObject response) {
-
-                        try {
-
-
-
-                            Log.d("logs",response.toString());
-
-
-
-
-                            JSONObject  object= response.optJSONObject("ecoachlabs");
-                            String statuscode = object.getString("status");
-                            String message = object.getString("msg");
-
-                            Departments departments;
-                            List<Departments> departmentsList = new ArrayList<>();
-
-                            if(statuscode.equals("201")){
-
-                                JSONArray info = object.getJSONArray("info");
-                                //   JSONArray info = object.getJSONArray("info");
-
-                                for (int i = 0 ; i < info.length(); i++) {
-
-                                    JSONObject obj = info.getJSONObject(i);
-
-
-                                    departments = Departments.getDepartmentsByID(obj.getString("department_id"));
-
-                                    if(departments == null){
-
-                                        departments= new Departments();
-                                    }
-
-
-                                    departments.setDepartmentid(obj.getString("department_id"));
-                                    departments.setDepartmentname(WordUtils.capitalizeFully(obj.getString("department_name")));
-
-                                    departmentsList.add(departments);
-                                }
-                            }
-
-
-                            ActiveAndroid.beginTransaction();
-                            try
-                            {
-
-                                for(Departments departments1 : departmentsList){
-
-
-
-                                    Long id =   departments1.save();
-
-
-                                    Log.d("Company ID", "id"+id);
-
-                                }
-
-
-
-
-                                ActiveAndroid.setTransactionSuccessful();
-                            }
-                            finally {
-                                ActiveAndroid.endTransaction();
-
-
-
-
-                                //SetRecycleView(view);
-                            }
-
-
-
-
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-
-
-                        //  Message.messageShort(MyApplication.getAppContext(),""+tokenValue+"\n"+response.toString()+"\n"+booleaner);
-                    }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error)   {
-
-
-
-                //  dialogs.SimpleWarningAlertDialog("Transmission Error", "Connection Failed").show();
-                Log.d("volley.Response", error.toString());
-
-
-
-
-                if (error instanceof TimeoutError) {
-                    // dialogs.SimpleWarningAlertDialog("Network Slacking", "Time Out Error").show();
-                    Log.d("volley", "NoConnectionError.....TimeoutError..");
-
-
-                    //     dialogs.SimpleWarningAlertDialog("Network Slacking", "Time Out Error");
-
-
-
-                } else if(error instanceof NoConnectionError){
-
-                    // dialogs.SimpleWarningAlertDialog("No Internet Connections Detected", "No Internet Connection").show();
-
-                }
-
-
-                else if (error instanceof AuthFailureError) {
-                    //  Log.d("volley", "AuthFailureError..");
-                    // dialogs.SimpleWarningAlertDialog("Authentication Failure","AuthFailureError").show();
-
-
-                } else if (error instanceof ServerError) {
-                    // dialogs.SimpleWarningAlertDialog("Server Malfunction", "Server Error").show();
-
-                } else if (error instanceof NetworkError) {
-                    // dialogs.SimpleWarningAlertDialog("Network Error", "Network Error").show();
-
-                } else if (error instanceof ParseError) {
-                    // dialogs.SimpleWarningAlertDialog("Parse Error","Parse Error").show();
-                }
-
-            }
-        }) {
-            @Override
-            public java.util.Map<String, String> getHeaders() throws AuthFailureError {
-                HashMap<String, String> headers = new HashMap<String, String>();
-                headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("auth-key", AppInstanceSettings.load(AppInstanceSettings.class,1).getUserkey());
-                return headers;
-            }
-        };
-        int socketTimeout = 480000000;//8 minutes - change to what you want
-        RetryPolicy policy = new DefaultRetryPolicy(
-                socketTimeout,
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
-                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
-        request.setRetryPolicy(policy);
-        requestQueue.add(request);
-        Log.d("oxinbo","Server Logs"+params.toString());
-    }
     private void getCategoriesLocal(){
 
 
@@ -454,7 +323,8 @@ public class ManangeMyCompanies extends AppCompatActivity implements  Addcompany
 
                             try{
 
-                                new Delete().from(VerifiedCompanies.class).where("forUser = ?",true).execute();
+                                new Delete().from(VerifiedCompanies.class).where("forUser = ?",true).and("userID = ?",
+                                        AppInstanceSettings.load(AppInstanceSettings.class,1).getUserkey()).execute();
 
 
                             }catch (Exception e){
@@ -632,6 +502,9 @@ public class ManangeMyCompanies extends AppCompatActivity implements  Addcompany
 
                 companies.setForUser(true);
 
+
+                companies.setUserID(AppInstanceSettings.load(AppInstanceSettings.class,1).getUserkey());
+
                 //TODO Create the department schema
 
 
@@ -788,6 +661,62 @@ public class ManangeMyCompanies extends AppCompatActivity implements  Addcompany
 
         public void onClick(View view,int position);
         public void onLongClick(View view,int position);
+
+    }
+
+    private void AlertDialog(){
+       // List<VerifiedCompanies> verifiedCompaniesList =  new ArrayList<>();
+        AlertDialog.Builder builderSingle = new AlertDialog.Builder(ManangeMyCompanies.this);
+        //builderSingle.setTitle("Filter");
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(ManangeMyCompanies.this, android.R.layout.select_dialog_item);
+
+        arrayAdapter.add("All");
+        arrayAdapter.add("Rep");
+        arrayAdapter.add("Admin");
+
+
+
+        builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String strName = arrayAdapter.getItem(which);
+
+                if (strName.equals("All")){
+
+
+                    List<VerifiedCompanies>   verifiedCompaniesList = VerifiedCompanies.getAllCompaniesBy4User(true,Application.AppUserKey);
+                    myCompaniesAdapter = new MyCompaniesAdapter(ManangeMyCompanies.this, verifiedCompaniesList);
+
+                    // layoutManager = new GridLayoutManager(ManangeMyCompanies.this, 2);
+                    myCompanies.setAdapter(myCompaniesAdapter);
+                    myCompanies.setLayoutManager(layoutManager);
+
+
+
+
+
+
+                }else {
+
+                    List<VerifiedCompanies>   verifiedCompaniesList = VerifiedCompanies.getAllCompaniesBy4User(true,strName.toLowerCase(),Application.AppUserKey);
+                    myCompaniesAdapter = new MyCompaniesAdapter(ManangeMyCompanies.this, verifiedCompaniesList);
+
+                   // layoutManager = new GridLayoutManager(ManangeMyCompanies.this, 2);
+                    myCompanies.setAdapter(myCompaniesAdapter);
+                    myCompanies.setLayoutManager(layoutManager);
+
+                }
+            }
+        });
+        builderSingle.show();
 
     }
 

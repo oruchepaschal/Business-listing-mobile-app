@@ -55,6 +55,10 @@ public class UploadBase64 extends IntentService {
     public UploadBase64() {
         super("UploadBase64");
     }
+
+    public UploadBase64(String name) {
+        super("UploadBase64");
+    }
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
 
@@ -200,7 +204,7 @@ base_cert
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Content-Type", "application/json; charset=utf-8");
-                headers.put("auth-key", AppInstanceSettings.load(AppInstanceSettings.class,1).getUserkey());
+                headers.put("auth-key", Application.AppUserKey);
                 return headers;
             }
         };
@@ -213,6 +217,7 @@ base_cert
         requestQueue.add(request);
         Log.d("oxinbo","Server Logs"+params.toString());
     }
+
 
     private void MultipartVolley(final String poi){
 

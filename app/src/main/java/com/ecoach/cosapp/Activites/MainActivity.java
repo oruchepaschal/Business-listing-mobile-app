@@ -1,15 +1,20 @@
 package com.ecoach.cosapp.Activites;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,15 +23,23 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.activeandroid.query.Delete;
 import com.android.volley.RequestQueue;
 import com.ecoach.cosapp.Activites.Company.ManageReps.ManageReps;
 import com.ecoach.cosapp.Activites.Company.ManangeMyCompanies;
 import com.ecoach.cosapp.Activites.UserAccounts.LoginActivity;
 import com.ecoach.cosapp.Activites.UserAccounts.ProfileEditActivity;
+import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.AppInstanceSettings;
+import com.ecoach.cosapp.DataBase.Categories;
+import com.ecoach.cosapp.DataBase.CompanyRepInvite;
 import com.ecoach.cosapp.DataBase.User;
+import com.ecoach.cosapp.Http.Terminator2;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
 
@@ -39,7 +52,10 @@ import com.ecoach.cosapp.Fragments.CategoriesFragment;
 import com.ecoach.cosapp.Fragments.HomeFragment;
 import com.ecoach.cosapp.Fragments.RecentFragment;
 import com.ecoach.cosapp.RecycleAdapters.MainCategoryAdapter;
+import com.ecoach.cosapp.Utilities.CircularTextView;
+import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.jakewharton.processphoenix.ProcessPhoenix;
+import com.joanzapata.iconify.widget.IconButton;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MaterialTabListener,HomeFragment.OnFragmentInteractionListener, CategoriesFragment.OnFragmentInteractionListener, RecentFragment.OnFragmentInteractionListener{
@@ -51,8 +67,9 @@ public class MainActivity extends AppCompatActivity
     User user;
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
- private boolean isLoggedIn = false;
+    private boolean isLoggedIn = false;
 
+    int count = 0;
     TextView userName;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,6 +107,20 @@ public class MainActivity extends AppCompatActivity
 
 
         setNavHeaderItems(navigationView);
+
+
+        try{
+
+            count = CompanyRepInvite.getCompanyRepInvitations(Application.AppUserKey).size();
+
+            Log.d("Notifications", count + "<<count   +   Key>>" + Application.AppUserKey+ " user lname : "+User.getUserByKey(Application.AppUserKey).getLname()+ " user id" +User.getUserByKey(Application.AppUserKey).getId() );
+            invalidateOptionsMenu();
+
+        }catch (Exception e){
+
+         e.printStackTrace();
+        }
+
 
 
     }
@@ -149,12 +180,15 @@ public class MainActivity extends AppCompatActivity
                 nav_user.setText(user.getFname() + " " + user.getLname());
                 nav_email.setText(user.getEmail());
 
+
+                navigationView.getMenu().findItem(R.id.comp).setVisible(true);
                 navigationView.getMenu().findItem(R.id.login).setVisible(false);
                 navigationView.getMenu().findItem(R.id.logout).setVisible(true);
                 navigationView.getMenu().findItem(R.id.manage).setVisible(true);
             }else{
 
                 nav_user.setText("You are not logged in");
+                navigationView.getMenu().findItem(R.id.comp).setVisible(false);
                 navigationView.getMenu().findItem(R.id.login).setVisible(true);
                 navigationView.getMenu().findItem(R.id.logout).setVisible(false);
 
@@ -226,9 +260,10 @@ public class MainActivity extends AppCompatActivity
                     @Override
                     public void onClick(SweetAlertDialog sweetAlertDialog) {
                         AppInstanceSettings appInstanceSettings = AppInstanceSettings.load(AppInstanceSettings.class,1);
-
-                        appInstanceSettings.setIsloggedIn(false);
-                        appInstanceSettings.save();
+                        Application.AppUserKey = "";
+                         appInstanceSettings.setIsloggedIn(false);
+                         appInstanceSettings.setUserkey("");
+                         appInstanceSettings.save();
 
 
                         ProcessPhoenix.triggerRebirth(MainActivity.this);
@@ -257,29 +292,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-/**
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-**/
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -319,6 +332,104 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_my, menu);
+        MenuItem item = menu.findItem(R.id.badge);
+        MenuItemCompat.setActionView(item, R.layout.badge_layout);
+        RelativeLayout notifCount = (RelativeLayout) MenuItemCompat.getActionView(item);
+
+       TextView tv = (TextView) notifCount.findViewById(R.id.actionbar_notifcation_textview);
+
+        ImageButton imageButton=(ImageButton)notifCount.findViewById(R.id.imagebutton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                try{
+
+                    if(AppInstanceSettings.load(AppInstanceSettings.class,1).isloggedIn() == false){
+
+                        new SweetAlertDialog(MainActivity.this, SweetAlertDialog.WARNING_TYPE)
+                                .setTitleText("Sorry,")
+                                .setContentText("You need to Login")
+                                .setConfirmText("Login")
+                                .setCancelText("Cancel")
+                                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+
+                                        sweetAlertDialog.dismiss();
+                                        Intent intent = new Intent(MainActivity.this,LoginActivity.class);
+                                        startActivity(intent);
+                                    }
+                                })
+                                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                                    @Override
+                                    public void onClick(SweetAlertDialog sweetAlertDialog) {
+                                        sweetAlertDialog.dismiss();
+                                    }
+                                })
+                                .show();
+
+
+
+
+                    }else{
+
+                        Intent intent = new Intent(MainActivity.this,NotificationCenter.class);
+                        startActivity(intent);
+
+                    }
+
+
+                }catch (Exception e){
+
+                  e.printStackTrace();
+
+                }
+
+
+
+
+
+
+
+
+
+
+            }
+        });
+      //  tv.setStrokeWidth(1);
+
+        if(count == 0){
+            tv.setVisibility(View.INVISIBLE);
+
+        }else{
+
+            tv.setVisibility(View.VISIBLE);
+        }
+
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    protected void onResume() {
+
+
+        super.onResume();
+
+invalidateOptionsMenu();
+
+
+        startService(new Intent(this, Terminator2.class));
+
+        Log.d("Onresume","oresume");
     }
 
     @Override

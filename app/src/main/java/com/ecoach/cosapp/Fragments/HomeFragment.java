@@ -35,6 +35,8 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.ecoach.cosapp.Activites.Company.CompaniesActivity;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.Categories;
+import com.ecoach.cosapp.DataBase.GalleryStorage;
+import com.ecoach.cosapp.DataBase.Recommendation;
 import com.ecoach.cosapp.Http.APIRequest;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
@@ -102,10 +104,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
 
 
     }
@@ -114,36 +113,29 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-      /**  swiperRefresh=(SwipeRefreshLayout)view.findViewById(R.id.swiperRefresh);
-        swiperRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
 
 
-                bottomrecycler = (RecyclerView) view.findViewById(R.id.bottomRecycleView);
 
-                CategoriesAdapter categoriesAdapter = new CategoriesAdapter(getContext(),Categories.getAllCategories());
-                layoutManager = new GridLayoutManager(getActivity(), 2);
+        setSliderLayout(view);
 
-                bottomrecycler.setAdapter(categoriesAdapter);
-                bottomrecycler.setLayoutManager(layoutManager);
-                bottomrecycler.setNestedScrollingEnabled(false);
+
+
+        if(Recommendation.getAllRecomendedCompanies().size() == 0){
+
+            getRecomendations(view);
+        }else{
+
+            try{
 
                 toprecyler = (RecyclerView)view.findViewById(R.id.topRecycleView);
-                RecommendationAdapter recommendationAdapter = new RecommendationAdapter(getContext(),Categories.getAllCategories());
+                RecommendationAdapter recommendationAdapter = new RecommendationAdapter(getContext(), Recommendation.getAllRecomendedCompanies());
                 toprecyler.setAdapter(recommendationAdapter);
                 toprecyler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
-
-
-
-
-              //  swiperRefresh.setRefreshing(false);
+            }catch (Exception e){
+                e.printStackTrace();
             }
-        });**/
-        avLoadingIndicatorView=(AVLoadingIndicatorView)view.findViewById(R.id.avi);
-
-        setSliderLayout(view);
+        }
 
 
         if(Categories.getAllCategories().size() == 0){
@@ -215,10 +207,6 @@ public class HomeFragment extends Fragment {
             }
         }));
 
-        toprecyler = (RecyclerView)view.findViewById(R.id.topRecycleView);
-        RecommendationAdapter recommendationAdapter = new RecommendationAdapter(getContext(),Categories.getAllCategories());
-        toprecyler.setAdapter(recommendationAdapter);
-        toprecyler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 
     }
 
@@ -254,28 +242,290 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
+//recomendations
+private void getRecomendations(final View view){
 
+
+    Log.d("recomendation","loading from background");
+
+    final HashMap<String, String> params = new HashMap<String, String>();
+
+     Recommendation.truncate(Recommendation.class);
+
+    params.put("fetch_public_info",""+ "1");
+    params.put("scope","recommendation");
+    params.put("rec_lat","0.0");
+    params.put("rec_long","0.0");
+
+
+    volleySingleton= VolleySingleton.getsInstance();
+    requestQueue=VolleySingleton.getRequestQueue();
+
+    JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,
+            APIRequest.BASE_URL,
+            new JSONObject(params),
+            new Response.Listener<JSONObject>() {
+                //Log.d("Params",params+"");
+                @Override
+                public void onResponse(JSONObject response) {
+
+
+                    try {
+
+
+
+                        Log.d("recomendation logs",response.toString());
+
+                        getRecomendationsformatJSONLOCAL(response,view);
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+
+
+                    //  Message.messageShort(MyApplication.getAppContext(),""+tokenValue+"\n"+response.toString()+"\n"+booleaner);
+                }
+            }, new Response.ErrorListener() {
+        @Override
+        public void onErrorResponse(VolleyError error)   {
+
+
+
+            //  dialogs.SimpleWarningAlertDialog("Transmission Error", "Connection Failed").show();
+            Log.d("volley.Response", error.toString());
+
+
+
+
+
+            if (error instanceof TimeoutError) {
+                // dialogs.SimpleWarningAlertDialog("Network Slacking", "Time Out Error").show();
+                Log.d("volley", "NoConnectionError.....TimeoutError..");
+
+
+                //     dialogs.SimpleWarningAlertDialog("Network Slacking", "Time Out Error");
+
+
+
+            } else if(error instanceof NoConnectionError){
+
+                // dialogs.SimpleWarningAlertDialog("No Internet Connections Detected", "No Internet Connection").show();
+
+            }
+
+
+            else if (error instanceof AuthFailureError) {
+                //  Log.d("volley", "AuthFailureError..");
+                // dialogs.SimpleWarningAlertDialog("Authentication Failure","AuthFailureError").show();
+
+
+            } else if (error instanceof ServerError) {
+                // dialogs.SimpleWarningAlertDialog("Server Malfunction", "Server Error").show();
+
+            } else if (error instanceof NetworkError) {
+                // dialogs.SimpleWarningAlertDialog("Network Error", "Network Error").show();
+
+            } else if (error instanceof ParseError) {
+                // dialogs.SimpleWarningAlertDialog("Parse Error","Parse Error").show();
+            }
+
+        }
+    }) {
+
+    };
+    int socketTimeout = 480000000;//8 minutes - change to what you want
+    RetryPolicy policy = new DefaultRetryPolicy(
+            socketTimeout,
+            DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+            DefaultRetryPolicy.DEFAULT_BACKOFF_MULT);
+    request.setRetryPolicy(policy);
+    requestQueue.add(request);
+    Log.d("oxinbo","Server Logs"+params.toString());
+}
+    private void getRecomendationsformatJSONLOCAL(JSONObject response,View view){
+
+        List<Recommendation> companiesArrayList = new ArrayList<Recommendation>();
+        List<GalleryStorage> showcaseList = new ArrayList<GalleryStorage>();
+        Recommendation companies;
+        GalleryStorage galleryStorage;
+        try {
+
+            JSONObject  object= response.optJSONObject("ecoachlabs");
+            JSONArray info = object.getJSONArray("info");
+
+            for (int i = 0 ; i < info.length(); i++) {
+
+                JSONObject obj = info.getJSONObject(i);
+
+
+                //companies = Recommendation.getCompaniesByID(obj.getString("companyCuid"),Application.getSelectedCategoryID());
+
+                companies = Recommendation.getCompaniesByID(obj.getString("companyCuid"));
+
+                if(companies == null){
+
+
+                    Log.d("recomendation","companies was null");
+
+                    companies =   new Recommendation();
+                }
+
+
+
+                companies =   new Recommendation();
+                Log.d("companies","companies was not null");
+
+                companies.setCategory_id(Application.getSelectedCategoryID());
+
+                String company_id = obj.getString("companyCuid");
+                companies.setCompanyCuid(company_id);
+
+                String company_name = obj.getString("companyName");
+                companies.setCompanyName(company_name);
+
+
+
+                String companyCategory = obj.getString("companyCategory");
+                companies.setCompanyCategory(companyCategory);
+
+
+
+                String companyCategoryID = obj.getString("companyCategoryId");
+                companies.setCompanyCategoryid(companyCategoryID);
+
+
+                String company_path = obj.getString("Path");
+                companies.setPath(company_path);
+
+
+                String company_avator = obj.getString("avatarLocation");
+                companies.setAvatarLocation(company_avator);
+
+
+                String active = obj.getString("companyStatus");
+                companies.setCompanyStatus(active);
+
+
+                String company_rating = obj.getString("companyRating");
+                companies.setCompanyRating(company_rating);
+
+                String address = obj.getString("Address");
+                companies.setAddress(address);
+
+                String bio = obj.getString("Bio");
+                companies.setBio(bio);
+
+
+                String Phone1 = obj.getString("Phone1");
+                companies.setPhone1(Phone1);
+
+
+                String Phone2 = obj.getString("Phone2");
+                companies.setPhone2(Phone2);
+
+                String email = obj.getString("Email");
+                companies.setEmail(email);
+
+
+                String Website = obj.getString("Website");
+                companies.setWebsite(Website);
+
+
+                String companyLat = obj.getString("companyLat");
+                companies.setCompanyLat(companyLat);
+
+
+                String companyLong = obj.getString("companyLong");
+                companies.setCompanyLong(companyLong);
+
+
+                String coverLocation = obj.getString("coverLocation");
+                companies.setCoverLocation(coverLocation);
+
+
+                String companyStorageName = obj.getString("companyStorageName");
+                companies.setCompanyStorageName(companyStorageName);
+
+
+                companies.setForUser(false);
+
+
+
+
+
+
+                companiesArrayList.add(companies);
+
+
+            }
+
+            ActiveAndroid.beginTransaction();
+            try
+            {
+
+                for(Recommendation verifiedCompanies : companiesArrayList){
+
+
+
+                    Long id =   verifiedCompanies.save();
+
+
+                    Log.d("Company ID", "id"+id);
+
+                }
+
+
+
+
+
+                ActiveAndroid.setTransactionSuccessful();
+            }
+            finally {
+                ActiveAndroid.endTransaction();
+
+
+                try{
+
+                    toprecyler = (RecyclerView)view.findViewById(R.id.topRecycleView);
+                    RecommendationAdapter recommendationAdapter = new RecommendationAdapter(getContext(), Recommendation.getAllRecomendedCompanies());
+                    toprecyler.setAdapter(recommendationAdapter);
+                    toprecyler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                //SetRecycleView(view);
+            }
+
+
+
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
+    //
 
 
     private void getCategories(final View view){
 
 
-        avLoadingIndicatorView.show();
+
 
 
         final HashMap<String, String> params = new HashMap<String, String>();
@@ -296,7 +546,7 @@ public class HomeFragment extends Fragment {
                     //Log.d("Params",params+"");
                     @Override
                     public void onResponse(JSONObject response) {
-                        avLoadingIndicatorView.hide();
+
                         try {
 
 
@@ -317,14 +567,14 @@ public class HomeFragment extends Fragment {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error)   {
-                avLoadingIndicatorView.hide();
+
 
                 //  dialogs.SimpleWarningAlertDialog("Transmission Error", "Connection Failed").show();
                 Log.d("volley.Response", error.toString());
 
 
 
-                avLoadingIndicatorView.hide();
+
                 if (error instanceof TimeoutError) {
                     // dialogs.SimpleWarningAlertDialog("Network Slacking", "Time Out Error").show();
                     Log.d("volley", "NoConnectionError.....TimeoutError..");
@@ -401,6 +651,11 @@ public class HomeFragment extends Fragment {
 
 
                 categories.setCategoryBackgroundImage(category_pic);
+
+
+
+                String path = obj.getString("path");
+                categories.setPath(path);
                 //categories.setCategoryIcons(category_pic);
 
 

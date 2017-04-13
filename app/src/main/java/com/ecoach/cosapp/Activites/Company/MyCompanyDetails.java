@@ -22,8 +22,6 @@ import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Target;
 
-import javax.xml.parsers.SAXParser;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
@@ -135,7 +133,7 @@ public class MyCompanyDetails extends AppCompatActivity {
                     }
                 });
 
-        companyName=(TextView)findViewById(R.id.companyName);
+        companyName=(TextView)findViewById(R.id.rep_companyName);
         companyName.setText(Application.getSelectedCompanyObbject().getCompanyName());
 
         companycategory=(TextView)findViewById(R.id.companycategory);
@@ -151,4 +149,7 @@ public class MyCompanyDetails extends AppCompatActivity {
 
 
     }
+
+
+
 }

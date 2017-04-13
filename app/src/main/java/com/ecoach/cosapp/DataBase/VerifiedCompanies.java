@@ -83,6 +83,28 @@ public class VerifiedCompanies extends Model {
     @Column(name = "companyCategory")
     private String companyCategory;
 
+    @Column(name = "companyCategoryid")
+    private String companyCategoryid;
+
+
+    public String getCompanyCategoryid() {
+        return companyCategoryid;
+    }
+
+    public void setCompanyCategoryid(String companyCategoryid) {
+        this.companyCategoryid = companyCategoryid;
+    }
+
+    @Column(name = "userID")
+    private String userID;
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
 
     public String getCompanyStatus() {
         return companyStatus;
@@ -285,9 +307,15 @@ public class VerifiedCompanies extends Model {
                 .execute();
     }
 
-    public static List<VerifiedCompanies> getAllCompaniesBy4User(boolean forUser,String accountType) {
+    public static List<VerifiedCompanies> getAllCompaniesBy4User(boolean forUser,String userID) {
         return new Select()
-                .from(VerifiedCompanies.class).where("forUser = ?",forUser).and("accountType = ?",accountType)
+                .from(VerifiedCompanies.class).where("forUser = ?",forUser).and("userID = ?",userID)
+                .execute();
+    }
+
+    public static List<VerifiedCompanies> getAllCompaniesBy4User(boolean forUser,String accountType,String userID) {
+        return new Select()
+                .from(VerifiedCompanies.class).where("forUser = ?",forUser).and("accountType = ?",accountType).and("userID = ?",userID)
                 .execute();
     }
 }

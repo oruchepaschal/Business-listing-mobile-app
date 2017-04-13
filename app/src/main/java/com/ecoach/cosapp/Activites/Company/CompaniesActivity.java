@@ -75,6 +75,8 @@ public class CompaniesActivity extends AppCompatActivity {
 
         try{
 
+
+            Log.d("Category ID","THIS IS THE CATE ID"+Application.getSelectedCategoryID());
             if(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID(),"active").size() == 0){
 
 
@@ -395,6 +397,16 @@ Log.d("CatDetails",obj.getString("companyCuid") + " cate ID" + Application.getSe
                 companies.setCompanyName(company_name);
 
 
+
+                String companyCategory = obj.getString("companyCategory");
+                companies.setCompanyCategory(companyCategory);
+
+
+
+                String companyCategoryID = obj.getString("companyCategoryId");
+                companies.setCompanyCategoryid(companyCategoryID);
+
+
                 String company_path = obj.getString("Path");
                 companies.setPath(company_path);
 
@@ -402,7 +414,7 @@ Log.d("CatDetails",obj.getString("companyCuid") + " cate ID" + Application.getSe
                 String company_avator = obj.getString("avatarLocation");
                 companies.setAvatarLocation(company_avator);
 
-
+                //companyStatus
                 String active = obj.getString("companyStatus");
                 companies.setCompanyStatus(active);
 
@@ -586,12 +598,26 @@ Log.d("CatDetails",obj.getString("companyCuid") + " cate ID" + Application.getSe
                 companies.setCompanyName(company_name);
 
 
+
+                String companyCategory = obj.getString("companyCategory");
+                companies.setCompanyCategory(companyCategory);
+
+
+
+                String companyCategoryID = obj.getString("companyCategoryId");
+                companies.setCompanyCategoryid(companyCategoryID);
+
+
                 String company_path = obj.getString("Path");
                 companies.setPath(company_path);
 
 
                 String company_avator = obj.getString("avatarLocation");
                 companies.setAvatarLocation(company_avator);
+
+
+                String active = obj.getString("companyStatus");
+                companies.setCompanyStatus(active);
 
 
                 String company_rating = obj.getString("companyRating");
@@ -633,6 +659,10 @@ Log.d("CatDetails",obj.getString("companyCuid") + " cate ID" + Application.getSe
 
                 String companyStorageName = obj.getString("companyStorageName");
                 companies.setCompanyStorageName(companyStorageName);
+
+
+                companies.setForUser(false);
+
 
 
                 JSONArray showcase = obj.getJSONArray("showcase");

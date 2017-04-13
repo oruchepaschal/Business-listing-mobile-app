@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<RelativeLayout
+    android:layout_margin="5dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userImage"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="10dp"
+        android:src="@drawable/account_circle" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_toEndOf="@+id/userImage"
+        android:layout_height="wrap_content"
+        android:id="@+id/relativeLayout7">
+
+        <TextView
+            android:id="@+id/repName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:padding="5dp"
+            android:text="James Melton" />
+
+        <TextView
+            android:id="@+id/repDepartment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/repName"
+            android:padding="5dp"
+            android:text="Medical" />
+
+        <TextView
+            android:id="@+id/repEmail"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/repDepartment"
+            android:padding="5dp"
+            android:text="email@email.com" />
+
+        <TextView
+            android:id="@+id/requestDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/repEmail"
+            android:padding="5dp"
+            android:text="12/12/2009" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/relativeLayoutRating"
+        android:layout_toEndOf="@+id/userImage"
+        android:layout_below="@+id/relativeLayout7"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <me.zhanghai.android.materialratingbar.MaterialRatingBar
+            android:id="@+id/repRatingBar"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/repRatingNumber"
+            android:padding="5dp" />
+
+        <TextView
+            android:id="@+id/repRatingNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:padding="5dp"
+            android:text="4.5"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/buttonlayerRelative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/relativeLayoutRating"
+        android:padding="5dp">
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/repReviewsButton"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+
+            android:layout_centerVertical="true"
+            android:layout_marginStart="22dp"
+            android:text="Button"
+            app:cornerRadius="0dp"
+            app:shadowEnabled="false" />
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/repChatButton"
+            android:layout_width="100dp"
+            android:layout_height="40dp"
+            android:layout_alignBottom="@+id/repReviewsButton"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="26dp"
+            android:text="Button"
+            app:cornerRadius="0dp"
+            app:shadowEnabled="false" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/buttonlayerRelative">
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/repActionButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:padding="4dp"
+            android:text="Button"
+            app:cornerRadius="0dp"
+            app:shadowEnabled="false" />
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
+
+
+
+</android.support.v7.widget.CardView>

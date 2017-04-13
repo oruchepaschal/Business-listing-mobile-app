@@ -115,6 +115,7 @@ forgotpassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                Log.d("login","start here");
                 ValiedateLogin();
             }
         });
@@ -142,6 +143,7 @@ forgotpassword.setOnClickListener(new View.OnClickListener() {
         params.put("pass",passwordEdt.getText().toString());
 
 
+        Log.d("loginD",params.toString());
 
 
         volleySingleton= VolleySingleton.getsInstance();
@@ -156,7 +158,7 @@ forgotpassword.setOnClickListener(new View.OnClickListener() {
                     public void onResponse(JSONObject response) {
 
                         try {
-
+                            Log.d("logs",response.toString());
                             pDialog.hide();
 
                             Log.d("logs",response.toString());
@@ -256,6 +258,8 @@ forgotpassword.setOnClickListener(new View.OnClickListener() {
     private void persistUserData(JSONObject jsonObject){
 
         try {
+
+            Log.d("loginD",jsonObject.toString());
             String ukey = jsonObject.getString("ukey");
             String email = jsonObject.getString("email");
 

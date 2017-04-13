@@ -61,9 +61,9 @@ public class CategoriesAdapter extends RecyclerView.Adapter<CategoriesAdapterVie
         holder.txthiddenId.setText(items.getCategoryID().toString());
         holder.txtLabel.setText(items.getCategoryNames().toString());
 
-
+String backImage = items.getPath()+items.getCategoryBackgroundImage();
             Picasso.with(context)
-                    .load(items.getCategoryBackgroundImage())
+                    .load(backImage)
                     .placeholder(R.drawable.ic_no_image)
                     .fit()
                     .centerCrop()

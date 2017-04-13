@@ -5,8 +5,10 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 
 import com.ecoach.cosapp.Activites.Company.Addcompany;
+import com.ecoach.cosapp.R;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -46,5 +48,22 @@ public class ViewUtils {
                 .setTitleText(title)
                 .setContentText(message)
                 .show();
+    }
+
+    public static void setBadgeCount(Context context, LayerDrawable icon, int count) {
+
+        BadgeDrawable badge;
+
+        // Reuse drawable if possible
+        Drawable reuse = icon.findDrawableByLayerId(R.id.comp);
+        if (reuse != null && reuse instanceof BadgeDrawable) {
+            badge = (BadgeDrawable) reuse;
+        } else {
+            badge = new BadgeDrawable(context);
+        }
+
+        badge.setCount(count);
+        icon.mutate();
+        icon.setDrawableByLayerId(R.id.comp, badge);
     }
 }

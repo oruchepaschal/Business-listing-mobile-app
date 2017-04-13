@@ -98,7 +98,7 @@ public class CompanyDetails extends AppCompatActivity  {
                     }
                 });
 
-        companyName=(TextView)findViewById(R.id.companyName);
+        companyName=(TextView)findViewById(R.id.rep_companyName);
         companyName.setText(Application.getSelectedCompanyObbject().getCompanyName());
 
         companycategory=(TextView)findViewById(R.id.companycategory);

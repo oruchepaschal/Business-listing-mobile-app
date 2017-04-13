@@ -20,6 +20,9 @@ public class Departments extends Model {
     private String departmentid;
 
 
+    @Column(name = "company_id")
+    private String company_id;
+
     @Column(name = "departmentname")
     private String departmentname;
 
@@ -40,11 +43,34 @@ public class Departments extends Model {
         this.departmentname = departmentname;
     }
 
+
+    public String getCompany_id() {
+        return company_id;
+    }
+
+    public void setCompany_id(String company_id) {
+        this.company_id = company_id;
+    }
+
     public static Departments getDepartmentsByIDByName(String name) {
         return new Select()
                 .from(Departments.class)
                 .where("departmentname = ?",name)
                 .executeSingle();
+    }
+
+    public static Departments getDepartmentsByIDByName(String name,String company_id) {
+        return new Select()
+                .from(Departments.class)
+                .where("departmentname = ?",name).and("company_id = ?",company_id)
+                .executeSingle();
+    }
+
+    public static List<Departments> getDepartmentsByCompanyID(String company_id) {
+        return new Select()
+                .from(Departments.class)
+                .where("company_id = ?",company_id)
+                .execute();
     }
 
     public static Departments getDepartmentsByID(String id) {

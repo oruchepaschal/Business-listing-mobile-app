@@ -101,6 +101,9 @@
         <service
             android:name=".Http.UploadBase64"
             android:exported="false" />
+        <service
+            android:name=".Http.Terminator2"
+            android:exported="false" />
 
         <activity
             android:name=".Activites.Company.MyCompanyDetails"
@@ -109,7 +112,8 @@
         <activity android:name=".Activites.Company.MyCompanyInformation" />
         <activity android:name=".Activites.MainCategories" />
         <activity android:name=".Activites.MainRecentChats" />
-        <activity android:name=".Activites.Company.ManageReps.ManageReps"></activity>
+        <activity android:name=".Activites.Company.ManageReps.ManageReps" />
+        <activity android:name=".Activites.NotificationCenter"></activity>
     </application>
 
 </manifest>

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.ecoach.cosapp.DataBase.Categories;
+import com.ecoach.cosapp.DataBase.Recommendation;
 import com.ecoach.cosapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -28,10 +29,10 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAdapterViewHolder>  {
     private Context context;
     private LayoutInflater inflater;
-    List<Categories> data= Collections.emptyList();
+    List<Recommendation> data= Collections.emptyList();
     View view=null;
 
-    public RecommendationAdapter(Context context, List<Categories> data) {
+    public RecommendationAdapter(Context context, List<Recommendation> data) {
         inflater= LayoutInflater.from(context);
         this.data=data;
         this.context=context;
@@ -56,15 +57,15 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
     public void onBindViewHolder(RecommendationAdapterViewHolder
     holder, int position) {
 
-        final Categories items=data.get(position);
+        final Recommendation items=data.get(position);
 
 
-        holder.txthiddenId.setText(items.getCategoryID().toString());
-        holder.labelTxt.setText(items.getCategoryNames().toString());
+        holder.txthiddenId.setText(items.getCompanyCuid().toString());
+        holder.labelTxt.setText(items.getCompanyName().toString());
 
-
+        String avatorPath= items.getPath()+items.getCompanyStorageName()+"/"+items.getAvatarLocation();
         Picasso.with(context)
-                .load(items.getCategoryBackgroundImage())
+                .load(avatorPath)
                 .placeholder(R.drawable.ic_no_image)
                 .fit()
                 .centerCrop()
@@ -73,7 +74,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
 
 
         holder.ratingBar.setNumStars(5);
-     holder.ratingBar.setRating((float) 2);
+     holder.ratingBar.setRating((float) Float.parseFloat(items.getCompanyRating()));
     }
 
     @Override

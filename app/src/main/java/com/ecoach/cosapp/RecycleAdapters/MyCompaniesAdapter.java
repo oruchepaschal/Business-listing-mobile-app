@@ -8,8 +8,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -19,11 +17,12 @@ import com.ecoach.cosapp.Utilities.Utility;
 import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.squareup.picasso.Picasso;
 
+import org.apache.commons.lang3.text.WordUtils;
+
 import java.util.Collections;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
-import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 
 /**
  * Created by apple on 4/6/17.
@@ -66,7 +65,7 @@ public class MyCompaniesAdapter extends RecyclerView.Adapter<MyCompaniesAdapterV
         holder.txthiddenId.setText(items.getCompanyCuid());
         holder.companyName.setText(items.getCompanyName().toString());
         holder.companyCategory.setText(items.getCompanyCategory().toString());
-        holder.acoountHolderType.setText(items.getAccountType().toString());
+        holder.acoountHolderType.setText(WordUtils.capitalizeFully(items.getAccountType().toString()));
 
         Log.d("Avator",items.getAvatarLocation());
 
@@ -114,7 +113,7 @@ class MyCompaniesAdapterViewHolder extends RecyclerView.ViewHolder {
 
         txthiddenId=(TextView)itemView.findViewById(R.id.companyid);
         iconView=(CircleImageView)itemView.findViewById(R.id.mycompanyLogo);
-        companyName = (TextView) itemView.findViewById(R.id.companyName);
+        companyName = (TextView) itemView.findViewById(R.id.rep_companyName);
         companyCategory=(TextView)itemView.findViewById(R.id.companyCategory) ;
         acoountHolderType=(TextView)itemView.findViewById(R.id.acoountHolderType);
 

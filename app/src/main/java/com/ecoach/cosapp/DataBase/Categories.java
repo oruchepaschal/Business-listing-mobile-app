@@ -21,9 +21,21 @@ public class Categories extends Model {
     private String categoryIcons;
 
 
+
+    @Column(name = "path")
+    private String path;
+
+
     @Column(name = "categoryID")
     private String categoryID;
 
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
 
     public String getCategoryNames() {
         return categoryNames;

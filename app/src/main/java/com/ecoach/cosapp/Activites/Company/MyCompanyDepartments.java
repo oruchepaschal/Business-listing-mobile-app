@@ -42,6 +42,7 @@ import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
 import com.ecoach.cosapp.RecycleAdapters.DepartmentAdapter;
 
+import org.apache.commons.lang3.text.WordUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -67,9 +68,9 @@ public class MyCompanyDepartments extends Activity {
 
             setdepartmentsRecyleview();
 
-          if(Departments.getAllDepartments().size() == 0){
+          if(Departments.getDepartmentsByCompanyID(Application.getSelectedCompanyObbject().getCompanyCuid()).size() == 0){
 
-              loadcompanyDepartVolley();
+              loadcompanyDepartment();
           }  else{
 
 
@@ -87,14 +88,14 @@ public class MyCompanyDepartments extends Activity {
     void setdepartmentsRecyleview(){
 
         departmentsRecyleview =(RecyclerView)findViewById(R.id.departments);
-        departmentAdapter = new DepartmentAdapter(MyCompanyDepartments.this, Departments.getAllDepartments());
+        departmentAdapter = new DepartmentAdapter(MyCompanyDepartments.this, Departments.getDepartmentsByCompanyID(Application.getSelectedCompanyObbject().getCompanyCuid()));
 
         linearLayoutManager = new LinearLayoutManager(MyCompanyDepartments.this);
         departmentsRecyleview.setAdapter(departmentAdapter);
         departmentsRecyleview.setLayoutManager(linearLayoutManager);
     }
 
-    private void loadcompanyDepartVolley(){
+    private void loadcompanyDepartment(){
 
 
 
@@ -104,7 +105,7 @@ public class MyCompanyDepartments extends Activity {
 
         params.put("fetch_public_info", "1");
         params.put("scope","wide_company_departments");
-
+        params.put("company_id",Application.getSelectedCompanyObbject().getCompanyCuid());
 
         volleySingleton= VolleySingleton.getsInstance();
         requestQueue=VolleySingleton.getRequestQueue();
@@ -136,14 +137,16 @@ public class MyCompanyDepartments extends Activity {
                             if(statuscode.equals("201")){
 
                                 JSONArray info = object.getJSONArray("info");
-                             //   JSONArray info = object.getJSONArray("info");
+                                //   JSONArray info = object.getJSONArray("info");
 
                                 for (int i = 0 ; i < info.length(); i++) {
 
                                     JSONObject obj = info.getJSONObject(i);
 
 
-                                    departments = Departments.getDepartmentsByID(obj.getString("department_id"));
+                                    Log.d("selectedCUD",Application.getSelectedCompanyObbject().getCompanyCuid());
+
+                                    departments = Departments.getDepartmentsByIDByName(obj.getString("department"),Application.getSelectedCompanyObbject().getCompanyCuid());
 
                                     if(departments == null){
 
@@ -151,8 +154,9 @@ public class MyCompanyDepartments extends Activity {
                                     }
 
 
-                                    departments.setDepartmentid(obj.getString("department_id"));
-                                    departments.setDepartmentname(obj.getString("department_name"));
+                                    //departments.setDepartmentid(obj.getString("department_id"));
+                                    departments.setCompany_id(Application.getSelectedCompanyObbject().getCompanyCuid());
+                                    departments.setDepartmentname(WordUtils.capitalizeFully(obj.getString("department")));
 
                                     departmentsList.add(departments);
                                 }
@@ -170,7 +174,7 @@ public class MyCompanyDepartments extends Activity {
                                     Long id =   departments1.save();
 
 
-                                    Log.d("Company ID", "id"+id);
+                                    Log.d("department ID", "id"+id);
 
                                 }
 
@@ -184,10 +188,8 @@ public class MyCompanyDepartments extends Activity {
 
 
 
-                                departmentAdapter.notifyDataSetChanged();
-                                departmentsRecyleview.setAdapter(departmentAdapter);
-                                departmentsRecyleview.setLayoutManager(linearLayoutManager);
-                                //SetRecycleView(view);
+
+                                setdepartmentsRecyleview();
                             }
 
 
