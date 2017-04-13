@@ -113,7 +113,8 @@
         <activity android:name=".Activites.MainCategories" />
         <activity android:name=".Activites.MainRecentChats" />
         <activity android:name=".Activites.Company.ManageReps.ManageReps" />
-        <activity android:name=".Activites.NotificationCenter"></activity>
+        <activity android:name=".Activites.NotificationCenter" />
+        <activity android:name=".Activites.Company.ManageReps.RepDetails"></activity>
     </application>
 
 </manifest>

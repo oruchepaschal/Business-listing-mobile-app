@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ecoach.cosapp.DataBase.RepInvites;
@@ -27,6 +28,8 @@ public class RepRequestAdapter extends RecyclerView.Adapter<RepRequestAdapterVie
     private LayoutInflater inflater;
     List<RepInvites> data= Collections.emptyList();
     View view=null;
+    RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
+
 
     public RepRequestAdapter(Context context, List<RepInvites> data) {
         inflater= LayoutInflater.from(context);
@@ -65,6 +68,8 @@ public class RepRequestAdapter extends RecyclerView.Adapter<RepRequestAdapterVie
         holder.statusTxt.setText(WordUtils.capitalize(items.getStatus()));
 
         if(items.getStatus().equals("pending")) {
+            holder.moreViewButton.setVisibility(View.GONE);
+            holder.actionButton.setLayoutParams(lp);
             holder.actionButton.setText("Cancel Request");
             holder.statusTxt.setTextColor(ContextCompat.getColor(context, R.color.red_btn_bg_pressed_color));
         }else {
@@ -73,7 +78,7 @@ public class RepRequestAdapter extends RecyclerView.Adapter<RepRequestAdapterVie
            // holder.actionButton.setText(items.getStatus();
         }
         holder.id.setText(items.getId().toString());
-
+//but_action.setLayoutParams(lp);
 
 
     }
@@ -86,7 +91,7 @@ public class RepRequestAdapter extends RecyclerView.Adapter<RepRequestAdapterVie
 class RepRequestAdapterViewHolder extends RecyclerView.ViewHolder {
 
     TextView email,department,company,id,requestDate,statusTxt;
-    FButton actionButton;
+    FButton actionButton,moreViewButton;
     /*
     *
     * CircleImageView userImage;
@@ -106,6 +111,8 @@ class RepRequestAdapterViewHolder extends RecyclerView.ViewHolder {
         requestDate= (TextView)itemView.findViewById(R.id.rep_requestDate);
         id=(TextView)itemView.findViewById(R.id.hiddenID);
         actionButton=(FButton)itemView.findViewById(R.id.actionButton);
+
+        moreViewButton=(FButton)itemView.findViewById(R.id.viewMoreButon);
 
       /**
        repName=(TextView)itemView.findViewById(R.id.repName);

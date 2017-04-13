@@ -3,6 +3,7 @@ package com.ecoach.cosapp.Activites.Company.ManageReps;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.DialogFragment;
@@ -137,6 +138,20 @@ SwipeRefreshLayout swipelayout;
                     }
                 });
 
+
+
+
+
+                final FButton morebutton =(FButton)view.findViewById(R.id.viewMoreButon);
+                morebutton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+
+                        Intent intent = new Intent(ManageReps.this,RepDetails.class);
+                        startActivity(intent);
+                    }
+                });
             }
 
             @Override

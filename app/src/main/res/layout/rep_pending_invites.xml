@@ -59,18 +59,36 @@
             android:layout_below="@+id/rep_requestDate"
             android:padding="2dp"
             android:text="TextView" />
-
-        <info.hoang8f.widget.FButton
-            app:buttonColor="@color/colorPrimaryDark"
-            android:textColor="@android:color/white"
-            android:id="@+id/actionButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <RelativeLayout
+            android:padding="10dp"
+            android:id="@+id/buttonHolder"
             android:layout_below="@+id/rep_Email"
-            android:layout_marginTop="9dp"
-            android:text="Button"
-            app:cornerRadius="0dp"
-            app:shadowEnabled="false" />
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <info.hoang8f.widget.FButton
+                app:buttonColor="@color/colorPrimaryDark"
+                android:textColor="@android:color/white"
+                android:id="@+id/actionButton"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                app:cornerRadius="0dp"
+                app:shadowEnabled="false"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true" />
+
+            <info.hoang8f.widget.FButton
+                app:shadowEnabled="false"
+                app:cornerRadius="0dp"
+                android:padding="10dp"
+                android:textColor="@android:color/white"
+                android:id="@+id/viewMoreButon"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:text="More Details" />
+        </RelativeLayout>
+
+
 
         <TextView
             android:id="@+id/hiddenID"
@@ -94,6 +112,8 @@
             android:textAllCaps="false"
             android:textSize="12sp"
             android:textStyle="bold|italic" />
+
+
     </RelativeLayout>
 
 </android.support.v7.widget.CardView>
