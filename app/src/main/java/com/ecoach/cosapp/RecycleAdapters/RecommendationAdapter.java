@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Recommendation;
+import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.R;
 import com.squareup.picasso.Picasso;
 
@@ -29,10 +30,10 @@ import me.zhanghai.android.materialratingbar.MaterialRatingBar;
 public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAdapterViewHolder>  {
     private Context context;
     private LayoutInflater inflater;
-    List<Recommendation> data= Collections.emptyList();
+    List<VerifiedCompanies> data= Collections.emptyList();
     View view=null;
 
-    public RecommendationAdapter(Context context, List<Recommendation> data) {
+    public RecommendationAdapter(Context context, List<VerifiedCompanies> data) {
         inflater= LayoutInflater.from(context);
         this.data=data;
         this.context=context;
@@ -57,7 +58,7 @@ public class RecommendationAdapter extends RecyclerView.Adapter<RecommendationAd
     public void onBindViewHolder(RecommendationAdapterViewHolder
     holder, int position) {
 
-        final Recommendation items=data.get(position);
+        final VerifiedCompanies items=data.get(position);
 
 
         holder.txthiddenId.setText(items.getCompanyCuid().toString());

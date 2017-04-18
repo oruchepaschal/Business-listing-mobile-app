@@ -438,33 +438,35 @@
         android:layout_below="@+id/viewFlipper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <info.hoang8f.widget.FButton
-            android:textColor="@android:color/white"
-            app:buttonColor="@color/colorAccent"
-            app:shadowEnabled="true"
-            app:shadowHeight="1dp"
-            app:cornerRadius="5dp"
-            android:id="@+id/backButton"
-            android:text="Previous"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="15dp" />
-        <info.hoang8f.widget.FButton
-            android:textColor="@android:color/white"
-            app:buttonColor="@color/colorAccent"
-            app:shadowEnabled="true"
-            app:shadowHeight="1dp"
-            app:cornerRadius="5dp"
-            android:id="@+id/nextButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
+        <info.hoang8f.widget.FButton
+            android:id="@+id/backButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="15dp"
+            android:text="Previous"
+            android:textColor="@android:color/white"
+            app:buttonColor="@color/colorAccent"
+            app:cornerRadius="5dp"
+            app:shadowEnabled="true"
+            app:shadowHeight="1dp" />
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/nextButton"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
             android:layout_marginEnd="12dp"
             android:text="Next"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true" />
+            android:textColor="@android:color/white"
+
+            app:buttonColor="@color/colorAccent"
+            app:cornerRadius="5dp"
+            app:shadowEnabled="true"
+            app:shadowHeight="1dp" />
 
     </RelativeLayout>
 

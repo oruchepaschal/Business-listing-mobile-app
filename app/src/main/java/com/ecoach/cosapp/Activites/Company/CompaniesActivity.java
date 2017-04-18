@@ -78,14 +78,10 @@ public class CompaniesActivity extends AppCompatActivity {
 
             Log.d("Category ID","THIS IS THE CATE ID"+Application.getSelectedCategoryID());
             if(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID(),"active").size() == 0){
-
-
                 getCategories();
             }else{
-
-               SetupRecycleview(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID(),"active"));
+                SetupRecycleview(VerifiedCompanies.getAllCompanies(Application.getSelectedCategoryID(),"active"));
                 getCategoriesLocal();
-
             }
 
 
@@ -660,7 +656,7 @@ Log.d("CatDetails",obj.getString("companyCuid") + " cate ID" + Application.getSe
                 String companyStorageName = obj.getString("companyStorageName");
                 companies.setCompanyStorageName(companyStorageName);
 
-
+                //companies.setIsRecommendation("normal");
                 companies.setForUser(false);
 
 
@@ -671,12 +667,13 @@ Log.d("CatDetails",obj.getString("companyCuid") + " cate ID" + Application.getSe
 
                     JSONObject showcaseobj = showcase.getJSONObject(i);
                     String storageID = showcaseobj.getString("showcaseId");
-                    galleryStorage = GalleryStorage.getStorageSingle(companies.getCompanyCuid(),storageID);
+                    galleryStorage = GalleryStorage.getStorageSingleByLocation(showcaseobj.getString("showcaseLocation"));
                     if(galleryStorage == null){
 
                         galleryStorage = new GalleryStorage();
 
                     }
+                    Log.d("showCase Comp Loc",showcaseobj.getString("showcaseLocation"));
                     galleryStorage.setCompanyCuid(companies.getCompanyCuid());
 
                     String showcaseLocation = showcaseobj.getString("showcaseLocation");

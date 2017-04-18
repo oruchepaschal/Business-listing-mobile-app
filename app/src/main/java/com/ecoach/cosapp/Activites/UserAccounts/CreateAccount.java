@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -34,6 +35,8 @@ import com.ecoach.cosapp.DataBase.User;
 import com.ecoach.cosapp.Http.APIRequest;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
+import com.ecoach.cosapp.Utilities.GPSTracker;
+import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 
 import org.json.JSONArray;
@@ -57,21 +60,33 @@ public class CreateAccount extends AppCompatActivity {
     ListView Summary;
     ViewFlipper viewFlipper;
     FButton nextButton,backButton;
-
+    ImageButton mapButton;
+    GPSTracker gpsTracker;
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
-
+    String company_lat = "0.0";
+    String company_long = "0.0";
     Button indicator1,indicator2,indicator3,indicator4,indicator5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
-
+        gpsTracker = new GPSTracker(CreateAccount.this);
         initViews();
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setTitle("Register");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
+
 
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
     private void initViews() {
         editTextViews();
        // setIndicatorsInit();
@@ -138,6 +153,27 @@ public class CreateAccount extends AppCompatActivity {
 
                 }
 
+            }
+        });
+
+        mapButton = (ImageButton)findViewById(R.id.mapButton);
+        mapButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!gpsTracker.canGetLocation()){
+
+
+                    gpsTracker.showSettingsAlert();
+                }else if(gpsTracker.getLocation() == null){
+
+
+                    ViewUtils.multipleDialog(CreateAccount.this,"Could not get your location","Try moving around for a few minutes");
+                }else {
+
+                    company_lat = String.valueOf(gpsTracker.getLatitude()) ;
+                    company_long = String.valueOf(gpsTracker.getLongitude());
+                    mapButton.setImageResource(R.drawable.mapshot);
+                }
             }
         });
 
@@ -230,7 +266,7 @@ public class CreateAccount extends AppCompatActivity {
     SweetAlertDialog pDialog;
     private void createAccountVolley(){
 
-         pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
+        pDialog = new SweetAlertDialog(this, SweetAlertDialog.PROGRESS_TYPE);
         pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
         pDialog.setTitleText("Setting you up ..");
         pDialog.setCancelable(false);
@@ -248,8 +284,8 @@ public class CreateAccount extends AppCompatActivity {
         params.put("email",emailedt.getText().toString());
         params.put("phone",phoneTxt.getText().toString());
         params.put("pass",passwordTxt.getText().toString());
-        params.put("location_lat","");
-        params.put("location_long","");
+        params.put("location_lat",company_lat);
+        params.put("location_long",company_long);
         params.put("location_desc",locationDiscirption.getText().toString());
 
 

@@ -89,7 +89,12 @@ public class GalleryStorage  extends Model{
                 .where("companyCuid = ?",company_id).and("showcaseId = ?",showcaseId)
                 .executeSingle();
     }
-
+    public static GalleryStorage getStorageSingleByLocation(String showcaseLocation) {
+        return new Select()
+                .from(GalleryStorage.class)
+                .where("showcaseLocation = ?",showcaseLocation)
+                .executeSingle();
+    }
 
     public static List<GalleryStorage> getCompanyGalleryItemsByCompanyID(String company_id) {
         return new Select()

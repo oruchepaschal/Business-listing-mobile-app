@@ -88,6 +88,7 @@ SwipeRefreshLayout swipelayout;
                 String repEmail = hiddenId.getText().toString();
 
                 final RepInvites repInvites = RepInvites.load(RepInvites.class,Long.parseLong(repEmail));
+                Application.activeRepInvites = repInvites;
 
                // Toast.makeText(ManageReps.this,repEmail,Toast.LENGTH_LONG).show();
 
@@ -137,21 +138,23 @@ SwipeRefreshLayout swipelayout;
 
                     }
                 });
-
-
-
-
-
                 final FButton morebutton =(FButton)view.findViewById(R.id.viewMoreButon);
                 morebutton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
 
+                        //final RepInvites repInvites = RepInvites.load(RepInvites.class,Long.parseLong(repEmail));
+
                         Intent intent = new Intent(ManageReps.this,RepDetails.class);
                         startActivity(intent);
                     }
                 });
+
+
+
+
+
             }
 
             @Override

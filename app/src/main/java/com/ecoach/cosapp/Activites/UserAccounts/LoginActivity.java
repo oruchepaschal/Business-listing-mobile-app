@@ -51,7 +51,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        if (getSupportActionBar() != null){
+            getSupportActionBar().setTitle("Login");
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        }
 
         initViews();
     }
@@ -78,7 +82,11 @@ public class LoginActivity extends AppCompatActivity {
 
         }
     }
-
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
     private void intiEdt(){
         usernameEdt = (EditText)findViewById(R.id.usernameEdt);
         passwordEdt = (EditText)findViewById(R.id.passwordEdt);

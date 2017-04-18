@@ -17,6 +17,15 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    packagingOptions {
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/ECLIPSE_.SF'
+        exclude 'META-INF/ECLIPSE_.RSA'
+    }
 }
 
 dependencies {
@@ -50,6 +59,10 @@ dependencies {
     compile 'com.github.QuadFlask:colorpicker:0.0.13'
     compile 'com.github.jrvansuita:PickImage:+'
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.+'
+    compile 'com.applozic.communication.uiwidget:mobicomkitui:4.83'
     compile 'info.hoang8f:fbutton:1.0.5'
     testCompile 'junit:junit:4.12'
+
+
 }
+apply plugin: 'com.google.gms.google-services'

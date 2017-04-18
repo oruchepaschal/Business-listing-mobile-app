@@ -2,6 +2,7 @@ package com.ecoach.cosapp.Fragments;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -33,10 +34,12 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.ecoach.cosapp.Activites.Company.CompaniesActivity;
+import com.ecoach.cosapp.Activites.Company.CompanyDetails;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
 import com.ecoach.cosapp.DataBase.Recommendation;
+import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.Http.APIRequest;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
@@ -50,6 +53,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import cn.pedant.SweetAlert.SweetAlertDialog;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -112,25 +117,27 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(final View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        toprecyler = (RecyclerView)view.findViewById(R.id.topRecycleView);
 
 
 
 
         setSliderLayout(view);
 
+Log.d("recomendation Size",""+VerifiedCompanies.getRecomendedCompanies().size());
 
-
-        if(Recommendation.getAllRecomendedCompanies().size() == 0){
+        if(VerifiedCompanies.getRecomendedCompanies().size() == 0){
 
             getRecomendations(view);
         }else{
 
             try{
 
-                toprecyler = (RecyclerView)view.findViewById(R.id.topRecycleView);
-                RecommendationAdapter recommendationAdapter = new RecommendationAdapter(getContext(), Recommendation.getAllRecomendedCompanies());
+
+                RecommendationAdapter recommendationAdapter = new RecommendationAdapter(getContext(), VerifiedCompanies.getRecomendedCompanies());
                 toprecyler.setAdapter(recommendationAdapter);
                 toprecyler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
+
 
             }catch (Exception e){
                 e.printStackTrace();
@@ -146,6 +153,39 @@ public class HomeFragment extends Fragment {
             SetRecycleView( view);
 
         }
+
+try{
+    toprecyler.addOnItemTouchListener(new RecyclerTouchListener(getContext(), toprecyler, new ClickListener() {
+        @Override
+        public void onClick(View view, int position) {
+            TextView tv=(TextView)view.findViewById(R.id.labelTxt);
+            String selectedCompanyName=tv.getText().toString();
+
+            Application.setSelectedCompanyName(selectedCompanyName);
+
+
+            TextView id=(TextView)view.findViewById(R.id.texthidden);
+            String selectedid=id.getText().toString();
+
+            Application.setSelectedCompanyID(selectedid);
+            Application.setSelectedCompanyObbject(VerifiedCompanies.getCompanyByIDByName(selectedCompanyName));
+
+            Intent intent = new Intent(getActivity(),CompanyDetails.class);
+            startActivity(intent);
+
+        }
+
+        @Override
+        public void onLongClick(View view, int position) {
+
+        }
+    }));
+}catch (Exception e){
+
+    e.printStackTrace();
+}
+
+
 
     }
 
@@ -249,8 +289,13 @@ public class HomeFragment extends Fragment {
     }
 
 //recomendations
-private void getRecomendations(final View view){
-
+    private void getRecomendations(final View view){
+        final SweetAlertDialog pDialog;
+        pDialog = new SweetAlertDialog(getActivity(), SweetAlertDialog.PROGRESS_TYPE);
+        pDialog.getProgressHelper().setBarColor(Color.parseColor("#A5DC86"));
+        pDialog.setTitleText("Setting you up ..");
+        pDialog.setCancelable(false);
+        pDialog.show();
 
     Log.d("recomendation","loading from background");
 
@@ -274,7 +319,7 @@ private void getRecomendations(final View view){
                 //Log.d("Params",params+"");
                 @Override
                 public void onResponse(JSONObject response) {
-
+                    pDialog.dismiss();
 
                     try {
 
@@ -297,7 +342,7 @@ private void getRecomendations(final View view){
         @Override
         public void onErrorResponse(VolleyError error)   {
 
-
+            pDialog.dismiss();
 
             //  dialogs.SimpleWarningAlertDialog("Transmission Error", "Connection Failed").show();
             Log.d("volley.Response", error.toString());
@@ -352,9 +397,9 @@ private void getRecomendations(final View view){
 }
     private void getRecomendationsformatJSONLOCAL(JSONObject response,View view){
 
-        List<Recommendation> companiesArrayList = new ArrayList<Recommendation>();
+        List<VerifiedCompanies> companiesArrayList = new ArrayList<VerifiedCompanies>();
         List<GalleryStorage> showcaseList = new ArrayList<GalleryStorage>();
-        Recommendation companies;
+        VerifiedCompanies companies;
         GalleryStorage galleryStorage;
         try {
 
@@ -366,24 +411,18 @@ private void getRecomendations(final View view){
                 JSONObject obj = info.getJSONObject(i);
 
 
-                //companies = Recommendation.getCompaniesByID(obj.getString("companyCuid"),Application.getSelectedCategoryID());
-
-                companies = Recommendation.getCompaniesByID(obj.getString("companyCuid"));
+                companies = VerifiedCompanies.getCompaniesByID(obj.getString("companyCuid"),obj.getString("companyCategoryId"));
 
                 if(companies == null){
 
 
-                    Log.d("recomendation","companies was null");
+                    Log.d("companies","companies was null");
 
-                    companies =   new Recommendation();
+                    companies =   new VerifiedCompanies();
                 }
-
-
-
-                companies =   new Recommendation();
                 Log.d("companies","companies was not null");
 
-                companies.setCategory_id(Application.getSelectedCategoryID());
+                companies.setCategory_id(obj.getString("companyCategoryId"));
 
                 String company_id = obj.getString("companyCuid");
                 companies.setCompanyCuid(company_id);
@@ -455,11 +494,43 @@ private void getRecomendations(final View view){
                 companies.setCompanyStorageName(companyStorageName);
 
 
+                companies.setIsRecommendation("recommendation");
+
                 companies.setForUser(false);
 
 
 
+                JSONArray showcase = obj.getJSONArray("showcase");
 
+                for (int A = 0 ; A < showcase.length(); A++) {
+
+                    JSONObject showcaseobj = showcase.getJSONObject(i);
+                    String storageID = showcaseobj.getString("showcaseId");
+                    galleryStorage = GalleryStorage.getStorageSingleByLocation(showcaseobj.getString("showcaseLocation"));
+                    if(galleryStorage == null){
+
+                        galleryStorage = new GalleryStorage();
+
+                    }
+
+                    Log.d("showCase Loc",showcaseobj.getString("showcaseLocation"));
+                    galleryStorage.setCompanyCuid(companies.getCompanyCuid());
+
+                    String showcaseLocation = showcaseobj.getString("showcaseLocation");
+                    galleryStorage.setShowcaseLocation(showcaseLocation);
+
+
+
+                    String showType = showcaseobj.getString("showcaseType");
+                    galleryStorage.setShowcaseType(showType);
+
+
+
+
+                    showcaseList.add(galleryStorage);
+
+
+                }
 
 
                 companiesArrayList.add(companies);
@@ -471,20 +542,29 @@ private void getRecomendations(final View view){
             try
             {
 
-                for(Recommendation verifiedCompanies : companiesArrayList){
+                for(VerifiedCompanies verifiedCompanies : companiesArrayList){
 
 
 
                     Long id =   verifiedCompanies.save();
 
 
-                    Log.d("Company ID", "id"+id);
+                    Log.d("verified comps", "id"+id);
 
                 }
 
 
 
+                for(GalleryStorage galleryStorage1 : showcaseList){
 
+
+
+                    Long id =   galleryStorage1.save();
+
+
+                    Log.d("galleryStorage1", "id"+id);
+
+                }
 
                 ActiveAndroid.setTransactionSuccessful();
             }
@@ -494,8 +574,7 @@ private void getRecomendations(final View view){
 
                 try{
 
-                    toprecyler = (RecyclerView)view.findViewById(R.id.topRecycleView);
-                    RecommendationAdapter recommendationAdapter = new RecommendationAdapter(getContext(), Recommendation.getAllRecomendedCompanies());
+                    RecommendationAdapter recommendationAdapter = new RecommendationAdapter(getContext(), VerifiedCompanies.getRecomendedCompanies());
                     toprecyler.setAdapter(recommendationAdapter);
                     toprecyler.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
 

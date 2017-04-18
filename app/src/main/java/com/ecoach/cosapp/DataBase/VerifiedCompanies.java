@@ -87,6 +87,22 @@ public class VerifiedCompanies extends Model {
     private String companyCategoryid;
 
 
+    @Column(name = "isRecommendation")
+    private String isRecommendation;
+
+
+    @Column(name = "userID")
+    private String userID;
+
+
+    public String getIsRecommendation() {
+        return isRecommendation;
+    }
+
+    public void setIsRecommendation(String isRecommendation) {
+        this.isRecommendation = isRecommendation;
+    }
+
     public String getCompanyCategoryid() {
         return companyCategoryid;
     }
@@ -95,8 +111,10 @@ public class VerifiedCompanies extends Model {
         this.companyCategoryid = companyCategoryid;
     }
 
-    @Column(name = "userID")
-    private String userID;
+
+
+
+
 
     public String getUserID() {
         return userID;
@@ -274,6 +292,13 @@ public class VerifiedCompanies extends Model {
                 .executeSingle();
     }
 
+
+    public static List<VerifiedCompanies>getRecomendedCompanies() {
+        return new Select()
+                .from(VerifiedCompanies.class)
+                .where("isRecommendation = ?","recommendation")
+                .execute();
+    }
 
     public static VerifiedCompanies getCompanyByIDByName(String companyName) {
         return new Select()

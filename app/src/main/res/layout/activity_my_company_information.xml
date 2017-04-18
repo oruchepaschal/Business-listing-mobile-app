@@ -22,8 +22,9 @@
         android:layout_below="@+id/itemDetails" />
 
     <android.support.design.widget.FloatingActionButton
+        android:visibility="gone"
         android:background="@color/colorPrimary"
-        android:id="@+id/chatfloatButton"
+        android:id="@+id/addrepfloatButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/manage_rep"

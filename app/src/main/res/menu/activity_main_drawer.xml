@@ -7,6 +7,7 @@
             android:icon="@drawable/tag_multiple"
             android:title="Category" />
         <item
+            android:visible="false"
             android:id="@+id/recent"
             android:icon="@drawable/comment_processing_outline"
             android:title="Recent Chats" />

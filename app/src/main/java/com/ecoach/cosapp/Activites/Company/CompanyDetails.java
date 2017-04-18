@@ -5,20 +5,27 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.android.volley.RequestQueue;
+import com.applozic.mobicomkit.uiwidgets.conversation.ConversationUIService;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Details;
 import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Map;
 import com.ecoach.cosapp.Activites.CompanyDetailsTabbedActivities.Profile;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.Http.VolleySingleton;
+import com.ecoach.cosapp.Models.Company;
 import com.ecoach.cosapp.R;
 import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.squareup.picasso.Picasso;
@@ -52,6 +59,26 @@ public class CompanyDetails extends AppCompatActivity  {
 
 
         getCompanyDetails(savedInstanceState);
+
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.chatfloatButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+               // Intent intent = new Intent(CompanyDetails.this,ConversationActivity.class);
+               // startActivity(intent);
+
+
+                Intent intent = new Intent(CompanyDetails.this, ConversationActivity.class);
+                intent.putExtra(ConversationUIService.USER_ID,Application.getSelectedCompanyObbject().getEmail());
+                intent.putExtra(ConversationUIService.DISPLAY_NAME, Application.getSelectedCompanyObbject().getCompanyName()); //put it for displaying the title.
+                startActivity(intent);
+
+
+            }
+        });
 
     }
 
@@ -152,10 +179,21 @@ public class CompanyDetails extends AppCompatActivity  {
 
 
     private void getCompanyDetails(final Bundle savedInstanceState){
+try{
+    VerifiedCompanies verifiedCompanies = VerifiedCompanies.getCompanyByID(Application.getSelectedCompanyID());
+    if(verifiedCompanies == null)
+        Log.d("yes","its null");
+    Application.setSelectedCompanyObbject(verifiedCompanies);
+    setUpCompanyDetails(savedInstanceState);
 
-        VerifiedCompanies verifiedCompanies = VerifiedCompanies.getCompanyByID(Application.getSelectedCompanyID());
-        Application.setSelectedCompanyObbject(verifiedCompanies);
-        setUpCompanyDetails(savedInstanceState);
+}catch (Exception e){
+
+
+    e.printStackTrace();
+
+
+}
+
 
 
     }

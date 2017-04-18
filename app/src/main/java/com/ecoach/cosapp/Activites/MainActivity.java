@@ -1,5 +1,6 @@
 package com.ecoach.cosapp.Activites;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -30,6 +31,10 @@ import android.widget.TextView;
 
 import com.activeandroid.query.Delete;
 import com.android.volley.RequestQueue;
+import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
+import com.applozic.mobicomkit.api.account.user.UserLoginTask;
+import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
+import com.ecoach.cosapp.Activites.Company.CompanyDetails;
 import com.ecoach.cosapp.Activites.Company.ManageReps.ManageReps;
 import com.ecoach.cosapp.Activites.Company.ManangeMyCompanies;
 import com.ecoach.cosapp.Activites.UserAccounts.LoginActivity;
@@ -56,6 +61,9 @@ import com.ecoach.cosapp.Utilities.CircularTextView;
 import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.joanzapata.iconify.widget.IconButton;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, MaterialTabListener,HomeFragment.OnFragmentInteractionListener, CategoriesFragment.OnFragmentInteractionListener, RecentFragment.OnFragmentInteractionListener{
@@ -123,6 +131,26 @@ public class MainActivity extends AppCompatActivity
 
 
 
+        try{
+
+
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask()
+            {
+                @Override
+                public void run()
+                {
+
+                    startService(new Intent(MainActivity.this, Terminator2.class));
+                    invalidateOptionsMenu();
+                }
+            }, 0, 3000);
+
+
+        }catch (Exception e){e.printStackTrace();}
+
+
+
     }
 
 
@@ -185,13 +213,16 @@ public class MainActivity extends AppCompatActivity
                 navigationView.getMenu().findItem(R.id.login).setVisible(false);
                 navigationView.getMenu().findItem(R.id.logout).setVisible(true);
                 navigationView.getMenu().findItem(R.id.manage).setVisible(true);
+                navigationView.getMenu().findItem(R.id.recent).setVisible(true);
+
+                ApplozicUserLogin();
             }else{
 
                 nav_user.setText("You are not logged in");
                 navigationView.getMenu().findItem(R.id.comp).setVisible(false);
                 navigationView.getMenu().findItem(R.id.login).setVisible(true);
                 navigationView.getMenu().findItem(R.id.logout).setVisible(false);
-
+                navigationView.getMenu().findItem(R.id.recent).setVisible(false);
 
                 //check if user is a rep
 
@@ -303,7 +334,10 @@ public class MainActivity extends AppCompatActivity
             Intent intent = new Intent(MainActivity.this,MainCategories.class);
             startActivity(intent);
         } else if (id == R.id.recent) {
-            Intent intent = new Intent(MainActivity.this,MainRecentChats.class);
+          //  Intent intent = new Intent(MainActivity.this,MainRecentChats.class);
+            //startActivity(intent);
+
+            Intent intent = new Intent(MainActivity.this,ConversationActivity.class);
             startActivity(intent);
         } else if (id == R.id.comp) {
 
@@ -406,13 +440,21 @@ public class MainActivity extends AppCompatActivity
         });
       //  tv.setStrokeWidth(1);
 
-        if(count == 0){
-            tv.setVisibility(View.INVISIBLE);
+        try{
 
-        }else{
+            count = CompanyRepInvite.getCompanyRepInvitations(Application.AppUserKey).size();
+            if(count == 0){
+                tv.setVisibility(View.INVISIBLE);
 
-            tv.setVisibility(View.VISIBLE);
+            }else{
+
+                tv.setVisibility(View.VISIBLE);
+            }
+        }catch (Exception e){
+
+
         }
+
 
 
         return super.onCreateOptionsMenu(menu);
@@ -424,11 +466,11 @@ public class MainActivity extends AppCompatActivity
 
         super.onResume();
 
-invalidateOptionsMenu();
+
 
 
         startService(new Intent(this, Terminator2.class));
-
+        invalidateOptionsMenu();
         Log.d("Onresume","oresume");
     }
 
@@ -528,7 +570,29 @@ invalidateOptionsMenu();
 
     }
 
+  void ApplozicUserLogin(){
 
+      UserLoginTask.TaskListener listener = new UserLoginTask.TaskListener() {
+          @Override
+          public void onSuccess(RegistrationResponse registrationResponse, Context context) {
+
+
+              Log.d("aPPLOZIC Succes",registrationResponse.toString());
+          }
+
+          @Override
+          public void onFailure(RegistrationResponse registrationResponse, Exception exception) {
+              Log.d("aPPLOZIC Failed",registrationResponse.toString());
+          }
+      };
+
+      com.applozic.mobicomkit.api.account.user.User applozicUser = new com.applozic.mobicomkit.api.account.user.User();
+      applozicUser.setUserId(user.getEmail());
+      applozicUser.setDisplayName(user.getEmail());
+      applozicUser.setAuthenticationTypeId(com.applozic.mobicomkit.api.account.user.User.AuthenticationType.APPLOZIC.getValue());
+      new UserLoginTask(applozicUser, listener, this).execute((Void) null);
+
+  }
 
 
 

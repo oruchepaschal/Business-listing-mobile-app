@@ -16,6 +16,7 @@ import com.ecoach.cosapp.DataBase.Departments;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
 import com.ecoach.cosapp.DataBase.Recommendation;
 import com.ecoach.cosapp.DataBase.RepInvites;
+import com.ecoach.cosapp.DataBase.RepsReview;
 import com.ecoach.cosapp.DataBase.User;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
 import com.ecoach.cosapp.Http.Terminator2;
@@ -43,6 +44,7 @@ public class Application extends android.app.Application {
 
     public static VerifiedCompanies selectedCompanyObbject;
     public static RepInvite activeRepInvite;
+    public static RepInvites activeRepInvites;
     private static Context context;
 
     private static String companyCover = "";
@@ -121,6 +123,8 @@ public class Application extends android.app.Application {
         configurationBuilder.addModelClass(CompanyRepInvite.class);
         configurationBuilder.addModelClass(RepInvites.class);
         configurationBuilder.addModelClass(Recommendation.class);
+        configurationBuilder.addModelClass(RepsReview.class);
+
 
         ActiveAndroid.initialize(configurationBuilder.create());
     }

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "200759708996",
+    "firebase_url": "https://cosapp-c180c.firebaseio.com",
+    "project_id": "cosapp-c180c",
+    "storage_bucket": "cosapp-c180c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:200759708996:android:f857881c03e92248",
+        "android_client_info": {
+          "package_name": "com.ecoach.cosapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "200759708996-4p4bpi5ensmdca621h5f7rmft51qqo8u.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAM_Nn9YuDPG4ENMFRbbMd0C8Vf84Ab0uU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

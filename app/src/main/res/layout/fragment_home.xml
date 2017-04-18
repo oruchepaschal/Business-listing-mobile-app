@@ -40,7 +40,7 @@
 
                     android:id="@+id/adView"
                     android:layout_width="match_parent"
-                    android:layout_height="100dp"
+                    android:layout_height="90dp"
                     android:scaleType="fitXY"
                     android:src="@drawable/ic_no_image"
                     android:layout_alignParentTop="true"

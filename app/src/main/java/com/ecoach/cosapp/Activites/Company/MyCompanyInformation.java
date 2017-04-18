@@ -3,17 +3,22 @@ package com.ecoach.cosapp.Activites.Company;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.ecoach.cosapp.Activites.Company.ManageReps.ManageReps;
 import com.ecoach.cosapp.Activites.GalleryImageExplorer;
+import com.ecoach.cosapp.Activites.MainActivity;
+import com.ecoach.cosapp.Activites.SearchActivity;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
 import com.ecoach.cosapp.DataBase.VerifiedCompanies;
@@ -27,12 +32,18 @@ import java.util.List;
 
 public class MyCompanyInformation extends Activity {
     ListView listView;
+    FloatingActionButton fab;
     List<DetailsItem> detailsItems = new ArrayList<>();
     RecyclerView recycleGallery;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_company_information);
+
+
+
+
+        // fab = (FloatingActionButton) findViewById(R.id.addrepfloatButton);
 
 
         setViews();
@@ -46,7 +57,7 @@ public class MyCompanyInformation extends Activity {
 
 
         VerifiedCompanies company = Application.getSelectedCompanyObbject();
-
+        Log.d("etAccountType()",company.getAccountType());
 
 
 

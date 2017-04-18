@@ -22,7 +22,7 @@
 
         <Button
             android:drawableEnd="@drawable/ic_more_vert"
-
+android:visibility="invisible"
             android:background="@android:color/transparent"
             android:id="@+id/morebutton"
             android:layout_width="wrap_content"
