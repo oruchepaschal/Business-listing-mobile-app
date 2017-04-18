@@ -57,7 +57,7 @@ public class MyCompanyInformation extends Activity {
 
 
         VerifiedCompanies company = Application.getSelectedCompanyObbject();
-        Log.d("etAccountType()",company.getAccountType());
+       // Log.d("etAccountType()",company.getAccountType());
 
 
 

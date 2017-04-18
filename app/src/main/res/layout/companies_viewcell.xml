@@ -76,9 +76,9 @@ android:textColor="@color/cardview_dark_background"
         android:layout_weight="0"
         android:visibility="gone" />
 
-    <Button
-        android:visibility="gone"
-        android:background="@drawable/ic_chat_buble"
+    <ImageButton
+        android:background="@color/colorPrimaryDark"
+        android:src="@mipmap/ic_boxchat"
         android:paddingBottom="10dp"
         android:id="@+id/chatbutton"
         android:layout_width="0dp"

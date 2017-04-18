@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -104,7 +105,7 @@ class CompaniesViewAdapterViewHolder extends RecyclerView.ViewHolder {
     TextView txthiddenId,labelTxt;
     ImageView background;
     MaterialRatingBar ratingBar;
-    Button chatButton;
+    ImageButton chatButton;
     CircleImageView iconView;
 
     public CompaniesViewAdapterViewHolder(View itemView) {
@@ -120,7 +121,7 @@ class CompaniesViewAdapterViewHolder extends RecyclerView.ViewHolder {
         iconView=(CircleImageView)itemView.findViewById(R.id.iconview);
         labelTxt = (TextView) itemView.findViewById(R.id.labelTxt);
         ratingBar=(MaterialRatingBar)itemView.findViewById(R.id.ratingBar2) ;
-        chatButton=(Button)itemView.findViewById(R.id.chatbutton);
+        chatButton=(ImageButton) itemView.findViewById(R.id.chatbutton);
 
 
 
