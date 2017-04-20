@@ -28,7 +28,7 @@ android {
     }
 }
 
-dependencies {
+    dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
@@ -59,7 +59,7 @@ dependencies {
     compile 'com.github.QuadFlask:colorpicker:0.0.13'
     compile 'com.github.jrvansuita:PickImage:+'
     compile 'com.joanzapata.iconify:android-iconify-fontawesome:2.1.+'
-    compile 'com.applozic.communication.uiwidget:mobicomkitui:4.83'
+    compile 'com.applozic.communication.uiwidget:audiovideo:1.1'
     compile 'info.hoang8f:fbutton:1.0.5'
     testCompile 'junit:junit:4.12'
 

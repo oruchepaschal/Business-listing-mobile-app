@@ -1,8 +1,14 @@
 package com.ecoach.cosapp.Http;
 
 import android.app.IntentService;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.support.annotation.Nullable;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.activeandroid.ActiveAndroid;
@@ -19,11 +25,13 @@ import com.android.volley.ServerError;
 import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.ecoach.cosapp.Activites.NotificationCenter;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.CompanyRepInvite;
 import com.ecoach.cosapp.DataBase.GalleryStorage;
 import com.ecoach.cosapp.DataBase.Recommendation;
 import com.ecoach.cosapp.DataBase.RepInvites;
+import com.ecoach.cosapp.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -40,6 +48,8 @@ import java.util.Map;
 public class Terminator2 extends IntentService {
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
+    private boolean alreadyDisplayedNotification = false;
+
     public Terminator2(String name) {
         super(name);
     }
@@ -93,6 +103,31 @@ public class Terminator2 extends IntentService {
         }
     }
 
+
+    void notificationBuilder(){
+
+        Intent intent = new Intent(Terminator2.this, NotificationCenter.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        PendingIntent contentIntent = PendingIntent.getActivity(Terminator2.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                     .setAutoCancel(true)
+                        .setOnlyAlertOnce(true)
+                        .setSmallIcon(R.mipmap.ic_launcher)
+                        .setContentTitle("You have a Pending Invitation")
+                        .setContentText("You have been invited to be rep,click for more details")
+                        .setDefaults(Notification.DEFAULT_LIGHTS| Notification.DEFAULT_SOUND)
+                        .setContentIntent(contentIntent);
+
+
+
+        //alreadyDisplayedNotification=true;
+
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, mBuilder.build());
+
+
+    }
     private void loadRepInviteVolley(){
 
 
@@ -310,7 +345,19 @@ public class Terminator2 extends IntentService {
                 ActiveAndroid.endTransaction();
 
 
+                try{
 
+                   int count = CompanyRepInvite.getCompanyRepInvitations(Application.AppUserKey).size();
+                    if(count != 0  && Application.alreadyDisplayedNotification != true){
+
+
+                        Log.d("DisplayedNotification",""+alreadyDisplayedNotification);
+                        notificationBuilder();
+                    }
+                }catch (Exception e){
+
+                      e.printStackTrace();
+                }
 
                 //SetRecycleView(view);
             }

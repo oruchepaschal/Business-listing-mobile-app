@@ -473,16 +473,16 @@ SwipeRefreshLayout swipelayout;
         if(token == "Remove Rep"){
 
             params.put("is_remove_rep",""+ "1");
-            params.put("company_id",repInvite.getCompany_id());
-            params.put("rep_email",repInvite.getEmail());
+            params.put("company_id",""+repInvite.getCompany_id());
+            params.put("rep_email",""+repInvite.getEmail());
         }
 
         else if(token == "Cancel Request")
         {
 
             params.put("is_cancel_rep_invite",""+ "1");
-            params.put("company_id",repInvite.getCompany_id());
-            params.put("rep_email",repInvite.getEmail());
+            params.put("company_id",""+repInvite.getCompany_id());
+            params.put("rep_email",""+repInvite.getEmail());
         }
 
 

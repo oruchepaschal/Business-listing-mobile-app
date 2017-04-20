@@ -31,8 +31,14 @@ import android.widget.TextView;
 
 import com.activeandroid.query.Delete;
 import com.android.volley.RequestQueue;
+import com.applozic.audiovideo.activity.AudioCallActivityV2;
+import com.applozic.audiovideo.activity.VideoActivity;
+import com.applozic.mobicomkit.Applozic;
+import com.applozic.mobicomkit.ApplozicClient;
 import com.applozic.mobicomkit.api.account.register.RegistrationResponse;
+import com.applozic.mobicomkit.api.account.user.PushNotificationTask;
 import com.applozic.mobicomkit.api.account.user.UserLoginTask;
+import com.applozic.mobicomkit.uiwidgets.ApplozicSetting;
 import com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity;
 import com.ecoach.cosapp.Activites.Company.CompanyDetails;
 import com.ecoach.cosapp.Activites.Company.ManageReps.ManageReps;
@@ -62,6 +68,10 @@ import com.ecoach.cosapp.Utilities.ViewUtils;
 import com.jakewharton.processphoenix.ProcessPhoenix;
 import com.joanzapata.iconify.widget.IconButton;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -76,7 +86,7 @@ public class MainActivity extends AppCompatActivity
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
     private boolean isLoggedIn = false;
-
+    Timer timer = new Timer();
     int count = 0;
     TextView userName;
     @Override
@@ -134,7 +144,7 @@ public class MainActivity extends AppCompatActivity
         try{
 
 
-            Timer timer = new Timer();
+
             timer.schedule(new TimerTask()
             {
                 @Override
@@ -152,6 +162,9 @@ public class MainActivity extends AppCompatActivity
 
 
     }
+
+
+
 
 
     private void setNavHeaderItems(NavigationView navigationView){
@@ -416,6 +429,8 @@ public class MainActivity extends AppCompatActivity
                     }else{
 
                         Intent intent = new Intent(MainActivity.this,NotificationCenter.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
                         startActivity(intent);
 
                     }
@@ -446,6 +461,7 @@ public class MainActivity extends AppCompatActivity
             if(count == 0){
                 tv.setVisibility(View.INVISIBLE);
 
+
             }else{
 
                 tv.setVisibility(View.VISIBLE);
@@ -460,19 +476,7 @@ public class MainActivity extends AppCompatActivity
         return super.onCreateOptionsMenu(menu);
     }
 
-    @Override
-    protected void onResume() {
 
-
-        super.onResume();
-
-
-
-
-        startService(new Intent(this, Terminator2.class));
-        invalidateOptionsMenu();
-        Log.d("Onresume","oresume");
-    }
 
     @Override
     public void onTabSelected(MaterialTab tab) {
@@ -576,21 +580,52 @@ public class MainActivity extends AppCompatActivity
           @Override
           public void onSuccess(RegistrationResponse registrationResponse, Context context) {
 
-
+              ApplozicClient.getInstance(context).enableNotification();
               Log.d("aPPLOZIC Succes",registrationResponse.toString());
+              ApplozicClient.getInstance(context).setContextBasedChat(true).setHandleDial(true).setIPCallEnabled(true);
+              Map<ApplozicSetting.RequestCode, String> activityCallbacks = new HashMap<ApplozicSetting.RequestCode, String>();
+              activityCallbacks.put(ApplozicSetting.RequestCode.AUDIO_CALL, AudioCallActivityV2.class.getName());
+              activityCallbacks.put(ApplozicSetting.RequestCode.VIDEO_CALL, VideoActivity.class.getName());
+              ApplozicSetting.getInstance(context).setActivityCallbacks(activityCallbacks);
+
+
+              PushNotificationTask.TaskListener pushNotificationTaskListener=  new PushNotificationTask.TaskListener() {
+                  @Override
+                  public void onSuccess(RegistrationResponse registrationResponse) {
+
+                  }
+
+                  @Override
+                  public void onFailure(RegistrationResponse registrationResponse, Exception exception) {
+
+                  }
+              };
+              PushNotificationTask pushNotificationTask = new PushNotificationTask(Applozic.getInstance(context).getDeviceRegistrationId(),pushNotificationTaskListener,context);
+              pushNotificationTask.execute((Void)null);
           }
 
           @Override
           public void onFailure(RegistrationResponse registrationResponse, Exception exception) {
-              Log.d("aPPLOZIC Failed",registrationResponse.toString());
+             // Log.d("aPPLOZIC Failed",registrationResponse.toString());
           }
       };
 
+
       com.applozic.mobicomkit.api.account.user.User applozicUser = new com.applozic.mobicomkit.api.account.user.User();
       applozicUser.setUserId(user.getEmail());
-      applozicUser.setDisplayName(user.getEmail());
+
+      applozicUser.setDisplayName(user.getFname() + " " + user.getLname());
+
+      List<String> featureList =  new ArrayList<>();
+      featureList.add(com.applozic.mobicomkit.api.account.user.User.Features.IP_AUDIO_CALL.getValue());// FOR AUDIO
+      featureList.add(com.applozic.mobicomkit.api.account.user.User.Features.IP_VIDEO_CALL.getValue());// FOR VIDEO
+      applozicUser.setFeatures(featureList);
+
       applozicUser.setAuthenticationTypeId(com.applozic.mobicomkit.api.account.user.User.AuthenticationType.APPLOZIC.getValue());
       new UserLoginTask(applozicUser, listener, this).execute((Void) null);
+
+
+
 
   }
 

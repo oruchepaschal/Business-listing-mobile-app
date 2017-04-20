@@ -24,11 +24,7 @@
 
 
 
-    <receiver android:name="com.applozic.mobicomkit.uiwidgets.notification.MTNotificationBroadcastReceiver">
-        <intent-filter>
-            <action android:name="${applicationId}.send.notification"/>
-        </intent-filter>
-    </receiver>
+
 
     <application
         android:name=".Application.Application"
@@ -60,8 +56,25 @@
 
 
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.com.vansuita.pickimage.provider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/picker_provider_paths" />
 
 
+        </provider>
+      <!---  <provider android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.com.applozic.mobicomkit.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider> -->
 
 
         <meta-data
@@ -80,7 +93,29 @@
             android:value="@integer/google_play_services_version" />
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyCHEs3Mv0StwbBkhofBgSWC_scDC3_1mYg" />
+            android:value="AIzaSyAv1wf5eMyErPaU3l8EnMUmOsoYJ2joC70" />
+
+        <activity android:name="com.applozic.audiovideo.activity.AudioCallActivityV2"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:launchMode="singleTop"
+            android:theme="@style/Applozic_FullScreen_Theme"/>
+
+        <activity
+            android:name="com.applozic.audiovideo.activity.CallActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/app_name"
+            android:launchMode="singleTop"
+            android:theme="@style/Applozic_FullScreen_Theme"/>
+
+        <activity
+            android:name="com.applozic.audiovideo.activity.VideoActivity"
+            android:launchMode="singleTop"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@style/Applozic_FullScreen_Theme">
+        </activity>
+
 
         <activity
             android:name=".Activites.MainActivity"
@@ -148,7 +183,9 @@
         <activity android:name=".Activites.MainCategories" />
         <activity android:name=".Activites.MainRecentChats" />
         <activity android:name=".Activites.Company.ManageReps.ManageReps" />
-        <activity android:name=".Activites.NotificationCenter" />
+        <activity
+            android:launchMode="singleInstance"
+            android:name=".Activites.NotificationCenter" />
         <activity android:name=".Activites.Company.ManageReps.RepDetails"></activity>
 
 
@@ -183,6 +220,8 @@
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable_contacts" />
+
+
         </activity>
 
         <activity android:name="com.applozic.mobicomkit.uiwidgets.conversation.activity.FullScreenImageActivity"
@@ -274,6 +313,20 @@
         <service android:name="com.applozic.mobicomkit.api.conversation.ConversationReadService"
             android:exported="false" />
 
+        <service android:name="com.ecoach.cosapp.FireBase.FcmListenerService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <service android:name="com.ecoach.cosapp.FireBase.FcmInstanceIDListenerService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+
+
         <receiver android:name="com.applozic.mobicomkit.broadcast.TimeChangeBroadcastReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.TIME_SET" />
@@ -287,20 +340,33 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
+
+        <receiver android:name="com.applozic.mobicomkit.broadcast.NotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="applozic.LAUNCH_APP" />
+            </intent-filter>
+
+            <meta-data
+                android:name="activity.open.on.notification"
+                android:value="com.applozic.mobicomkit.uiwidgets.conversation.activity.ConversationActivity" />
+        </receiver>
+
+     <!--   <receiver android:name="com.applozic.mobicomkit.uiwidgets.notification.MTNotificationBroadcastReceiver">
+            <intent-filter>
+                <action android:name="${applicationId}.send.notification"/>
+            </intent-filter>
+        </receiver> -->
+
+        <receiver
+            android:name="com.applozic.mobicomkit.uiwidgets.notification.MTNotificationBroadcastReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="${applicationId}.send.notification" />
+            </intent-filter>
+        </receiver>
     </application>
 
-    <service android:name="com.ecoach.cosapp.FireBase.FcmListenerService">
-        <intent-filter>
-            <action android:name="com.google.firebase.MESSAGING_EVENT" />
-        </intent-filter>
-    </service>
 
-    <service android:name="com.ecoach.cosapp.FireBase.FcmInstanceIDListenerService"
-        android:exported="false">
-        <intent-filter>
-            <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
-        </intent-filter>
-    </service>
 
 
 

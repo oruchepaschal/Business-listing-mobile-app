@@ -8,6 +8,8 @@ import android.content.Intent;
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.Configuration;
 import com.android.volley.RequestQueue;
+import com.applozic.mobicomkit.ApplozicClient;
+import com.ecoach.cosapp.Activites.MainActivity;
 import com.ecoach.cosapp.DataBase.AppInstanceSettings;
 import com.ecoach.cosapp.DataBase.Categories;
 import com.ecoach.cosapp.DataBase.Companies;
@@ -42,12 +44,15 @@ public class Application extends android.app.Application {
     public static String selectedCompanyID;
     public static String selectedCompanyName;
 
+    public static boolean alreadyDisplayedNotification = false;
+
     public static VerifiedCompanies selectedCompanyObbject;
     public static RepInvite activeRepInvite;
     public static RepInvites activeRepInvites;
     private static Context context;
 
     private static String companyCover = "";
+
     private static String companyLogo = "";
     private static String companyCert = "";
     private static String companyChatBack = "";

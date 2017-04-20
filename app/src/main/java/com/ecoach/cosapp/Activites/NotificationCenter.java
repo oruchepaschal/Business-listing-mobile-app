@@ -1,6 +1,8 @@
 package com.ecoach.cosapp.Activites;
 
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +33,7 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.ecoach.cosapp.Application.Application;
 import com.ecoach.cosapp.DataBase.CompanyRepInvite;
 import com.ecoach.cosapp.Http.APIRequest;
+import com.ecoach.cosapp.Http.Terminator2;
 import com.ecoach.cosapp.Http.VolleySingleton;
 import com.ecoach.cosapp.R;
 import com.ecoach.cosapp.RecycleAdapters.RepInviteAdapter;
@@ -42,6 +45,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import info.hoang8f.widget.FButton;
@@ -56,6 +61,8 @@ public class NotificationCenter extends AppCompatActivity {
     RecyclerView recyclerView;
     private VolleySingleton volleySingleton;
     private RequestQueue requestQueue;
+
+    Timer timer = new Timer();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +90,33 @@ public class NotificationCenter extends AppCompatActivity {
             }
         });
 
+
+
+        try{
+
+            NotificationManager notificationManager = (NotificationManager) getApplicationContext().getSystemService(Context.NOTIFICATION_SERVICE);
+            notificationManager.cancel(0);
+            Application.alreadyDisplayedNotification =  true;
+        }catch (Exception E){E.printStackTrace();}
+
+        try{
+
+
+
+            timer.schedule(new TimerTask()
+            {
+                @Override
+                public void run()
+                {
+                    loadRepInviteVolley();
+
+                }
+            }, 0, 3000);
+
+
+        }catch (Exception e){e.printStackTrace();}
+
+
     }
 
 
@@ -90,6 +124,40 @@ public class NotificationCenter extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    public void onPause(){
+
+        super.onPause();
+
+        timer.cancel();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+
+
+        try{
+
+
+
+            timer.schedule(new TimerTask()
+            {
+                @Override
+                public void run()
+                {
+
+                    startService(new Intent(NotificationCenter.this, Terminator2.class));
+                    invalidateOptionsMenu();
+                }
+            }, 0, 3000);
+
+
+        }catch (Exception e){e.printStackTrace();}
+
     }
 
     private void SetupRecycleview(){
